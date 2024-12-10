@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Recipe page</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    @font-face {
+      font-family: 'Young_Serif';
+      src: url("./assets/fonts/young-serif/YoungSerif-Regular.ttf");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'Outfit';
+      src: url("./assets/fonts/outfit/Outfit-VariableFont_wght.ttf");
+    }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      font: inherit;
+    }
+    img, 
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+    :root {
+    --White: hsl(0, 0%, 100%);
+    --Stone-100: hsl(30, 54%, 90%);
+    --Stone-150: hsl(30, 18%, 87%);
+    --Stone-600: hsl(30, 10%, 34%);
+    --Stone-900: hsl(24, 5%, 18%);
+    --Brown-800: hsl(14, 45%, 36%);
+    --Rose-800: hsl(332, 51%, 32%);
+    --Rose-50: hsl(330, 100%, 98%);
+    }
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+    body {
+      background-color: var(--Stone-100);
+      font-family: 'Outfit';
+      color: var(--Stone-600)
+    }
+    main {
+      max-width: 46rem;
+      margin-block: 124px;
+      margin-inline: auto;
+      padding: 2.5rem;
+      background-color: var(--White);
+      border-radius: 16px;
+    }
+    .banner-img {
+      border-radius: 16px;
+    }
+    h1 {
+      color: var(--Stone-900);
+      font-family: "Young_Serif";
+      font-size: 2.5rem;
+      margin-block-start: 2rem;
+      line-height: 1;
+    }
+    p {
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+    h2 {
+      margin-block-end: 1rem;
+    }
+    .preparation-time {
+      margin-block-start: 2rem;
+      background-color: var(--Rose-50);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+    .preparation-time h2 {
+      color: var(--Rose-800);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-block-end: 0.625rem;
+    }
+    ul, 
+    ol {
+      padding-left: 1.5rem;
+      list-style-position: outside;
+    }
+    li {
+      line-height: 2;
+      padding-left: 1rem;
+    }
+    li > h3 {
+      display: inline-block;
+      font-weight: 600;
+    }
+    .recipe-main {
+      display: grid;
+    }
+    .recipe-main section {
+      padding-block: 1.75rem;
+    }
+    .recipe-main section:not(:first-child) {
+      border-top: 1px solid var(--Stone-150);
+    }
+    .recipe-main section > h2 {
+      color: var(--Brown-800);
+      font-family: 'Young_Serif';
+      font-size: 1.75rem;
+      margin-block-end: 1.125rem;
+    }
+    .recipe-main section li::marker {
+      color: var(--Brown-800);
+      font-weight: 700;
+    }
+    .recipe-main li {
+      padding-left: 1rem;
+    }
+    .instructions li {
+      line-height: 1.5;
+      margin-block-start: 0.5rem;
+    }
+    .nutrition table {
+      table-layout: fixed;
+      width: 100%;
+      border-collapse: collapse;
+      margin-block-start: 0.5rem;
+    }
+    .nutrition table tr:not(:first-child) {
+      border-top: 1px solid var(--Stone-150);
+    }
+    .nutrition table td {
+      padding-block: 0.875rem;
+    }
+    .nutrition table tr td:first-child {
+      padding-inline-start: 2rem;
+    }
+    .nutrition table tr td:nth-child(2) {
+      color: var(--Brown-800);
+      font-weight: 600;
+    }
+    @media (max-width: 800px) {
+      main {
+        margin-block: 0;
+        padding: 0;
+        border-radius: 0;
+      }
+      main > *:not(:first-child) {
+        padding-inline: 2rem;
+      }
+      .banner-img {
+        border-radius: 0;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="banner-img" src="./assets/images/image-omelette.jpeg" alt="image-omelette"/>
+    <div class="recipe-description">
+      <h1>Simple Omelette Recipe</h1>
+      <p>
+        An easy and quick dish, perfect for any meal. This classic omelette combines beaten eggs cooked
+        to perfection, optionally filled with your choice of cheese, vegetables, or meats.
+      </p>
+      <section class="preparation-time">
+        <h2>Preparation time</h2>
+        <ul>
+          <li><h3>Total</h3>: Approximately 10 minutes</li>
+          <li><h3>Preparation</h3>: 5 minutes</li>
+          <li><h3>Cooking</h3>: 5 minutes</li>
+        </ul>
+      </section>
+    </div>
+    
+    <div class="recipe-main">
+      <section class="ingredients">
+        <h2>Ingredients</h2>
+        <ul>
+          <li>2-3 large eggs</li>
+          <li>Salt, to taste</li>
+          <li>Pepper, to taste</li>
+          <li>1 tablespoon of butter or oil</li>
+          <li>Optional fillings: cheese, diced vegetables, cooked meats, herbs</li>
+        </ul>
+      </section>
+      
+      <section class="instructions">
+        <h2>Instructions</h2>
+        <ol>
+          <li>
+            <h3>Beat the eggs</h3>: In a bowl, beat the eggs with a pinch of salt and pepper until they are well mixed.
+            You can add a tablespoon of water or milk for a fluffier texture.
+          </li>
+          <li><h3>Heat the pan</h3>: Place a non-stick frying pan over medium heat and add butter or oil.</li>
+          <li>
+            <h3>Cook the omelette</h3>: Once the butter is melted and bubbling, pour in the eggs. Tilt the pan to ensure
+            the eggs evenly coat the surface.
+          </li>
+          <li>
+            <h3>Add fillings (optional)</h3>: When the eggs begin to set at the edges but are still slightly runny in the
+            middle, sprinkle your chosen fillings over one half of the omelette.
+          </li>
+          <li>
+            <h3>Fold and serve</h3>: As the omelette continues to cook, carefully lift one edge and fold it over the
+            fillings. Let it cook for another minute, then slide it onto a plate.
+          </li>
+          <li><h3>Enjoy</h3>: Serve hot, with additional salt and pepper if needed.</li>
+        </ol>
+      </section>
+
+      <section class="nutrition">
+        <h2>Nutrition</h2>
+        <p>The table below shows nutritional values per serving without the additional fillings.</p>
+        <table>
+          <thead><tr><th></th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Calories</td><td>277kcal</td></tr>
+            <tr><td>Carbs</td><td>0g</td></tr>
+            <tr><td>Protein</td><td>20g</td></tr>
+            <tr><td>Fat</td><td>22g</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+  </main>
+    
+  <footer>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="#">Calvin</a>.
+    </div>
+  </footer>
+
+</body>
+</html>
