@@ -150,7 +150,8 @@ button.share-button {
     z-index: 100;
 }
 div.share-links-wrapper {
-    display: none;
+    display: flex;
+    visibility: hidden;
     position: absolute;
     padding-block: var(--share-links-wrapper-padding-block);
     padding-inline: var(--share-links-wrapper-padding-inline);
@@ -166,7 +167,7 @@ div.share-links-wrapper {
     transform: translateX(-50%) translateY(calc(-100% - var(--share-links-wrapper-inverted-triangle-height) - 0.25rem));
 }
 div.share-links-wrapper-inverted-triangle {
-    display: none;
+    visibility: hidden;
     position: absolute;
     left: 50%;
     bottom: 0;
@@ -196,10 +197,10 @@ a > object {
 /* share-button active at desktop version*/
 @media (min-width: 901px){
     .share-button-active div.share-links-wrapper {
-        display: flex;
+        visibility: visible;
     }
     .share-button-active div.share-links-wrapper-inverted-triangle {
-        display: block;
+        visibility: visible;
     }    
 }
 
@@ -241,7 +242,7 @@ a > object {
         position: static;
     }
     div.share-links-wrapper {
-        display: none;
+        visibility: hidden;
         position: absolute;
         top: 0;
         left: 0;
@@ -254,7 +255,7 @@ a > object {
 
     /* share-button active at mobile version*/
     .share-button-active div.share-links-wrapper {
-        display: flex;
+        visibility: visible;
     }   
 }
 
