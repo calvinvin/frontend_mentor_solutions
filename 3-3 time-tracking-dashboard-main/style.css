@@ -1,0 +1,228 @@
+/* reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+img {
+    display: block;
+    max-width: 100%;
+}
+.visually-hidden {
+    position: absolute;
+    left:     -10000px;
+    top:      auto;
+    width:    1px;
+    height:   1px;
+    overflow: hidden;
+}
+
+/* defined variables */
+:root {
+    --Blue: hsl(246, 80%, 60%);
+
+    --color-work: hsl(15, 100%, 70%);
+    --color-play: hsl(195, 74%, 62%);
+    --color-study: hsl(348, 100%, 68%);
+    --color-exercise: hsl(145, 58%, 55%);
+    --color-social: hsl(264, 64%, 52%);
+    --color-self-care: hsl(43, 84%, 65%);
+
+    --Very-dark-blue: hsl(226, 43%, 10%);
+    --Dark-blue: hsl(235, 46%, 20%);
+    --Desaturated-blue: hsl(235, 45%, 61%);
+    --Pale-Blue: hsl(236, 100%, 87%);
+
+    --font-size-card-title: 1.125rem;
+
+    --font-family: "Rubik";
+    --font-weight-regular: 300;
+    --font-weight-bold: 400;
+    --font-weight-extra-bold: 500;
+}
+
+/* default display: desktop version */
+body {
+    background-color: var(--Very-dark-blue);
+    font-family: var(--font-family);
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    min-height: 100svh;
+    font-weight: var(--font-weight-regular);
+}
+main.dashboard-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 69.5rem;
+    gap: 30px;
+    color: var(--Pale-Blue);
+}
+div.report-description {
+    grid-row: span 2;
+    background-color: var(--Dark-blue);
+    display: grid;
+    grid-template-rows: 1fr auto;
+    border-radius: 16px;
+    & div.user-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        background-color: var(--Blue);
+        padding: 2rem;
+        border-radius: 16px;
+        & img.user-avatar {
+            width: 5.5rem;
+            border: 3px solid white;
+            border-radius: 50%;
+        }
+        & h1 {
+            & strong.user-name {
+                margin-block-start: 0.25rem;
+                display: block;
+                font-size: 2.5rem;
+                color: white;
+            }
+        }
+    }
+    & div.timeframe-list ul {
+        padding: 2rem;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        font-weight: var(--font-weight-bold);
+        color: var(--Desaturated-blue);
+        & li:has(:checked) {
+            color: white;
+        }
+        & li label:hover,
+        & li label:focus {
+            cursor: pointer;
+            color: white;
+        }
+    }
+}
+section.activity-card {
+    border-radius: 16px;
+    &:nth-of-type(1) {
+        background: linear-gradient(to bottom, var(--color-work) 55px, var(--Very-dark-blue) 55px 100%);
+    }
+    &:nth-of-type(2) {
+        background: linear-gradient(to bottom, var(--color-play) 55px, var(--Very-dark-blue) 55px 100%);
+    }
+    &:nth-of-type(3) {
+        background: linear-gradient(to bottom, var(--color-study) 55px, var(--Very-dark-blue) 55px 100%);
+    }
+    &:nth-of-type(4) {
+        background: linear-gradient(to bottom, var(--color-exercise) 55px, var(--Very-dark-blue) 55px 100%);
+    }
+    &:nth-of-type(5) {
+        background: linear-gradient(to bottom, var(--color-social) 55px, var(--Very-dark-blue) 55px 100%);
+    }
+    &:nth-of-type(6) {
+        background: linear-gradient(to bottom, var(--color-self-care) 55px, var(--Very-dark-blue) 55px 100%);
+    }
+    & div.activity-decoration {
+        height: 45px;
+        position: relative;
+        overflow: hidden;
+        & img {
+            position: absolute;
+            right: 20px;
+            transform: translateY(-10%);
+        }
+    }
+    & div.activity-content {
+        background-color: var(--Dark-blue);
+        border-radius: 16px;
+        padding: 32px;
+        padding-top: 28px;
+        & h2 {
+            font-size: var(--font-size-card-title);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        & h2::after {
+            content: url("./images/icon-ellipsis.svg");
+        }
+        & div.time-statistic:not(.active) {
+            display: none;
+        }
+        & div.time-statistic {
+            display: flex;
+            flex-direction: column;
+            margin-block-start: 1.5rem;
+            gap: 0.5rem;
+            & span.total-time-latest {
+                font-size: 3.5rem;
+                color: white;
+            }
+        }
+        &:hover,
+        &:has(:focus) {
+            background-color: var(--Blue);
+            cursor: pointer;
+        }
+    }
+}
+
+/* display: mobile version */
+@media (max-width: 800px){
+    body {
+        padding-block-start: 80px;
+        padding-inline: 24px;
+        justify-content: stretch;
+    }
+    main.dashboard-wrapper {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 24px;
+        & div.report-description {
+            grid-template-rows: auto auto;
+            & div.user-wrapper {
+                padding-inline-start: 28px;
+                padding-inline-end: 24px;
+                padding-block: 30px;
+                    flex-direction: row;
+                align-items: center;
+                gap: 1rem;
+                & img.user-avatar {
+                    width: 4.5rem;
+                }
+                & h1 strong.user-name{
+                    font-size: 1.5rem;
+                }
+            }
+            & div.timeframe-list ul {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
+        & section.activity-card {
+            & div.activity-decoration {
+                height: 40px;
+            }
+            & div.activity-content {
+                padding-inline: 24px;
+                /* padding-block: 32px; */
+                & div.time-statistic {
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-block-start: 0.25rem;
+                    & span.total-time-latest {
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
+    }
+}
