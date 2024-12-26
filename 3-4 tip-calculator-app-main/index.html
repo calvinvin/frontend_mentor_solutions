@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" type="text/css" href="./style.css">
+  <script defer src="./main.js"></script>
   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
   <title>Frontend Mentor | Tip calculator app</title>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
@@ -15,30 +21,48 @@
   </style>
 </head>
 <body>
-
-  Bill
-
-  Select Tip %
-  5%
-  10%
-  15%
-  25%
-  50%
-  Custom
-
-  Number of People
-
-  Tip Amount
-  / person
-
-  Total
-  / person
-
-  Reset
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
+  <main>
+    <h1>SPLI<br/>TTER</h1>
+    <form id="splitter">
+      <section class="input">
+        <div class="input-field">
+          <label for="bill">Bill</label>
+          <input id="bill" name="bill" type="number" inputmode="numeric" step=".01" placeholder="0">
+        </div>
+        <fieldset id="tip-fieldset">
+          <legend>Select Tip %</legend>
+          <ol>
+            <li><label tabindex="0"><input name="tip" type="radio" value="5" class="visually-hidden">5%</label></li>
+            <li><label tabindex="0"><input name="tip" type="radio" value="10" class="visually-hidden">10%</label></li>
+            <li><label tabindex="0"><input name="tip" type="radio" value="15" class="visually-hidden">15%</label></li>
+            <li><label tabindex="0"><input name="tip" type="radio" value="25" class="visually-hidden">25%</label></li>
+            <li><label tabindex="0"><input name="tip" type="radio" value="50" class="visually-hidden">50%</label></li>
+            <li><input name="tip" type="number" placeholder="Custom" inputmode="numeric"></li>
+          </ol>
+        </fieldset>
+        <div class="input-field">
+          <label for="number-of-people">Number of People</label>
+          <input id="number-of-people" name="number-of-people" type="number" inputmode="numeric" min="1" step="1" placeholder="0">
+        </div>
+      </section>
+      <section class="output">
+        <div class="output-item">
+          <div class="output-item-name">
+            <p>Tip Amount</p>
+            <span>/ person</span>
+          </div>
+          <output id="tip-amount" name="tip-amount">$0.00</output>
+        </div>
+        <div class="output-item">
+          <div class="output-item-name">
+            <p>Total</p>
+            <span>/ person</span>
+          </div>
+          <output id="total" name="total">$0.00</output>
+        </div>
+        <button type="reset" tabindex="0">RESET</button>
+      </section>
+    </form>
+  </main>
 </body>
 </html>

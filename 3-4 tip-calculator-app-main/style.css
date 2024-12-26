@@ -1,0 +1,276 @@
+/* reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.visually-hidden {
+    position: absolute;
+    left:     -10000px;
+    top:      auto;
+    width:    1px;
+    height:   1px;
+    overflow: hidden;
+}
+
+/* defined variables */
+:root {
+    --Strong-cyan: hsl(172, 67%, 45%);
+    --Very-dark-cyan: hsl(183, 100%, 15%);
+    --Dark-grayish-cyan: hsl(186, 14%, 43%);
+    --Grayish-cyan: hsl(184, 14%, 56%);
+    --Light-grayish-cyan: hsl(185, 41%, 84%);
+    --Very-light-grayish-cyan: hsl(189, 41%, 97%);
+    --White: hsl(0, 0%, 100%);
+}
+
+/* default display: desktop version */
+body {
+    font-family: 'Space Mono';
+    font-weight: 700;
+    background-color: var(--Light-grayish-cyan);
+}
+main {
+    width: 100%;
+    display: grid;
+    padding-inline: 2rem;
+}
+h1 {
+    text-align: center;
+    margin-block-start: 10rem;
+    margin-block-end: 5rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.625rem;
+    color: var(--Very-dark-cyan);
+}
+form {
+    width: 100%;
+    margin-inline: auto;
+    margin-block-end: 5rem;
+    max-width: 57.5rem;
+    padding: 2rem;
+    background-color: var(--White);
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+section.input {
+    padding: 1rem;
+    display: grid;
+    gap: 2.5rem;
+    & > div.input-field {
+        display: grid;
+        & label {
+            color: var(--Dark-grayish-cyan);
+        }
+        & > label {
+            width: fit-content;
+        }
+        & > input {
+            width: 100%;
+            height: 3rem;
+            border: none;
+            border-radius: 8px;
+            margin-block-start: 0.5rem;
+            text-align: end;
+            padding-inline-end: 1rem;
+            color: var(--Very-dark-cyan);
+            font-size: 1.5rem;
+            background-color: var(--Very-light-grayish-cyan);
+            background-repeat: no-repeat;
+            background-position: 1rem 50%;
+            &[name="bill"] {
+                background-image: url("./images/icon-dollar.svg");
+            }
+            &[name="number-of-people"] {
+                background-image: url("./images/icon-person.svg");
+            }
+            &::placeholder {
+                color: #9EBBBD;
+            }
+        }    
+    }
+    & > fieldset#tip-fieldset {
+        container-type: inline-size;
+        container-name: tip-fieldset;
+        border: none;
+        & > ol {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            list-style: none;
+            margin-block-start: 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        & > ol > li > label {
+            height: 3rem;
+            background-color: var(--Very-dark-cyan);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            &:has(input:checked) {
+                background-color: var(--Strong-cyan);
+                color: var(--Very-dark-cyan);
+            }
+        }
+        & input[name="tip"][type="number"] {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--Very-light-grayish-cyan);
+            text-align: center;
+            &::placeholder {
+                color: var(--Grayish-cyan);
+            }
+            &:focus {
+                &::placeholder {
+                    visibility: hidden;
+                }
+            }
+            &:focus, &:not(:placeholder-shown) {
+                color: var(--Very-dark-cyan);
+                text-align: end;
+                padding-inline-end: 1rem;
+            }
+            &:not(:placeholder-shown) {
+                background-color: var(--Strong-cyan);
+                color: var(--Very-dark-cyan);
+            }
+        }
+    }
+    /* invalid status */
+    & input:invalid {
+        outline: 2px solid darkorange !important;
+    }
+    label[for="number-of-people"]:has(+ input:invalid) {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        &::after {
+            content: "Can't be zero.";
+            color: darkorange;
+        }
+    }
+}
+section.output {
+    container-type: inline-size;
+    container-name: section-output;
+    padding: 2.5rem;
+    display: grid;
+    gap: 3.5rem;
+    grid-template-rows: auto auto 1fr;
+    background-color: var(--Very-dark-cyan);
+    border-radius: 16px;
+    & div.output-item {
+        display: flex;
+        overflow-x: scroll;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        & div.output-item-name {
+            p {
+                color: white;
+            }
+            span {
+                color: var(--Dark-grayish-cyan);
+                font-size: 0.8125rem;
+            }
+        }
+    }
+    & output {
+        font-size: 2.875rem;
+        color: var(--Strong-cyan);
+    }
+    & button[type="reset"] {
+        /* margin-block-start: auto; */
+        display: block;
+        width: 100%;
+        align-self: end;
+        height: 3rem;
+        border: none;
+        border-radius: 4px;
+        background-color: var(--Strong-cyan);
+        font-size: 1.25rem;
+        color: var(--Very-dark-cyan);
+        &:disabled {
+            opacity: .2;
+        }
+    }
+}
+
+/* hover and focus status */
+section.input div.input-field input:focus, 
+section.input fieldset#tip-fieldset label:focus,
+section.input fieldset#tip-fieldset input[name="tip"][type="number"]:focus,
+section.output button:not(:disabled):focus {
+    cursor: pointer;
+    outline: 2px solid var(--Strong-cyan);
+}
+section.input fieldset#tip-fieldset label:focus,
+section.output button:not(:disabled):focus {
+    background-color: var(--Light-grayish-cyan);
+    color: var(--Very-dark-cyan);
+}
+
+@media (any-hover:hover) {
+    section.input div.input-field input:hover,
+    section.input fieldset#tip-fieldset label:hover,
+    section.input fieldset#tip-fieldset input[name="tip"][type="number"]:hover,
+    section.output button:not(:disabled):hover {
+        cursor: pointer;
+        outline: 2px solid var(--Strong-cyan);
+    }
+    section.input fieldset#tip-fieldset label:hover,
+    section.output button:not(:disabled):hover {
+        background-color: var(--Light-grayish-cyan);
+        color: var(--Very-dark-cyan);
+        &::placeholder {
+            color: var(--Very-dark-cyan);
+        }
+    }
+}
+
+@container tip-fieldset (width < 320px) {
+    section.input fieldset#tip-fieldset > ol {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@container section-output (width < 310px) {
+    section.output output {
+        font-size: 2rem;
+    }
+}
+@media (max-width: 700px) {
+    main {
+        padding-inline: 0;
+    }
+    h1 {
+        margin-block-start: 3rem;
+        margin-block-end: 2.5rem;
+    }
+    form#splitter {
+        grid-template-columns: 1fr;
+        padding-inline: 1.5rem;
+        gap: 2rem;
+    }
+    section.output {
+        padding: 1.5rem;
+        gap: 1.5rem;
+        & button {
+            margin-block-start: 0.5rem;
+        }
+    }
+}
