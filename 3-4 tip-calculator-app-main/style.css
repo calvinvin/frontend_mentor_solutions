@@ -175,7 +175,7 @@ section.output {
     border-radius: 16px;
     & div.output-item {
         display: flex;
-        overflow-x: scroll;
+        /* overflow-x: scroll; */
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
