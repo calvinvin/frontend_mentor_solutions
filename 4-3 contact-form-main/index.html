@@ -5,48 +5,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
+  <link rel="stylesheet" type="text/css" href="./style.css">
+  <script defer src="./main.js"></script>  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
   <title>Frontend Mentor | Contact form</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
 </head>
 <body>
-
-  Contact Us
-
-  First Name
-  This field is required
-
-  Last Name
-  This field is required
-
-  Email Address
-  Please enter a valid email address
-  This field is required
-
-  Query Type
-  General Enquiry
-  Support Request
-  Please select a query type
-
-  Message
-  This field is required
-
-  I consent to being contacted by the team
-  To submit this form, please consent to being contacted
-
-  Submit
-
-  Message Sent!
-  Thanks for completing the form. We'll be in touch soon!
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
+  <main>
+    <form id="contact-form">
+      <h1>Contact Us</h1>
+      <div class="form-field first-name">
+        <label>
+          <span class="field-name">First Name<span aria-label="required">*</span></span>
+          <input type="text" name="first-name" pattern=".*\S+.*" required>
+        </label>
+        <span class="error-instruction required">This field is required</span>
+      </div>
+      <div class="form-field last-name">
+        <label>
+          <span class="field-name">Last Name<span aria-label="required">*</span></span>
+          <input type="text" name="last-name" pattern=".*\S+.*" required>
+        </label>
+        <span class="error-instruction required">This field is required</span>
+      </div>
+      <div class="form-field email">
+        <label>
+          <span class="field-name">Email Address<span aria-label="required">*</span></span>
+          <input id="email" type="email" name="email" required>
+        </label>
+        <span class="error-instruction invalid-email">Please enter a valid email address</span>
+        <span class="error-instruction empty">This field is required</span>
+      </div>
+      <div class="form-field query-type">
+        <fieldset>
+          <legend>
+            <span class="field-name query-type">Query Type<span aria-label="required">*</span></span>
+          </legend>
+          <label><input type="radio" name="query-type" required>General Enquiry</label>
+          <label><input type="radio" name="query-type" required>Support Request</label>
+        </fieldset>
+        <span class="error-instruction required">Please select a query type</span>
+      </div>
+      <div class="form-field message">
+        <label>
+          <span class="field-name">Message<span aria-label="required">*</span></span>
+          <textarea id="message" name="message" required></textarea>
+        </label>
+        <span class="error-instruction required">This field is required</span>
+      </div>
+      <div class="form-field consent">
+        <label>
+          <input type="checkbox" name="consent" required>
+          <span class="consent">I consent to being contacted by the team<span aria-label="required">*</span></span>
+        </label>
+        <span class="error-instruction required">To submit this form, please consent to being contacted</span>
+      </div>    
+      <button id="submit-button" type="submit">Submit</button>
+    </form>
+    <dialog id="success-modal">
+      <div class="modal-wrapper">
+        <h2>Message Sent!</h2>
+        <p>Thanks for completing the form. We'll be in touch soon!</p>
+      </div>
+    </dialog>    
+  </main>
 </body>
 </html>
