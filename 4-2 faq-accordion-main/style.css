@@ -24,7 +24,10 @@
 body {
     font-family: 'Work Sans';
     font-weight: var(--font-weight-regular);
-    background: url("./assets/images/background-pattern-desktop.svg") no-repeat var(--Light-pink);
+    background-image: url("./assets/images/background-pattern-desktop.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: var(--Light-pink);
     padding-inline: 24px;
 }
 main {
@@ -46,6 +49,9 @@ header h1 {
     }
 }
 div#FAQ-accordions {
+    li {
+        list-style: none;
+    }
     margin-block-start: 10px;
     & details {
         padding-block: 21px;
@@ -83,6 +89,9 @@ div#FAQ-accordions {
 }
 
 @media (max-width: 640px) {
+    body {
+        background-image: url("./assets/images/background-pattern-mobile.svg");
+    }
     main {
         margin-block-start: 142px;
         padding-block-start: 28px;
