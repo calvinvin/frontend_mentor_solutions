@@ -1,0 +1,111 @@
+/* reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+
+/* defined variables */
+:root {
+    --White: hsl(0, 0%, 100%);
+    --Light-pink: hsl(275, 100%, 97%);
+    --Grayish-purple: hsl(292, 16%, 49%);
+    --Dark-purple: hsl(292, 42%, 14%);
+
+    --font-weight-thin: 400;
+    --font-weight-regular: 600;
+    --font-weight-bold: 700;
+}
+
+/* default display: desktop version */
+body {
+    font-family: 'Work Sans';
+    font-weight: var(--font-weight-regular);
+    background: url("./assets/images/background-pattern-desktop.svg") no-repeat var(--Light-pink);
+    padding-inline: 24px;
+}
+main {
+    max-width: 37.5rem;
+    margin-block-start: 168px;
+    margin-inline: auto;
+    background-color: var(--White);
+    border-radius: 16px;
+    padding: 40px;
+}
+header h1 {
+    font-size: 3.25rem;
+    font-weight: var(--font-weight-bold);
+    &::before {
+        content: url("./assets/images/icon-star.svg");
+        display: inline-block;
+        vertical-align: middle;
+        margin-inline-end: 24px;
+    }
+}
+div#FAQ-accordions {
+    margin-block-start: 10px;
+    & details {
+        padding-block: 21px;
+    }
+    & details:not(:first-child) {
+        border-top: solid 2px var(--Light-pink);
+    }
+    & summary::-webkit-details-marker {
+        display: none;
+    }
+    & summary {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        text-wrap: balance;
+        &::after {
+            content: url("./assets/images/icon-plus.svg");
+            margin-left: auto;
+        }
+        [open] &::after {
+            content: url("./assets/images/icon-minus.svg");
+        }
+        &:hover,
+        &:focus-visible {
+            cursor: pointer;
+            color: hsl(from var(--Dark-purple) h 100% 35%);
+        }
+    }
+    & p {
+        line-height: 1.5;
+        margin-block-start: 24px;
+        font-weight: var(--font-weight-thin);
+        color: var(--Grayish-purple);
+    }
+}
+
+@media (max-width: 640px) {
+    main {
+        margin-block-start: 142px;
+        padding-block-start: 28px;
+        padding-inline: 24px;
+        padding-block-end: 0;
+    }
+    header h1 {
+        font-size: 2rem;
+        &::before {
+            transform: scale(0.75);
+            margin-inline-end: 18px;
+        }
+    }
+    div#FAQ-accordions {
+        margin-block-start: 0;
+        & details {
+            padding-block: 19px;
+        }
+        & summary {
+            font-size: 1rem;
+        }
+        p {
+            font-size: 0.875rem;
+        }
+    }
+}
