@@ -2,6 +2,7 @@ const form = document.getElementById("contact-form");
 const emailInput = document.querySelector("input#email");
 const emailDiv = emailInput.parentNode.parentNode;
 const messageInput = document.querySelector("textarea#message");
+const focusableLabels = document.querySelectorAll("[tabindex='0']");
 const successModal = document.getElementById("success-modal");
 const submitButton = document.getElementById("submit-button");
 
@@ -35,12 +36,17 @@ function validateMessageInput() {
         this.setCustomValidity(" ");
     }
 }
+function pressSpaceAsClick() {
+    console.log(this);
+}
 
 successModal.addEventListener("click", dismissSuccessModalByClickOutside);
 successModal.addEventListener("close", resetForm);
 emailInput.addEventListener("input", validateEmailInput);
 messageInput.addEventListener("input", validateMessageInput);
-
+focusableLabels.forEach(focusableLabel => {
+    focusableLabel.addEventListener("press", pressSpaceAsClick);
+})
 form.addEventListener("submit", (e)=>{
     e.preventDefault();
     successModal.showModal();
