@@ -16,26 +16,26 @@
 </head>
 <body>
   <main>
-    <form id="contact-form">
-      <h1>Contact Us</h1>
+    <form id="contact-form" aria-labelledby="form-heading">
+      <h1 id="form-heading">Contact Us</h1>
       <div class="form-field first-name">
         <label>
-          <span class="field-name">First Name<span aria-label="required">*</span></span>
-          <input type="text" name="first-name" pattern=".*\S+.*" required>
+          <span id="first-name" class="field-name">First Name<span aria-label="required">*</span></span>
+          <input type="text" name="first-name" pattern=".*\S+.*" autocomplete="given-name" required>
         </label>
         <span class="error-instruction required">This field is required</span>
       </div>
       <div class="form-field last-name">
         <label>
           <span class="field-name">Last Name<span aria-label="required">*</span></span>
-          <input type="text" name="last-name" pattern=".*\S+.*" required>
+          <input type="text" name="last-name" pattern=".*\S+.*" autocomplete="family-name" required>
         </label>
         <span class="error-instruction required">This field is required</span>
       </div>
       <div class="form-field email">
         <label>
           <span class="field-name">Email Address<span aria-label="required">*</span></span>
-          <input id="email" type="email" name="email" required>
+          <input id="email" type="email" name="email" autocomplete="email" required>
         </label>
         <span class="error-instruction invalid-email">Please enter a valid email address</span>
         <span class="error-instruction empty">This field is required</span>
