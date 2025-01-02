@@ -220,6 +220,7 @@ main {
     }
 }
 
+/* display: mobile version */
 @media (max-width: 940px) {
     header {
         margin: unset;
@@ -248,6 +249,7 @@ main {
     }
 }
 
+/* shift top navigation to side navigation */
 @media (max-width: 640px) {
     header {
         & button#hamburger-icon {
@@ -261,7 +263,8 @@ main {
             height:   1px;
             overflow: hidden;
         }
-        & nav.show-side-nav {
+        & nav.show-side-nav ,
+        & nav:has(:focus-visible) {
             --side-nav-width: clamp(10rem, calc(6rem + 30vw), 18rem);
             position: fixed;
             top: 0;
