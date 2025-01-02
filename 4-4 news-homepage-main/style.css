@@ -255,6 +255,7 @@ main {
         & button#hamburger-icon {
             display: block;
         }
+        /* visually hidden the side navigation */
         & nav {
             position: absolute;
             left:     -10000px;
@@ -263,6 +264,7 @@ main {
             height:   1px;
             overflow: hidden;
         }
+        /* open the side navigation */
         & nav.show-side-nav ,
         & nav:has(:focus-visible) {
             --side-nav-width: clamp(10rem, calc(6rem + 30vw), 18rem);
