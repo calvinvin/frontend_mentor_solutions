@@ -5,40 +5,135 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
+  <link rel="stylesheet" type="text/css" href="./style.css">
+  <script defer src="./main.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
+
   <title>Frontend Mentor | E-commerce product page</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
 </head>
 <body>
 
-  Collections
-  Men
-  Women
-  About
-  Contact
-
-  Sneaker Company
-
-  Fall Limited Edition Sneakers
-
-  These low-profile sneakers are your perfect casual wear companion. Featuring a 
-  durable rubber outer sole, they’ll withstand everything the weather can offer.
-
-  $125.00
-  50%
-  $250.00
-
-  0
-  Add to cart
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
+  <header>
+    <button id="hamburger-button" type="button" aria-label="Click to expand the navigation menu."><img src="./images/icon-menu.svg" alt=""></button>
+    <a id="website-logo-link" href="./index.html"><img src="./images/logo.svg" alt="Website's logo."></a>
+    <nav id="primary-navigation" aria-label="primary">
+      <ul role="list" aria-label="Primary navigation list.">
+        <li>
+          <button id="close-side-nav-button" type="button" aria-label="Click me to close the side navigation.">
+            <img src="./images/icon-close.svg" alt="Close icon.">
+          </button>
+        </li>
+        <li>
+          <a href="./index.html">Collections</a>
+        </li>
+        <li>
+          <a href="./index.html">Men</a>
+        </li>
+        <li>
+          <a href="./index.html">Women</a>
+        </li>
+        <li>
+          <a href="./index.html">About</a>
+        </li>
+        <li>
+          <a href="./index.html">Contact</a>
+        </li>
+      </ul>
+    </nav>
+    <section id="shopping-cart">
+      <button id="shopping-cart-button" type="button" aria-label="Click to open shopping cart.">
+        <img src="./images/icon-cart.svg" alt="Shopping cart icon.">
+        <span id="shopping-cart-item-amount"></span>
+      </button>
+      <section id="shopping-cart-page">
+        <div id="shopping-cart-background">
+        </div>
+        <div id="cart-wrapper" class="empty-cart">
+          <h3>Cart</h3>
+          <div class="empty-cart">Your cart is empty.</div>
+          <form id="checkout-form">
+            <div id="cart-item-list-wrapper" class="cart-item-list-wrapper">
+            </div>
+            <button id="checkout-button" type="submit" form="checkout-form">Checkout</button>
+          </form>
+        </div>
+      </section>
+    </section>
+    <section id="user">
+      <button type="button"><img id="user-avatar" src="./images/image-avatar.png" alt="User's avatar."></button>
+    </section>
+  </header>
+  <main>
+    <section id="product-images" class="product-images">
+      <h2 class="visually-hidden">Product images.</h2>
+      <div class="product-images-wrapper">
+        <div class="product-image-wrapper">
+          <button type="button" class="display-image-button"><img id="product-image" class="display-image" src="./images/image-product-1.jpg" alt="Product image."></button>
+          <button type="button" class="previous-button">
+            <svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>          </button>
+          <button type="button" class="next-button">
+            <svg width="13" height="18" xmlns="http://www.w3.org/2000/svg"><path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>          </button>
+        </div>
+        <div class="product-thumbnails-wrapper">
+          <button type="button" class="product-thumbnail thumbnail-1 selected"><img src="./images/image-product-1-thumbnail.jpg" alt="Product thumbnail 1."></button>
+          <button type="button" class="product-thumbnail thumbnail-2"><img src="./images/image-product-2-thumbnail.jpg" alt="Product thumbnail 2."></button>
+          <button type="button" class="product-thumbnail thumbnail-3"><img src="./images/image-product-3-thumbnail.jpg" alt="Product thumbnail 3."></button>
+          <button type="button" class="product-thumbnail thumbnail-4"><img src="./images/image-product-4-thumbnail.jpg" alt="Product thumbnail 4."></button>
+        </div>
+      </div>
+    </section>
+    <section id="lightbox-gallery" class="lightbox-gallery">
+      <h2 class="visually-hidden">Product images (lightbox).</h2>
+      <div class="lightbox-image-wrapper">
+        <button type="button" class="lightbox-image-button display-image-button"><img class="display-image" id="product-image-lightbox-gallery" src="./images/image-product-1.jpg" alt="Product image."></button>
+        <button id="lightbox-gallery-close-button" class="close-button"><svg width="14" height="15" viewbox="0 0 14 15" xmlns="http://www.w3.org/2000/svg"><path d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z" fill="#69707D" fill-rule="evenodd"/></svg></button>          
+        <button type="button" class="previous-button lightbox-gallery">
+          <svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>        </button>
+        <button type="button" class="next-button lightbox-gallery">
+          <svg width="13" height="18" xmlns="http://www.w3.org/2000/svg"><path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>        </button>  
+      </div>
+      <div class="lightbox-thumbnail-wrapper">
+        <button type="button" class="product-thumbnail lightbox-gallery  thumbnail-1 selected"><img src="./images/image-product-1-thumbnail.jpg" alt="Product thumbnail 1."></button>
+        <button type="button" class="product-thumbnail lightbox-gallery thumbnail-2"><img src="./images/image-product-2-thumbnail.jpg" alt="Product thumbnail 2."></button>
+        <button type="button" class="product-thumbnail lightbox-gallery thumbnail-3"><img src="./images/image-product-3-thumbnail.jpg" alt="Product thumbnail 3."></button>
+        <button type="button" class="product-thumbnail lightbox-gallery thumbnail-4"><img src="./images/image-product-4-thumbnail.jpg" alt="Product thumbnail 4."></button>
+      </div>
+    </section>
+    <article id="product-content">
+      <span id="product-company">Sneaker Company</span>
+      <h1 id="product-name">Fall Limited Edition Sneakers</h1>
+      <p id="product-description">
+        These low-profile sneakers are your perfect casual wear companion. Featuring a
+        durable rubber outer sole, they’ll withstand everything the weather can offer.
+      </p>
+      <div id="price-wrapper">
+        <p id="discount-and-sale-price">
+          <span id="sale-price" class="price">125.00</span>
+          <span id="discount">50%</span>
+        </p>
+        <p id="list-price" class="price">250.00</p>
+      </div>
+      <form id="purchase-form">
+        <input type="hidden" name="salePrice" value="125.00">
+        <input type="hidden" name="itemName" value="Fall Limited Edition Sneakers">
+        <input type="hidden" name="thumbnailUrl" value="./images/image-product-1-thumbnail.jpg">
+        <input type="hidden" name="thumbnailAlt" value="Thumbnail image of product 1.">
+        <label for="item-amount" class="visually-hidden">Enter purchase amount:</label>
+        <div id="item-amount-wrapper">
+          <button id="minus-button" type="button">
+            <img src="./images/icon-minus.svg" alt="">
+          </button>
+          <input id="item-amount" name="itemAmount" type="number" min="0" inputmode="numeric" value="0" size="3"></input>
+          <button id="plus-button" type="button">
+            <img src="./images/icon-plus.svg" alt="">
+          </button>
+        </div>
+        <button id="add-to-cart-button" type="submit"><svg width="22" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z" fill="#69707D" fill-rule="nonzero"/></svg>Add to cart</button>
+      </form>
+    </article>
+  </main>
 </body>
 </html>
