@@ -205,48 +205,71 @@ body {
 }
 
 /* hover status */
-.header__nav-link:hover,
-.header__nav-link:focus-visible,
-.footer__nav-link:hover,
-.footer__nav-link:focus-visible {
+.header__nav-link,
+.footer__nav-link {
+    display: block;
     position: relative;
     &::after {
         position: absolute;
         left: 50%;
         bottom: -8px;
         content: "";
-        width: 24px;
+        width: 0;
         transform: translateX(-50%);
         border-bottom: 2px solid var(--White);    
     }
+    &:hover, 
+    &:focus-visible {
+        transform: translateY(-2px);
+        transition: transform 0.15s;
+    }
+    &:hover::after,
+    &:focus-visible::after {
+        width: 24px;
+        transition: width 0.15s;
+    }
 }
-.footer__social-link-list-item:hover,
-.footer__social-link-list-item:focus-visible {
+.footer__social-link-list-item {
     position: relative;
     &::after {
         position: absolute;
-        left: 5%;
+        left: 50%;
         bottom: -8px;
         content: "";
-        width: 90%;
+        width: 0;
+        transform: translateX(-50%);
         border-bottom: 2px solid var(--White);    
     }
+    &:hover,
+    &:focus-visible {
+        transform: scale(1.2);
+        transition: transform 0.15s;
+    }
+    &:hover::after,
+    &:focus-visible::after {
+        width: 90%;
+        transition: width 0.15s;
+    }
 }
-
 .creations__see-all-link-top:hover,
 .creations__see-all-link-top:focus-visible,
 .creations__see-all-link-bottom:hover,
 .creations__see-all-link-bottom:focus-visible {
     background-color: var(--Black);
     color:var(--White);
+    transition: 
+        background-color 0.15s,
+        color 0.15s;
 }
 .creations__card:hover,
 .creations__card:focus-visible {
     & .creations__card-image {
         opacity: 30%;
+        transition: opacity 0.2s;
     }
     & .creations__card-title {
         color: var(--Black);
+        transition: color 0.2s;
     }
 }
 
@@ -446,11 +469,9 @@ body {
         font-size: 2rem;
         line-height: 1.5;
         padding: 16px;
-        /* margin-block-start: 160px; */
         margin-block-start: 30svh;
         width: max(270px, 70vw);
         height: unset;
-        /* max-width: 360px; */
     }
     .main {
         padding-block: 32px;
