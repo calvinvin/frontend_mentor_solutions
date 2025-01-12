@@ -193,14 +193,14 @@ html:not(:has(:target)) {
     }
     
     .slide-1__content,
-    .slide-1__content,
-    .slide-1__content {
+    .slide-2__content,
+    .slide-3__content {
         padding-block: 60px;
         padding-inline: 30px;
     }
     .slide-1__heading,
-    .slide-1__heading,
-    .slide-1__heading {
+    .slide-2__heading,
+    .slide-3__heading {
         font-size: 2.125rem;
         line-height: 1.1;
     }
