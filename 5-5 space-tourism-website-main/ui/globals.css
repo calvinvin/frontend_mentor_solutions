@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+nextjs-portal {
+    display: none;
+}
+
+@theme {
+    --color-figma-white: #FFFFFF;
+    --color-figma-blue-300: #D0D6F9;
+    --color-figma-blue-900: #0B0D17;
+    --color-rr: red;
+}
