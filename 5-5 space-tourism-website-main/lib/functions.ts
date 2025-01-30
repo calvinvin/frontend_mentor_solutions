@@ -1,7 +1,6 @@
 import { IData } from "@/lib/definitions";
-import { promises as fs } from 'fs';
 
-export function capitalizeString(string: string|string[]|undefined) {
+export function capitalizeString(string: string|string[]|undefined|null) {
     return (typeof string === 'string') ? (string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()) : "";
 }
 
@@ -10,12 +9,7 @@ export function planetInDestinations(planetQuery: string, dataDestinations: IDat
     return destinationPlanets.includes(planetQuery);
 }
 
-export async function getDataJson() {
-    const file = await fs.readFile(process.cwd() + '/lib/data.json', 'utf8');
-    return file;
-}
-
-export function transformCrewQuery(crew:string|string[]|undefined) {
+export function transformCrewQuery(crew:string|string[]|undefined|null) {
     if (typeof crew !== 'string') return ""
     const splitCrewQuery = crew.split(" ");
     const capitalizedSplitCrewQuery = splitCrewQuery.map((string: string)=>capitalizeString(string));
