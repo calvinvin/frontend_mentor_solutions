@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 }
 
 const backgroundImagePath = {
-    'desktop': '/assets/destination/background-destination-desktop.jpg',
-    'tablet': '/assets/destination/background-destination-tablet.jpg',
-    'mobile': '/assets/destination/background-destination-mobile.jpg',
+    'desktop': '/frontend_mentor_5-5_space-tourism-website-main/assets/destination/background-destination-desktop.jpg',
+    'tablet': '/frontend_mentor_5-5_space-tourism-website-main/assets/destination/background-destination-tablet.jpg',
+    'mobile': '/frontend_mentor_5-5_space-tourism-website-main/assets/destination/background-destination-mobile.jpg',
 };
 
 export default function Layout({
@@ -20,8 +20,9 @@ export default function Layout({
     return (
         <div
         className={`${barlow.className} min-h-svh bg-no-repeat bg-cover bg-center grid grid-rows-[auto_1fr]
-        bg-[url(/assets/destination/background-destination-desktop.jpg)]
-        max-[960px]:bg-[url(/assets/destination/background-destination-tablet.jpg)]
+        bg-[url(/frontend_mentor_5-5_space-tourism-website-main/assets/destination/background-destination-desktop.jpg)]
+        max-[960px]:bg-[url(/frontend_mentor_5-5_space-tourism-website-main/assets/destination/background-destination-tablet.jpg)]
+        max-[560px]:bg-[url(/frontend_mentor_5-5_space-tourism-website-main/assets/destination/background-destination-mobile.jpg)]
         `}
         >
             <Header currentPage="destination"></Header>

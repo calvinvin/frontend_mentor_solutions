@@ -61,7 +61,7 @@ export default function ContentDestinations({
         `}
         >
             <Image
-            src={images.png.substring(1,)}
+            src={'/frontend_mentor_5-5_space-tourism-website-main' + images.png.substring(1,)}
             width={445}
             height={445}
             alt={""}

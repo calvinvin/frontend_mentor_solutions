@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 }
 
 const backgroundImagePath = {
-    'desktop': '/assets/technology/background-technology-desktop.jpg',
-    'tablet': '/assets/technology/background-technology-tablet.jpg',
-    'mobile': '/assets/technology/background-technology-mobile.jpg',
+    'desktop': '/frontend_mentor_5-5_space-tourism-website-main/assets/technology/background-technology-desktop.jpg',
+    'tablet': '/frontend_mentor_5-5_space-tourism-website-main/assets/technology/background-technology-tablet.jpg',
+    'mobile': '/frontend_mentor_5-5_space-tourism-website-main/assets/technology/background-technology-mobile.jpg',
 };
 
 export default function Layout({
@@ -20,8 +20,9 @@ export default function Layout({
     return (
         <div
         className={`${barlow.className} min-h-svh bg-no-repeat bg-cover bg-center grid grid-rows-[auto_1fr]
-        bg-[url(/assets/technology/background-technology-desktop.jpg)]
-        max-[960px]:bg-[url(/assets/technology/background-technology-tablet.jpg)]
+        bg-[url(/frontend_mentor_5-5_space-tourism-website-main/assets/technology/background-technology-desktop.jpg)]
+        max-[960px]:bg-[url(/frontend_mentor_5-5_space-tourism-website-main/assets/technology/background-technology-tablet.jpg)]
+        max-[560px]:bg-[url(/frontend_mentor_5-5_space-tourism-website-main/assets/technology/background-technology-mobile.jpg)]
         `}
         >
             <Header currentPage="technology"></Header>

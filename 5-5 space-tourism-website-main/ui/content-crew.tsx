@@ -89,7 +89,7 @@ export default function ContentCrew({
             <div
             className="relative self-end">
                 <img
-                src={images.png.substring(1,)}
+                src={'/frontend_mentor_5-5_space-tourism-website-main' + images.png.substring(1,)}
                 alt={""}
                 className="block object-contain max-h-[676px] max-[960px]:h-[560px]"
                 ></img>

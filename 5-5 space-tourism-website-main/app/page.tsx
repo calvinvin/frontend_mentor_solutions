@@ -12,8 +12,9 @@ export default function Home() {
   return (
     <div
     className={`${barlow.className} min-h-svh bg-no-repeat bg-cover bg-center grid grid-rows-[auto_1fr]
-    bg-[url(/assets/home/background-home-desktop.jpg)]
-    max-[960px]:bg-[url(/assets/home/background-home-tablet.jpg)]
+    bg-[url(/frontend_mentor_5-5_space-tourism-website-main/assets/home/background-home-desktop.jpg)]
+    max-[960px]:bg-[url(/frontend_mentor_5-5_space-tourism-website-main/assets/home/background-home-tablet.jpg)]
+    max-[560px]:bg-[url(/frontend_mentor_5-5_space-tourism-website-main/assets/home/background-home-mobile.jpg)]
     `}
     >
       <Header currentPage="home"></Header>
@@ -25,9 +26,9 @@ export default function Home() {
 }
 
 const backgroundImagePath = {
-  'desktop': '/assets/home/background-home-desktop.jpg',
-  'tablet': '/assets/home/background-home-tablet.jpg',
-  'mobile': '/assets/home/background-home-mobile.jpg',
+  'desktop': '/frontend_mentor_5-5_space-tourism-website-main/assets/home/background-home-desktop.jpg',
+  'tablet': '/frontend_mentor_5-5_space-tourism-website-main/assets/home/background-home-tablet.jpg',
+  'mobile': '/frontend_mentor_5-5_space-tourism-website-main/assets/home/background-home-mobile.jpg',
 };
 
 function Hero () {

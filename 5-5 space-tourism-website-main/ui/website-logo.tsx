@@ -14,7 +14,7 @@ export default function WebsiteLogo() {
             className="block w-fit mx-[64px] max-[960px]:mx-[40px] max-[800px]:mx-0"
             >
                 <Image 
-                src="/assets/shared/logo.svg" width={logoWidth} height={logoWidth} alt=""
+                src="/frontend_mentor_5-5_space-tourism-website-main/assets/shared/logo.svg" width={logoWidth} height={logoWidth} alt=""
                 >            
                 </Image>
             </Link>

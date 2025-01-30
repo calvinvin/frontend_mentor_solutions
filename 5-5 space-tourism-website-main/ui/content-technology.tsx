@@ -93,7 +93,7 @@ export default function ContentTechnology({
             <picture className="max-[960px]:order-first ">
                 <source srcSet={images.landscape} media="(max-width: 960px)"></source>
                 <img
-                src={images.portrait.substring(1,)}
+                src={'/frontend_mentor_5-5_space-tourism-website-main' + images.portrait.substring(1,)}
                 alt={""}
                 className="block w-full h-full max-h-[600px] min-h-[258px] object-cover max-[960px]:h-auto"
                 ></img>
