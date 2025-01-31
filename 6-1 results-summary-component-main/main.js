@@ -27,7 +27,6 @@ function hydrateCards(cardContainerId, data) {
     cardContainer.render(<CardContainer data={data} />);
 }
 
-const summaryItems = [];
 const dataURL = "./data.json";
 const dataPromise = fetch(dataURL);
 dataPromise.then((response)=>{
