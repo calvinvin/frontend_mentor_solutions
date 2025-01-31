@@ -5,43 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" type="text/css" href="./style.css">
+  <script defer type="text/babel" src="./main.js"></script>
   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
   <title>Frontend Mentor | Results summary component</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
 </head>
 <body>
-
-  Your Result
-  76
-  of 100
-
-  Great
-  You scored higher than 65% of the people who have taken these tests.
-  
-  Summary
-
-  Reaction
-  80 / 100
-
-  Memory
-  92 / 100
-
-  Verbal
-  61 / 100
-
-  Visual
-  72 / 100
-
-  Continue
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
+  <main class="main">
+    <section class="result">
+      <h1 class="result__heading">Your Result</h1>
+      <div class="result__score-container">
+        <strong class="result__score">76</strong>
+        of 100
+      </div>
+      <div class="result__description-container">
+        <strong class="result__comment">Great</strong>
+        <p class="result__description">You scored higher than 65% of the people who have taken these tests.</p>
+      </div>
+    </section>
+    <section class="summary">
+      <h2 class="summary__heading">Summary</h2>
+      <div id="card-container"></div>
+      <!-- <ul class="summary__card-container" role="list">
+        <li class="summary__card">
+          <div class="summary__card-heading-container">
+            <img class="summary__card-icon" src="./assets/images/icon-reaction.svg" alt="">
+            <h3 class="summary__card-heading">Reaction</h3>
+          </div>
+          <p class="summary__card-content-container">
+            <strong class="summary__card-score">80</strong>
+            <span class="summary__card-score-maximum">&nbsp;/ 100</span>
+          </p>
+        </li>
+        <li class="summary__card">
+          <div class="summary__card-heading-container">
+            <img class="summary__card-icon" src="./assets/images/icon-memory.svg" alt="">
+            <h3 class="summary__card-heading">Memory</h3>
+          </div>
+          <p class="summary__card-content-container">
+            <strong class="summary__card-score">92</strong>
+            <span class="summary__card-score-maximum">&nbsp;/ 100</span>
+          </p>
+        </li>
+        <li class="summary__card">
+          <div class="summary__card-heading-container">
+            <img class="summary__card-icon" src="./assets/images/icon-verbal.svg" alt="">
+            <h3 class="summary__card-heading">Verbal</h3>
+          </div>
+          <p class="summary__card-content-container">
+            <strong class="summary__card-score">61</strong>
+            <span class="summary__card-score-maximum">&nbsp;/ 100</span>
+          </p>
+        </li>
+        <li class="summary__card">
+          <div class="summary__card-heading-container">
+            <img class="summary__card-icon" src="./assets/images/icon-visual.svg" alt="">
+            <h3 class="summary__card-heading">Visual</h3>
+          </div>
+          <p class="summary__card-content-container">
+            <strong class="summary__card-score">72</strong>
+            <span class="summary__card-score-maximum">&nbsp;/ 100</span>
+          </p>
+        </li>
+      </ul> -->
+      <button class="summary__button"><a class="summary__link" href="#">Continue</a></button>
+    </section>
+  </main>
 </body>
 </html>
