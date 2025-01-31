@@ -143,9 +143,12 @@ body {
 .summary__card-score-maximum {
     color: hsl(from var(--Dark-gray-blue) h s l / .5);
 }
-.summary__button {
+.summary__link {
+    display: grid;
+    place-content: center;
     height: 3.5rem;
     width: 100%;
+    color: var(--White);
     border-radius: 64px;
     background-color: var(--clr-background-summary-button);
     &:focus-visible {
@@ -156,13 +159,6 @@ body {
             background: var(--clr-background-gradient);
         }
     }
-}
-.summary__link {
-    display: grid;
-    place-content: center;
-    width: 100%;
-    height: 100%;
-    color: var(--White);
 }
 
 /* display: mobile version */
