@@ -76,23 +76,24 @@ function MenuCards({
     shopItems.map(( shopItem:IShopItem, shopItemIndex: number )=> {
       const { image, name, category, price, amount } = shopItem;
       const shopItemId = `shop-item-${shopItemIndex}`;
+
       return (
         <li className={`menu-card ${(Number(amount) === 0) ? '' : 'menu-card____input-not-empty'}`} aria-labelledby={shopItemId} key={shopItemId}>
           <div className="menu-card__picture-wrapper">
             <picture className="menu-card__picture">
-              <source srcSet={image.mobile} media="(max-width: 587px)" />
-              <source srcSet={image.tablet} media="(max-width: 960px)" />
-              <img className="menu-card__img" src={image.desktop} alt=""/>
+              <source srcSet={`.${image.mobile}`} media="(max-width: 587px)" />
+              <source srcSet={`.${image.tablet}`} media="(max-width: 960px)" />
+              <img className="menu-card__img" src={`.${image.desktop}`} alt=""/>
             </picture>
             <div className="menu-card__field-wrapper" onFocus={hideLabel} onBlur={(e)=>{setTimeout(()=>showLabel(e), 300)}}>
               <label className="menu-card__label" htmlFor={`input-${shopItemId}`}>
-                <img className="menu-card__label-icon" src="/assets/images/icon-add-to-cart.svg"></img>
+                <img className="menu-card__label-icon" src="../assets/images/icon-add-to-cart.svg"></img>
                 <span className="menu-card__label-add-to-cart">Add to Cart</span>
               </label>
               <div className="menu-card__input-wrapper">
-                <button className="menu-card__input-button" type="button" onClick={(event)=>pressInputButton(event, 'minus')} aria-label="add one amount"><img src="/assets/images/icon-decrement-quantity.svg" alt=""></img></button>
+                <button className="menu-card__input-button" type="button" onClick={(event)=>pressInputButton(event, 'minus')} aria-label="add one amount"><img src="../assets/images/icon-decrement-quantity.svg" alt=""></img></button>
                 <input className="menu-card__input" onClick={selectInputText} onBeforeInput={validateInput} onChange={()=>{}} id={`input-${shopItemId}`} name={name} value={ amount } type="text" inputMode="numeric" pattern="[0-9]+" aria-label="subtotal item amount"></input>
-                <button className="menu-card__input-button" type="button" onClick={(event)=>pressInputButton(event, 'plus')}  aria-label="minus one amount"><img src="/assets/images/icon-increment-quantity.svg" alt=""></img></button>
+                <button className="menu-card__input-button" type="button" onClick={(event)=>pressInputButton(event, 'plus')}  aria-label="minus one amount"><img src="../assets/images/icon-increment-quantity.svg" alt=""></img></button>
               </div>
             </div>
           </div>
@@ -184,13 +185,13 @@ function Cart({
           <span className="cart__total-price-amount total-price-amount">{String(totalPrice.toFixed(2))}</span>
         </div>
         <div className="cart__comment-wrapper">
-          <img src="/assets/images/icon-carbon-neutral.svg" alt=""></img>
+          <img src="../assets/images/icon-carbon-neutral.svg" alt=""></img>
           <p className="cart__comment">This is a <em className="cart__comment-em">carbon-neutral</em> delivery</p>
         </div>
         <button className="cart__confirm-button" type="button" onClick={confirmOrder} aria-label="confirm purchase order">Confirm Order</button>
       </ul>
       <div className="cart__empty-wrapper">
-        <img className="cart__empty-img" src="/assets/images/illustration-empty-cart.svg" alt=""></img>
+        <img className="cart__empty-img" src="../assets/images/illustration-empty-cart.svg" alt=""></img>
         <p className="cart__empty-description">Your added items will appear hear</p>
       </div>
     </section>
@@ -246,7 +247,7 @@ function Confirm({
   return (
     <dialog className="confirm" ref={modalRef} onClick={closeModal} aria-labelledby="confirm-heading">
       <div className="confirm__wrapper">
-        <img className="confirm__icon" src="/assets/images/icon-order-confirmed.svg" alt=""></img>
+        <img className="confirm__icon" src="../assets/images/icon-order-confirmed.svg" alt=""></img>
         <h2 className="confirm__heading" id="confirm-heading">Order confirmed</h2>
         <p className="confirm__description">We hope you enjoy your food!</p>
         <ul className="confirm__cards-wrapper" role="list" aria-label="confirmed order items">
