@@ -212,7 +212,7 @@ function ConfirmCard({
         const confirmItemId = `confirm-item-${cartItemIndex}`;
         return (
           <li className="confirm__card" aria-labelledby={confirmItemId} key={confirmItemId}>
-            <img className="confirm__card-thumbnail" src={thumbnail}></img>
+            <img className="confirm__card-thumbnail" src={`.${thumbnail}`}></img>
             <div className="confirm__card-content-wrapper">
               <h3 className="confirm__card-heading item-heading" id={confirmItemId}>{name}</h3>
               <span className="confirm__card-amount item-amount">{amount}</span>
