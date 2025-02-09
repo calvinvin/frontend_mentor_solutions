@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
 import iconCalculator from '../../assets/images/icon-calculator.svg';
 import illustrationEmpty from '../../assets/images/illustration-empty.svg';
@@ -11,7 +11,7 @@ interface IData {
 };
 
 function Form({
-  data, submitted, setAmount, setTerm, setInterestRate, setType, setSubmitted, setSubmittedData,
+  data, submitted, setAmount, setTerm, setInterestRate, setType, setSubmitted, setSubmittedData, resultRef,
 }: {
   data: IData,
   submitted: boolean,
@@ -21,6 +21,7 @@ function Form({
   setType: React.Dispatch<React.SetStateAction<IData['type']>>,
   setSubmitted: React.Dispatch<React.SetStateAction<boolean>>,
   setSubmittedData: React.Dispatch<React.SetStateAction<IData|null>>,
+  resultRef: React.RefObject<HTMLElement|null>,
 }
 ) {
   function clearAll() {
@@ -43,6 +44,11 @@ function Form({
   function trimLeadingZero(string: string) {
     return string.replace(/^0+/, '');
   }
+  function scrollResultSectionToTheView() {
+    const resultSection = resultRef.current;
+    resultSection?.scrollIntoView({behavior: "smooth"});
+  }
+
   function handledNumberInputs(e: React.SyntheticEvent<HTMLInputElement, InputEvent>) {
     const enteredInputString = e.nativeEvent.data;
     if (!enteredInputStringValid(enteredInputString)) return;
@@ -77,8 +83,11 @@ function Form({
       interestRate: interestRate,
       type: type,
     });
+    scrollResultSectionToTheView();
   }
+
   const { amount, term, interestRate, type } = data;
+
   return (
     <form className="form">
       <div className="form__heading-wrapper">
@@ -93,7 +102,7 @@ function Form({
         <label htmlFor="amount" className="form__label-amount">Mortgage Amount</label>
         <div className="form__input-amount-wrapper">
           <span className="form__input-amount-unit">￡</span>
-          <input id="amount" onInput={handleAmount} value={amount} name="amount" type="text" className="form__input-amount-number" placeholder='0'/>
+          <input id="amount" onInput={handleAmount} value={amount} name="amount" type="text" className="form__input-amount-number" placeholder='0' inputMode='decimal'/>
         </div>
         <p className={`form__input-amount-error-message ${submitted && amount==="" && "error-message-shown"}`}>This field is required</p>
       </div>
@@ -101,7 +110,7 @@ function Form({
         <div className="form__term-wrapper">
           <label htmlFor="term" className="form__label-term">Morgage Term</label>
           <div className="form__input-term-wrapper">
-            <input id="term" onInput={handleTerm} value={term} name="term" type="text" className="form__input-term-number" placeholder='0'/>
+            <input id="term" onInput={handleTerm} value={term} name="term" type="text" className="form__input-term-number" placeholder='0' inputMode='decimal'/>
             <span className="form__input-term-unit">years</span>
           </div>
           <p className={`form__input-term-error-message ${submitted && term==="" && "error-message-shown"}`}>This field is required</p>
@@ -109,7 +118,7 @@ function Form({
         <div className="form__interest-rate-wrapper">
           <label htmlFor="interest-rate" className="form__label-interest-rate">Interest Rate</label>
           <div className="form__input-interest-rate-wrapper">
-            <input id="interest-rate" onInput={handleInterestRate} value={interestRate} name="interest-rate" type="text" className="form__input-interest-rate-number" placeholder='0'/>
+            <input id="interest-rate" onInput={handleInterestRate} value={interestRate} name="interest-rate" type="text" className="form__input-interest-rate-number" placeholder='0' inputMode='decimal'/>
             <span className="form__input-interest-rate-unit">%</span>
           </div>
           <p className={`form__input-interest-rate-error-message ${submitted && interestRate==="" && "error-message-shown"}`}>This field is required</p>
@@ -211,14 +220,15 @@ function ResultOutputInterestOnly({
 }
 
 function Result({
-  submittedData,
+  submittedData, resultRef
 }: {
-  submittedData: IData|null;
+  submittedData: IData|null,
+  resultRef: React.RefObject<HTMLElement|null>;
 }) {
   const formCompleted = submittedData && Object.values(submittedData).every((value)=>value!=="");
   const type = submittedData ? submittedData.type : null;
   return (
-    <section className={`result ${formCompleted ? 'completed' : 'not-completed'}`}>
+    <section className={`result ${formCompleted ? 'completed' : 'not-completed'}`} ref={resultRef}>
       <div className="result__wrapper-completed">
         <h2 className="result__output-heading">Your results</h2>
         <p className="result__output-description">
@@ -246,6 +256,7 @@ function App() {
   const [ type, setType ] = useState<IData['type']>("");
   const [ submitted, setSubmitted ] = useState<boolean>(false);
   const [ submittedData, setSubmittedData ] = useState<IData|null>(null);
+  const resultRef = useRef<HTMLElement>(null);
 
   const data: IData = {
     amount: amount,
@@ -256,8 +267,8 @@ function App() {
 
   return (
     <main className="main">
-      <Form data={data} submitted={submitted} setAmount={setAmount} setTerm={setTerm} setInterestRate={setInterestRate} setType={setType} setSubmitted={setSubmitted} setSubmittedData={setSubmittedData}/>
-      <Result submittedData={submittedData} />
+      <Form data={data} submitted={submitted} setAmount={setAmount} setTerm={setTerm} setInterestRate={setInterestRate} setType={setType} setSubmitted={setSubmitted} setSubmittedData={setSubmittedData} resultRef={resultRef}/>
+      <Result submittedData={submittedData} resultRef={resultRef}/>
     </main>
   )
 }
