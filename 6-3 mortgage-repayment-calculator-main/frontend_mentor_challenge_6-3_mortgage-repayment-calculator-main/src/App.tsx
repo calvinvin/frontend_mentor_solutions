@@ -83,7 +83,8 @@ function Form({
       interestRate: interestRate,
       type: type,
     });
-    scrollResultSectionToTheView();
+    const formCompleted = [amount, term, interestRate, type].every((value)=>value!=="");
+    if (formCompleted) scrollResultSectionToTheView();
   }
 
   const { amount, term, interestRate, type } = data;
