@@ -1,1 +1,18 @@
 @import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+@theme {
+    --color-fm-Dark-Blue-Dark-Mode-Element: hsl(209, 23%, 22%);
+    --color-fm-Very-Dark-Blue-Dark-Mode-Background: hsl(207, 26%, 17%);
+    --color-fm-Very-Dark-Blue-Light-Mode-Text: hsl(200, 15%, 8%);
+    --color-fm-Dark-Gray-Light-Mode-input: hsl(0, 0%, 52%);
+    --color-fm-Very-Light-Gray-Light-Mode-Background: hsl(0, 0%, 98%);
+    --color-fm-White-Dark-Mode-Text-and-Light-Mode-Elements: hsl(0, 0%, 100%);
+
+    --font-weight-fm-regular: 300;
+    --font-weight-fm-bold: 600;
+    --font-weight-fm-extrabold: 800;
+
+}
