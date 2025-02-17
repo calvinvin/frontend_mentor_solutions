@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { ICountry } from './definitions';
-import {fetchAndSetAllCountries, generatePagination } from './utilities';
+import { generatePagination } from './utilities';
 import { useSearchParams} from 'react-router';
 import Search from './ui/search';
 import Filter from './ui/filter';
@@ -63,7 +63,14 @@ function PaginatedCountryPreview() {
 
   const [ allCountriesSet, setAllCountriesSet ] = useState<boolean>(false);
   useEffect(()=>{
-    fetchAndSetAllCountries(setAllCountries, setAllCountriesSet);
+    async function fetchAndSetAllCountries(
+    ) {
+        const response = await fetch("https://restcountries.com/v3.1/all");
+        setAllCountries(await response.json());
+        setAllCountriesSet(true);
+    }
+
+    fetchAndSetAllCountries();
     console.log('useEffect: PaginatedCountryPreview, fetching data...')
   }, []);
 
