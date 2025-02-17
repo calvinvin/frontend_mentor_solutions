@@ -67,32 +67,30 @@ function PaginatedCountryPreview() {
     console.log('useEffect: PaginatedCountryPreview, fetching data...')
   }, []);
 
+  if (!allCountriesSet) return (
+    <p className='grow pt-[5rem] text-center text-[5rem]'>Loading...</p>
+  )
+
   return (
     <>
-      { allCountriesSet
-        ?
-          <>
-            <p>
-              <span className='opacity-50'>Country amount:</span> 
-              <span className='ms-[1rem] border-b-1'>{displayCountries?.length} countries</span>
-            </p>
-            {
-              displayCountries && (displayCountries?.length > defaultCountryAmountPerPage) && <CountryAmountPerPage displayCountryAmountPerPageOptions={displayCountryAmountPerPageOptions} displayCountryAmountPerPage={displayCountryAmountPerPage}/>
-            }
-            <Pagination pages={pages} displayPage={displayPage}/>
-            <ul
-            className='
-            mt-[2rem] grid [grid-template-columns:repeat(auto-fit,minmax(16.5rem,1fr))] justify-between gap-[4.5rem]
-            '
-            >
-              {paginatedCountries?.map((country: ICountry)=>
-                <CountryPreviewCard country={country} key={`CountryPreviewCard-${country.cca3??country.name}`}/>
-              )}
-            </ul>
-            <Pagination pages={pages} displayPage={displayPage}/>
-          </>
-        : 
-          <p className='grow pt-[5rem] text-center text-[5rem]'>Loading...</p> }
+      <p>
+        <span className='opacity-50'>Country amount:</span> 
+        <span className='ms-[1rem] border-b-1'>{displayCountries?.length} countries</span>
+      </p>
+      {
+        displayCountries && (displayCountries?.length > defaultCountryAmountPerPage) && <CountryAmountPerPage displayCountryAmountPerPageOptions={displayCountryAmountPerPageOptions} displayCountryAmountPerPage={displayCountryAmountPerPage}/>
+      }
+      <Pagination pages={pages} displayPage={displayPage}/>
+      <ul
+      className='
+      mt-[2rem] grid [grid-template-columns:repeat(auto-fit,minmax(16.5rem,1fr))] justify-between gap-[4.5rem]
+      '
+      >
+        {paginatedCountries?.map((country: ICountry)=>
+          <CountryPreviewCard country={country} key={`CountryPreviewCard-${country.cca3??country.name}`}/>
+        )}
+      </ul>
+      <Pagination pages={pages} displayPage={displayPage}/>
     </>
   )
 }
