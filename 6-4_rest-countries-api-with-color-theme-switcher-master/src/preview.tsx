@@ -61,14 +61,15 @@ function PaginatedCountryPreview() {
   }
   const pages = generatePagination(displayPage, totalPagesAmount);
 
+  const [ allCountriesSet, setAllCountriesSet ] = useState<boolean>(false);
   useEffect(()=>{
-    fetchAndSetAllCountries(setAllCountries);
-    // console.log('useEffect: PaginatedCountryPreview, fetching data...')
+    fetchAndSetAllCountries(setAllCountries, setAllCountriesSet);
+    console.log('useEffect: PaginatedCountryPreview, fetching data...')
   }, []);
 
   return (
     <>
-      { displayCountries
+      { allCountriesSet
         ?
           <>
             <p>
@@ -91,7 +92,7 @@ function PaginatedCountryPreview() {
             <Pagination pages={pages} displayPage={displayPage}/>
           </>
         : 
-          <p className='grow bg-red-500 pt-[5rem] text-center text-[5rem]'>Loading...</p> }
+          <p className='grow pt-[5rem] text-center text-[5rem]'>Loading...</p> }
     </>
   )
 }

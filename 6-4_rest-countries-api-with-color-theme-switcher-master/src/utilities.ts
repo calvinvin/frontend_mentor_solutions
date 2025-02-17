@@ -13,12 +13,12 @@ export function setCurrentColorSchemeToPrefersColorScheme(setColorScheme: React.
     setColorScheme(getCurrentColorScheme());
 }
 export async function fetchAndSetAllCountries(
-    // allCountriesSet:boolean, 
-    setAllCountries: React.Dispatch<SetStateAction<ICountry[]|null>>
+    setAllCountries: React.Dispatch<SetStateAction<ICountry[]|null>>,
+    setAllCountriesSet: React.Dispatch<SetStateAction<boolean>>,
 ) {
     const response = await fetch("https://restcountries.com/v3.1/all");
-    // const response = await fetch("/all.json");
     setAllCountries(await response.json());
+    setAllCountriesSet(true);
 }
 export async function fetchAndSetCountryByName(countryName: string|undefined, setCountryData: React.Dispatch<SetStateAction<ICountry|undefined>>) {
     if (!countryName) return;
