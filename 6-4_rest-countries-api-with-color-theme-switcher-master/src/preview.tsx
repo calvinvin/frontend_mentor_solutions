@@ -47,8 +47,7 @@ function PaginatedCountryPreview() {
   else if (queryCountriesperpage > displayCountryAmountPerPageOptions.at(-1)!) displayCountryAmountPerPage = 'all';
   else displayCountryAmountPerPage = Number(queryCountriesperpage);
   displayCountryAmountPerPageOptions.push('all');
-
-  if (displayCountryAmountPerPage!=='all' && displayCountries && (displayPage * displayCountryAmountPerPage  > displayCountries.length)) displayPage = Math.ceil((displayCountries.length-1) / displayCountryAmountPerPage);
+  if (displayCountryAmountPerPage!=='all' && displayCountries && (displayPage * displayCountryAmountPerPage  > displayCountries.length)) displayPage = Math.ceil((displayCountries.length-1) / displayCountryAmountPerPage) || 1;
   let paginatedCountries: ICountry[]|undefined;
   let totalPagesAmount: number;
   if (displayCountryAmountPerPage==='all') {
@@ -86,7 +85,7 @@ function PaginatedCountryPreview() {
             '
             >
               {paginatedCountries?.map((country: ICountry)=>
-                <CountryPreviewCard country={country} key={`CountryPreviewCard-${country.cca3??country.name}`}/>
+                <CountryPreviewCard country={country} key={`CountryPreviewCard-${country.cca3}`}/>
               )}
             </ul>
             <Pagination pages={pages} displayPage={displayPage}/>

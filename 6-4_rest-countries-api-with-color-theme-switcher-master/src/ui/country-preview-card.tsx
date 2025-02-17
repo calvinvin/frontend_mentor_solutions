@@ -18,6 +18,7 @@ function CountryPropertyListItem({
 export default function CountryPreviewCard({country}: {country: ICountry}) {
     const { flags: {svg} } = country;
     const properties: Array<keyof ICountry> = ['population', 'region', 'capital'];
+    console.log('1');
     return (
         <li 
         className='
