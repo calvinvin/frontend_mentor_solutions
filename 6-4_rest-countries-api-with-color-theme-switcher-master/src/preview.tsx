@@ -17,7 +17,6 @@ function PaginatedCountryPreview() {
   const countryAmountPerPageOptions = [12, 36, 60, 120];
   const defaultCountryAmountPerPage = countryAmountPerPageOptions[0];
   const [ allCountries, setAllCountries ] = useState<ICountry[]|null>(null);
-  const [ allCountriesSet, setAllCountriesSet] = useState<boolean>(false);
   
   const [ searchParams ] = useSearchParams();
   let displayPage = Number(searchParams.get("page")) >= 1 ? Number(searchParams.get("page")) : defaultPage;
@@ -65,14 +64,11 @@ function PaginatedCountryPreview() {
   useEffect(()=>{
     fetchAndSetAllCountries(setAllCountries);
     // console.log('useEffect: PaginatedCountryPreview, fetching data...')
-    return () => {
-      setAllCountriesSet(true);
-    }
   }, []);
 
   return (
     <>
-      { allCountriesSet 
+      { displayCountries
         ?
           <>
             <p>
