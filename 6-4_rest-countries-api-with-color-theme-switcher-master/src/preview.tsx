@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { ICountry } from './definitions';
-import { generatePagination } from './utilities';
+import {fetchAndSetAllCountries, generatePagination } from './utilities';
 import { useSearchParams} from 'react-router';
 import Search from './ui/search';
 import Filter from './ui/filter';
@@ -17,6 +17,7 @@ function PaginatedCountryPreview() {
   const countryAmountPerPageOptions = [12, 36, 60, 120];
   const defaultCountryAmountPerPage = countryAmountPerPageOptions[0];
   const [ allCountries, setAllCountries ] = useState<ICountry[]|null>(null);
+  // const [ allCountriesSet, setAllCountriesSet] = useState<boolean>(false);
   
   const [ searchParams ] = useSearchParams();
   let displayPage = Number(searchParams.get("page")) >= 1 ? Number(searchParams.get("page")) : defaultPage;
@@ -61,43 +62,37 @@ function PaginatedCountryPreview() {
   }
   const pages = generatePagination(displayPage, totalPagesAmount);
 
-  const [ allCountriesSet, setAllCountriesSet ] = useState<boolean>(false);
   useEffect(()=>{
-    async function fetchAndSetAllCountries(
-    ) {
-        const response = await fetch("https://restcountries.com/v3.1/all");
-        setAllCountries(await response.json());
-        setAllCountriesSet(true);
-    }
-
-    fetchAndSetAllCountries();
-    console.log('useEffect: PaginatedCountryPreview, fetching data...')
+    fetchAndSetAllCountries(setAllCountries);
+    // console.log('useEffect: PaginatedCountryPreview, fetching data...')
   }, []);
-
-  if (!allCountriesSet) return (
-    <p className='grow pt-[5rem] text-center text-[5rem]'>Loading...</p>
-  )
 
   return (
     <>
-      <p>
-        <span className='opacity-50'>Country amount:</span> 
-        <span className='ms-[1rem] border-b-1'>{displayCountries?.length} countries</span>
-      </p>
-      {
-        displayCountries && (displayCountries?.length > defaultCountryAmountPerPage) && <CountryAmountPerPage displayCountryAmountPerPageOptions={displayCountryAmountPerPageOptions} displayCountryAmountPerPage={displayCountryAmountPerPage}/>
-      }
-      <Pagination pages={pages} displayPage={displayPage}/>
-      <ul
-      className='
-      mt-[2rem] grid [grid-template-columns:repeat(auto-fit,minmax(16.5rem,1fr))] justify-between gap-[4.5rem]
-      '
-      >
-        {paginatedCountries?.map((country: ICountry)=>
-          <CountryPreviewCard country={country} key={`CountryPreviewCard-${country.cca3??country.name}`}/>
-        )}
-      </ul>
-      <Pagination pages={pages} displayPage={displayPage}/>
+      { displayCountries
+        ?
+          <>
+            <p>
+              <span className='opacity-50'>Country amount:</span> 
+              <span className='ms-[1rem] border-b-1'>{displayCountries?.length} countries</span>
+            </p>
+            {
+              displayCountries && (displayCountries?.length > defaultCountryAmountPerPage) && <CountryAmountPerPage displayCountryAmountPerPageOptions={displayCountryAmountPerPageOptions} displayCountryAmountPerPage={displayCountryAmountPerPage}/>
+            }
+            <Pagination pages={pages} displayPage={displayPage}/>
+            <ul
+            className='
+            mt-[2rem] grid [grid-template-columns:repeat(auto-fit,minmax(16.5rem,1fr))] justify-between gap-[4.5rem]
+            '
+            >
+              {paginatedCountries?.map((country: ICountry)=>
+                <CountryPreviewCard country={country} key={`CountryPreviewCard-${country.cca3??country.name}`}/>
+              )}
+            </ul>
+            <Pagination pages={pages} displayPage={displayPage}/>
+          </>
+        : 
+          <p className='grow bg-red-500 pt-[5rem] text-center text-[5rem]'>Loading...</p> }
     </>
   )
 }
