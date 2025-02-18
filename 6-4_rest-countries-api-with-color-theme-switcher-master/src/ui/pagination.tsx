@@ -63,7 +63,7 @@ function PageLink({
             ?
                 <Link
                 to={`/?${newSearchParams.toString()}`}
-                className={`grid place-content-center h-[3rem] aspect-square font-fm-bold border-[2px] border-[var(--clr-element)] cursor-pointer hover:bg-[var(--clr-element)]
+                className={`grid place-content-center h-[3rem] aspect-square font-fm-bold border-[2px] border-[var(--clr-element)] cursor-pointer hover:bg-[var(--clr-shadow)] [transition:background-color_0.1s]
                 ${pageIndex===0 ? "rounded-l-[8px]" : ""}
                 ${pageIndex===totalPagesAmount-1 ? "rounded-r-[8px]" : "'"}
                 ${page===displayPage ? "text-amber-600" : ""}

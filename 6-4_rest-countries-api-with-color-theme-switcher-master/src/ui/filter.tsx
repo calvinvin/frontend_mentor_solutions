@@ -24,7 +24,7 @@ function FilterListItem({
             <Link
             to={`/?${newSearchParams.toString()}`}
             className='block w-full px-[1rem] py-[0.5rem] text-start rounded-[8px]
-            hover:bg-slate-600'
+            hover:bg-[var(--clr-shadow)]'
             onClick={handleClickFilterListItem}
             >
                 {region}
@@ -60,11 +60,11 @@ export default function Filter() {
 
     return (
         <section
-        className='relative h-[3.5rem] w-[12.5rem] z-10'
+        className='relative h-[3.5rem] w-[12.5rem] z-10 rounded-[8px] shadow-[0px_0px_8px_4px_var(--clr-shadow)] hover:shadow-[0px_0px_8px_0px_var(--clr-element)] [transition:box-shadow_0.1s]'
         id="filter-section"
         >
             <button
-            className='h-full w-full p-[0.5rem] rounded-[8px] flex items-center justify-center gap-[1rem] bg-[var(--clr-element)] cursor-pointer hover:bg-slate-600'
+            className='h-full w-full p-[0.5rem] rounded-[8px] flex items-center justify-center gap-[1rem] bg-[var(--clr-element)] cursor-pointer hover:bg-[var(--clr-shadow)] [transition:background-color_0.1s]'
             tabIndex={0}
             onClick={switchFilterShown}
             type="button"

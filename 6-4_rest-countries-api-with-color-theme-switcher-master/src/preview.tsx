@@ -91,7 +91,11 @@ function PaginatedCountryPreview() {
             <Pagination pages={pages} displayPage={displayPage}/>
           </>
         : 
-          <p className='grow bg-red-500 pt-[5rem] text-center text-[5rem]'>Loading...</p> }
+          <div className='relative mx-auto mt-[3rem] w-[14rem] aspect-square grid place-content-center text-[2rem] font-fm-extrabold'>
+            <span className='opacity-20'>Loading...</span>
+            <div className='absolute inset-0 rounded-full border-[hsl(from_var(--clr-element)_h_s_l_/_.8)] border-[1rem] border-t-[var(--clr-shadow)] animate-[spin_1.5s_linear_infinite]'></div>
+          </div> 
+        }
     </>
   )
 }
@@ -104,6 +108,7 @@ export function Preview() {
     <main className='py-[3rem] px-[5rem] h-full grow flex flex-col
     max-[760px]:px-[3rem]
     '>
+      <h1 className='sr-only'>Countries in the world.</h1>
       <form className='flex justify-between mb-[3rem] max-[760px]:flex-col max-[760px]:gap-[3rem]'>
         <Search />
         <Filter/>

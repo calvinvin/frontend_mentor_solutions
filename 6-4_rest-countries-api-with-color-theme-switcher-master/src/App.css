@@ -10,6 +10,9 @@
     --color-fm-Dark-Gray-Light-Mode-input: hsl(0, 0%, 52%);
     --color-fm-Very-Light-Gray-Light-Mode-Background: hsl(0, 0%, 98%);
     --color-fm-White-Dark-Mode-Text-and-Light-Mode-Elements: hsl(0, 0%, 100%);
+    --color-fm-shadow-light-mode: hsl(from var(--color-fm-White-Dark-Mode-Text-and-Light-Mode-Elements) h s calc(l - 10%));
+    --color-fm-shadow-dark-mode: hsl(from var(--color-fm-Dark-Blue-Dark-Mode-Element) h s calc(l - 8%));
+    --color-fm-hover-light-mode: hsl(from var(--color-fm-White-Dark-Mode-Text-and-Light-Mode-Elements) h s calc(l - 10%));
 
     --font-weight-fm-regular: 300;
     --font-weight-fm-bold: 600;

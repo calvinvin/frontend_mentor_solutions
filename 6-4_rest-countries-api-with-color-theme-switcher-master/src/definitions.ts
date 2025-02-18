@@ -1,6 +1,7 @@
 export interface ICountry {
     altSpellings: string[],
     area: number,
+    borders: string[],
     capital: string[],
     capitalInfo: {latlng: [number, number]}
     car: {signs: string[], side: string},

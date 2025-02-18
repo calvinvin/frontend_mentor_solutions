@@ -15,7 +15,7 @@ export default function Search() {
     } , 300); 
 
     return (
-        <search className='relative
+        <search className='relative rounded-[8px] shadow-[0px_0px_8px_4px_var(--clr-shadow)]
         '
         >
             <span className="material-symbols-outlined absolute left-0 top-[50%] translate-y-[-50%] px-[1rem]">search</span>
