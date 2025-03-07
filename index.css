@@ -1,173 +1,221 @@
-*, *::before, *::after {
+@layer reset {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
 }
-* {
+  * {
     margin: 0;
     padding: 0;
+  }
+  ul, ol {
+    list-style: none;
+  }
 }
-body {
+@layer base {
+  :root {
+    --clr-gray-50: rgb(242, 242, 247);
+    --clr-gray-100: rgb(229, 229, 234);
+    --clr-gray-200: rgb(209, 209, 214);
+    --clr-gray-300: rgb(199, 199, 204);
+    --clr-gray-400: rgb(174, 174, 178);
+    --clr-gray-500: rgb(142, 142, 147);
+    --clr-gray-600: rgb(99, 99, 102);
+    --clr-gray-700: rgb(72, 72, 74);
+    --clr-gray-800: rgb(58, 58, 60);
+    --clr-gray-900: rgb(44, 44, 46);
+    --clr-gray-950: rgb(28, 28, 30);
+    --clr-red: rgb(255, 59, 48);
+    --clr-orange: rgb(255, 149, 0);
+    --clr-yellow: rgb(255, 204, 0);
+    --clr-green: rgb(52, 199, 89);
+    --clr-mint: rgb(0, 199, 190);
+    --clr-teal: rgb(48, 176, 199);
+    --clr-cyan: rgb(50, 173, 230);
+    --clr-blue: rgb(0, 122, 255);
+    --clr-indigo: rgb(88, 86, 214);
+    --clr-purple: rgb(175, 82, 222);
+    --clr-pink: rgb(255, 45, 85);
+    --clr-brown: rgb(162, 132, 94);
+
+    --background-body: var(--clr-gray-300);
+    --background-main: var(--clr-gray-50);
+    --text-main: var(--clr-gray-900);
+    --text-regular: 400;
+    --text-bold: 700;
+
+    --rounded-xs: 0.25rem;
+    --rounded-md: 1rem;    
+
+  }
+  body {
+    background-color: var(--background-body);
+    color: var(--text-main);
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-weight: var(--text-regular);
+  }
+  main {
+    background-color: var(--background-main);
+  }
+  h1, h2, h3 {
+    color: var(--clr-gray-950);
+  }
+}
+@layer layout {
+  body {
     padding: 2rem 1rem;
-    background-color: #eee;
-}
-main {
-    background-color: #f8f8f8;
+  }
+  main {
     max-width: 50rem;
     margin-inline: auto;
     padding: 4rem;
-    border-radius: 1rem;
-}
-.table-of-contents {
-    margin-block: 1em;
-    & {
-        list-style: none;
-    }
-    & ol {
-        list-style: none;
-        margin-inline-start: 1rem;
+    border-radius: var(--rounded-md);
+    @media (width < 800px) {
+      padding-inline: 1rem;
     }
 }
-.learning-path-list {
+}
+@layer component {
+  .table-of-contents {
+    margin-block-start: 2rem;
+    margin-inline-start: 3rem;
+    background-color: var(--clr-gray-100);
+    padding: 1rem 4rem;
+    @media (width < 800px) {
+      padding-inline: 1.5rem;
+      margin-inline-start: 0;
+    }
+    border-radius: var(--rounded-md);
+    & > ol {
+      margin-block-start: 1em;
+      & > li {
+        margin-block-start: 0.5em;
+        & > ol > li {
+          margin-block-start: 0.25em;
+          margin-inline-start: 1rem;
+          & a {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+  .learning-path-list {
+    margin-block-start: 2rem;
     margin-inline-start: 1rem;
-    list-style: none;
-    /* counter-reset: learning-path;
-    & > li {
-        counter-increment: learning-path;
-        & > h2::before {
-            display: block;
-            content: "Learning Path " counter(learning-path) ": ";
-        }
-    } */
     & > * {
-        margin-block-start: 1em;
+      margin-block-start: 1em;
     }
-}
-.solution-list {
-    list-style: none;
-    /* counter-reset: challenge;
-    & > li {
-        counter-increment: challenge;
-        & > h3::before {
-            content: counter(learning-path) "." counter(challenge);
-            margin-inline-end: 1rem;
-        }
-    } */
+  }
+  .solution-list {
+    margin-inline-start: 1rem;
     & > * {
-        margin-block-start: 1em;
+      margin-block-start: 1em;
     }
-}
-.solution {
-    & h3 span {
-        margin-inline-end: 1rem;
+  }
+  .solution {
+    & h3 span.section-counter {
+      margin-inline-end: 1rem;
     }
     & > * + * {
+      margin-block-start: 0.5em;
+      margin-inline-start: 1rem;
+    }
+  }
+  .solution__tags {
+    & h4 {
+      display: inline;
+    }
+    & ul {
+      display: inline-flex;
+      gap: 0.5rem;
+      list-style: none;
+      & li {
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--rounded-xs);
+        color: var(--clr-gray-50);
+        &[data-tag="vanilla"] {
+          background-color: var(--clr-green);
+        }
+        &[data-tag="javascript"] {
+          background-color: var(--clr-mint);
+        }
+        &[data-tag="JSON"] {
+          background-color: var(--clr-teal);
+        }
+        &[data-tag="vite"] {
+          background-color: var(--clr-blue);
+        }
+        &[data-tag="nextjs"] {
+          background-color: var(--clr-indigo);
+        }
+        &[data-tag="restful"] {
+          background-color: var(--clr-purple);
+        }
+      }
+    }
+  }
+  .solution__links {
+    & h4 {
+      display: inline;
+    }
+    & ul {
+      display: inline-flex;
+      gap: 0.5rem;
+      & li {
+        & a {
+          display: inline-block;
+          padding: 0.25rem 0.5rem;
+          color: var(--clr-gray-50);
+          border-radius: var(--rounded-xs);
+          &[data-link="solution-website"] {
+            background-color: var(--clr-orange);
+          }
+          &[data-link="code-repository"] {
+            background-color: var(--clr-brown);
+          }
+        }
+      }
+    }
+  }
+  .solution__comment {
+    &:has(div.solution__comment-content:empty) {
+      display: none;
+    }
+    & div.solution__comment-content{
+      margin-inline-start: 1rem;
+      & * {
         margin-block-start: 0.5em;
+      }
+      & ul {
         margin-inline-start: 1rem;
-    }
-}
-.solution__tags {
-    & h4 {
-        display: inline;
-        &::after {
-            content: ":";
-        }
-    }
-    &:has(h4 + ul:empty) {
-        & h4::after {
-            content: ": none.";
-        }
-    }
-    & ul {
-        padding: 0;
-        display: inline-flex;
-        gap: 0.5rem;
-        list-style: none;
-        & li {
-            background-color: #ddd;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            &[data-tag="JSON"] {
-                background-color: antiquewhite;
-            }
-            &[data-tag="vite"] {
-                background-color: darksalmon;
-            }
-            &[data-tag="nextjs"] {
-                background-color: coral;
-            }
-            &[data-tag="restful"] {
-                background-color: goldenrod;
-            }
-        }
-    }
-}
-.solution__links {
-    & h4 {
-        display: inline;
-        margin-inline-end: 1rem;
-        &::after {
-            content: ":";
-        }
-    }
-    & ul {
-        padding: 0;
-        display: inline-flex;
-        gap: 0.5rem;
-        list-style: none;
-        & li {
-            & a {
-                display: inline-block;
-                padding: 0.25rem 0.5rem;
-                color: inherit;
-                border-radius: 0.25rem;
-                &[data-link="solution-website"] {
-                    background-color: var(--_link-color, peachpuff);
-                }
-                &[data-link="code-repository"] {
-                    background-color: var(--_link-color, navajowhite);
-                }
-            }
-        }
-    }
-}
-.solution__comment {
-    & h4 {
-        display: inline-block;
-        &::after {
-            content: ":";
-        }
-    }
-    &:has(h4 + p:empty) {
-        & h4::after {
-            content: ": none.";
-        }
-    }
-    & p {
-        margin-inline-start: 1.5rem;
-    }
-    & ul,
-    & ol {
-        margin-inline-start: 1.5rem;
         list-style: disc;
-        list-style-position: inside;
-        & ul,
-        & ol {
-            list-style: circle;
+        & li {
+          list-style-position: inside;
         }
-    }
-    & * + * {
-        margin-block-start: 0.5em;
-    }
-}
-.button {
+        & ul {
+          list-style: circle;
+        }
+      }
+    } 
+  }
+  .button {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: transparent;
+    background-color: var(--background-main);
     border: 1px solid black;
-    border-radius: 0.25rem;
-}
-.go-to-top {
+    border-radius: var(--rounded-xs);
+  }
+  .go-to-top {
     position: fixed;
     right: 1rem;
     bottom: 2rem;
     color: inherit;
+    z-index: 100;
+  }
+}
+@layer utility {
+  .text-center {
+    text-align: center;
+  }
 }
