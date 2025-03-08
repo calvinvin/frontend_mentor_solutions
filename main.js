@@ -1,3 +1,4 @@
+// functions
 const createElement = (element) => document.createElement(element);
 const setAttribute = (attribute, value) => (element) => {
   element[attribute] = value;
@@ -28,7 +29,6 @@ const appendToElement = (parentElement) => (childElement) => {
   return parentElement;
 };
 const stripSpaceToDash = (str) => str.replaceAll(" ", "-");
-
 const makeElement = (object) => {
   if (!Object.hasOwn(object, "tagName")) return null;
   return Object.entries(object).reduce((element, currentEntry) => {
@@ -38,7 +38,6 @@ const makeElement = (object) => {
       : setAttribute(attribute, value)(element);
   }, createElement(object.tagName));
 };
-
 const makeTableOfContentElement = (nodeList) => {
   return Array.from(nodeList).reduce((olElement, currentElement) => {
     if (currentElement.tagName === "H2") {
@@ -79,7 +78,10 @@ const makeTableOfContentElement = (nodeList) => {
   }, createElement("ol"));
 };
 
+// elements
 const contentElement = document.getElementById("table-of-contents");
+
+// main
 contentElement.append(
   makeTableOfContentElement(
     document.querySelectorAll("h2.learning-path__heading, h3.solution__heading")
