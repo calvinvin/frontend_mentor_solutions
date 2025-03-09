@@ -1,0 +1,140 @@
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  button {
+    background: inherit;
+    border: none;
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer base {
+  :root {
+    --pale-blue: hsl(225, 100%, 94%);
+    --bright-blue: hsl(245, 75%, 52%);
+    --very-pale-blue: hsl(225, 100%, 98%);
+    --desaturated-blue: hsl(224, 23%, 55%);
+    --dark-blue: hsl(223, 47%, 23%);
+
+    --border-radius-md: 1rem;
+    --border-radius-sm: 0.5rem;
+
+    --fw-regular: 500;
+    --fw-bold: 700;
+    --fw-black: 900;
+  }
+}
+
+@layer layout {
+  body {
+    font-family: "Red Hat Display";
+    font-weight: var(--fw-regular);
+    line-height: 1.67;
+    min-height: 100vh;
+    background-color: var(--very-pale-blue);
+    background-image: url("images/pattern-background-desktop.svg");
+    background-repeat: no-repeat;
+    display: grid;
+    place-items: center;
+    padding-inline: 1.5rem;
+    color: var(--desaturated-blue);
+    @media (max-width: 760px) {
+      & {
+        background-image: url("images/pattern-background-mobile.svg");
+        background-size: contain;
+      }
+    }
+    @media (min-width: 1440px) {
+      & {
+        background-size: contain;
+      }
+    }
+  }
+  .h1 {
+    font-size: 1.75rem;
+    font-weight: var(--fw-black);
+    line-height: 1.2;
+    color: var(--dark-blue);
+  }
+  .p {
+    margin-block-start: 1rem;
+  }
+}
+
+@layer component {
+  .order-summary-component {
+    background-color: white;
+    max-width: 450px;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 1rem 1rem 0 var(--pale-blue);
+  }
+  .component-content {
+    padding: 3rem;
+    padding-block-end: 2rem;
+  }
+  .order-plan {
+    background-color: var(--very-pale-blue);
+    margin-block-start: 1.25rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    border-radius: var(--border-radius-sm);
+    & div {
+      display: grid;
+      & span:nth-child(1) {
+        font-weight: var(--fw-black);
+        color: var(--dark-blue);
+      }
+    }
+    & .order-plan-button {
+      margin-inline-start: auto;
+      font-weight: var(--fw-black);
+      text-decoration: underline;
+      color: var(--bright-blue);
+      &:hover,
+      &:focus-visible {
+        opacity: 0.7;
+      }
+    }
+  }
+  .button {
+    font-size: 0.875rem;
+    cursor: pointer;
+    font-weight: var(--fw-black);
+    padding-inline: 0.5rem;
+  }
+  .order-button {
+    padding-block: 0.875rem;
+    width: 100%;
+    display: block;
+    border-radius: var(--border-radius-sm);
+  }
+  .proceed-button {
+    box-shadow: 0 1rem 0.5rem var(--pale-blue);
+    margin-block-start: 2rem;
+    margin-block-end: 1rem;
+    background-color: var(--bright-blue);
+    color: var(--very-pale-blue);
+    &:hover,
+    &:focus-visible {
+      opacity: 0.7;
+    }
+  }
+}
