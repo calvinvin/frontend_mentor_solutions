@@ -105,6 +105,12 @@
   }
   .card-content {
     padding: 2.5rem 2rem;
+    @media (min-width: 800px) {
+      & {
+        padding: 4.5rem;
+        padding-block-end: 4rem;
+      }
+    }
   }
   .stats-list {
     margin-block-start: 2.5rem;
