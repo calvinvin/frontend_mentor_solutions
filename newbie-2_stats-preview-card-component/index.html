@@ -1,33 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Stats preview card component</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-
-  Get insights that help your business grow.
-
-  Discover the benefits of data analytics and make better decisions regarding revenue, customer 
-  experience, and overall efficiency.
-
-  10k+ companies
-  314 templates
-  12m+ queries
-
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700&family=Lexend+Deca:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Stats preview card component</title>
+  </head>
+  <body>
+    <main class="main">
+      <div class="stats-preview-card-component">
+        <picture class="card-picture">
+          <source
+            srcset="./images/image-header-desktop.jpg"
+            media="(min-width: 760px)"
+          />
+          <img src="./images/image-header-mobile.jpg" alt="" class="card-img" />
+        </picture>
+        <div class="card-content">
+          <h1 class="h1">
+            Get <em class="accent">insights</em> that help your business grow.
+          </h1>
+          <p class="description">
+            Discover the benefits of data analytics and make better decisions
+            regarding revenue, customer experience, and overall efficiency.
+          </p>
+          <ul class="stats-list" role="list">
+            <li>
+              <span class="stats-list__stats-data">10k+</span
+              ><span class="stats-list__stats-heading">companies</span>
+            </li>
+            <li>
+              <span class="stats-list__stats-data">314</span
+              ><span class="stats-list__stats-heading">templates</span>
+            </li>
+            <li>
+              <span class="stats-list__stats-data">12M+</span>
+              <span class="stats-list__stats-heading">queries</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
