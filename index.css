@@ -90,7 +90,9 @@
     padding: 4rem;
     border-radius: var(--rounded-md);
     @media (width < 800px) {
-      padding-inline: 1rem;
+      & {
+        padding-inline: 1rem;
+      }
     }
   }
 }
@@ -102,8 +104,10 @@
     padding: 1rem 4rem;
     color: var(--clr-gray-700);
     @media (width < 800px) {
-      padding-inline: 1.5rem;
-      margin-inline-start: 0;
+      & {
+        padding-inline: 1.5rem;
+        margin-inline-start: 0;
+      }
     }
     border-radius: var(--rounded-md);
     & > ol {
@@ -137,6 +141,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
     align-items: start;
+    gap: 0.5rem 2rem;
     & h3 span.section-counter {
       margin-inline-end: 0.5rem;
     }
