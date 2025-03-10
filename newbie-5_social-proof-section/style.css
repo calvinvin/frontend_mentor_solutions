@@ -12,7 +12,8 @@
   ul {
     list-style: none;
   }
-  svg {
+  svg,
+  img {
     display: block;
     max-width: 100%;
   }
@@ -47,6 +48,7 @@
     font-family: "League Spartan";
     font-weight: var(--fw-regular);
     line-height: 1.6;
+    position: relative;
   }
   .main {
     padding: 4.5rem 1.5rem 6.25rem;
@@ -67,6 +69,20 @@
 }
 
 @layer component {
+  .background-pattern-wrapper {
+    position: absolute;
+    inset: 0;
+  }
+  .background-pattern-img {
+    position: absolute;
+    width: 100%;
+    &.top {
+      inset: 0 0 auto 0;
+    }
+    &.bottom {
+      inset: auto 0 0 0;
+    }
+  }
   .hero {
     text-align: center;
   }
@@ -152,65 +168,73 @@
 }
 
 @media (min-width: 760px) {
-    main {
-        max-width: 1110px;
-        padding-block-start: 7.25rem;
-        margin-inline: auto;
+  main {
+    max-width: 1110px;
+    padding-block-start: 7.25rem;
+    margin-inline: auto;
+  }
+  .background-pattern-img {
+    height: 100%;
+    &.top {
+      width: auto;
+      height: auto;
+      inset: 0 0 0 0;
     }
-    .top-wrapper {
-      grid-template-columns: repeat(2, 1fr);
+    &.bottom {
+      inset: 130px 0 0 350px;
     }
-    .hero {        
-        text-align: start;
-        max-width: 27.5rem;
+  }
+  .top-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero {
+    text-align: start;
+    max-width: 27.5rem;
+  }
+  .hero__heading {
+    font-size: 3.375rem;
+  }
+  .hero__description {
+    font-size: 1.18125rem;
+  }
+  .rating {
+    align-content: center;
+  }
+  .testimonial__card-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.875rem;
+    & li:nth-child(2) {
+      padding-block-start: 1rem;
     }
-    .hero__heading {
-        font-size: 3.375rem;
+    & li:nth-child(3) {
+      padding-block-start: 2rem;
     }
-    .hero__description {
-        font-size: 1.18125rem;
-    }
-    .rating {
-        align-content: center;
-    }
-    .testimonial__card-list {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.875rem;
-      & li:nth-child(2) {
-        padding-block-start: 1rem;
-      }
-      & li:nth-child(3) {
-        padding-block-start: 2rem;
-      }
-    }
-    .testimonial__card {
-      padding-block-end: 2.5rem;
-      font-size: 1.0625rem;
-      text-wrap: balance;
-    }
+  }
+  .testimonial__card {
+    padding-block-end: 2.5rem;
+    font-size: 1.0625rem;
+    text-wrap: balance;
+  }
 }
 
-@media (min-width:1180px) {
-    main {
-        padding-inline: 0;
+@media (min-width: 1180px) {
+  main {
+    padding-inline: 0;
+  }
+  .rating__card-list {
+    width: max-content;
+    margin-inline-start: auto;
+    & li:nth-child(2) {
+      padding-inline-start: 3rem;
     }
-    .rating__card-list {
-        width: max-content;
-        margin-inline-start: auto;
-        & li:nth-child(2) {
-            padding-inline-start: 3rem;
-        }
-        & li:nth-child(3) {
-            padding-inline-start: 6rem;
-        }
+    & li:nth-child(3) {
+      padding-inline-start: 6rem;
     }
-    .rating__card {
-        /* width: 27.75rem; */
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 2rem;
-        padding-block: 1rem;
-
-    }
-} 
-
+  }
+  .rating__card {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding-block: 1rem;
+  }
+}
