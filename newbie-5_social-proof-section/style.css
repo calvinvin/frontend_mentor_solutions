@@ -75,6 +75,7 @@
   }
   .background-pattern-img {
     position: absolute;
+    object-fit: cover;
     width: 100%;
     &.top {
       inset: 0 0 auto 0;
@@ -182,6 +183,8 @@
     }
     &.bottom {
       inset: 130px 0 0 350px;
+      width: calc(100% - 350px);
+      height: calc(100% - 130px);
     }
   }
   .top-wrapper {
