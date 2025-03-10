@@ -1,0 +1,216 @@
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+  }
+  ul {
+    list-style: none;
+  }
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer base {
+  :root {
+    --clr-Very-Dark-Magenta: hsl(300, 43%, 22%);
+    --clr-Soft-Pink: hsl(333, 80%, 67%);
+    --clr-Dark-Grayish-Magenta: hsl(303, 10%, 53%);
+    --clr-Light-Grayish-Magenta: hsl(300, 24%, 96%);
+    --clr-White: hsl(0, 0%, 100%);
+
+    --fs: 0.9375rem;
+    --fw-regular: 400;
+    --fw-bold: 500;
+    --fw-black: 700;
+
+    --background-testimonial-card: var(--clr-Very-Dark-Magenta);
+    --background-rating-card: var(--clr-Light-Grayish-Magenta);
+    --background-main: var(--clr-White);
+    --text-dark: var(--clr-Dark-Grayish-Magenta);
+    --text-light: var(--clr-Light-Grayish-Magenta);
+    --clr-accent: var(--clr-Very-Dark-Magenta);
+
+    --border-radius: 0.5rem;
+  }
+}
+
+@layer layout {
+  body {
+    font-family: "League Spartan";
+    font-weight: var(--fw-regular);
+    line-height: 1.6;
+  }
+  .main {
+    padding: 4.5rem 1.5rem 6.25rem;
+    background-color: var(--background-main);
+    min-height: 100vh;
+  }
+  .top-wrapper {
+    display: grid;
+    gap: 2.5rem;
+  }
+  .rating {
+    container-name: rating-section;
+    container-type: inline-size;
+  }
+  .testimonial {
+    margin-block-start: 3rem;
+  }
+}
+
+@layer component {
+  .hero {
+    text-align: center;
+  }
+  .hero__heading {
+    color: var(--clr-accent);
+    font-weight: var(--fw-black);
+    font-size: 2.5rem;
+    line-height: 0.9;
+  }
+  .hero__description {
+    margin-block-start: 1.25rem;
+    color: var(--text-dark);
+  }
+  .rating__card-list {
+    display: grid;
+    gap: 1rem;
+  }
+  .rating__card {
+    max-width: 27.75rem;
+    margin-inline: auto;
+    background-color: var(--background-rating-card);
+    padding-inline: 2rem;
+    padding-block: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: var(--border-radius);
+    color: var(--clr-accent);
+    font-weight: var(--fw-black);
+  }
+  .rating__stars {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .testimonial__card-list {
+    display: grid;
+    gap: 1rem;
+  }
+  .testimonial__card {
+    background-color: var(--background-testimonial-card);
+    padding: 2.5rem 1.75rem 2rem;
+    border-radius: var(--border-radius);
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+  .testimonial__user-wrapper {
+    display: flex;
+    gap: 1.25rem;
+  }
+  .testimonial__avatar {
+    max-width: 2.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+  .testimonial__user {
+    display: flex;
+    flex-direction: column;
+  }
+  .testimonial__name {
+    font-weight: var(--fw-bold);
+  }
+  .testimonial__identity {
+    color: var(--clr-Soft-Pink);
+    opacity: 0.75;
+  }
+  .testimonial__content {
+    margin-block-start: 1.5rem;
+    max-width: 50ch;
+    margin-inline: auto;
+  }
+}
+
+@layer utility {
+  .visually-hidden {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 760px) {
+    main {
+        max-width: 1110px;
+        padding-block-start: 7.25rem;
+        margin-inline: auto;
+    }
+    .top-wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .hero {        
+        text-align: start;
+        max-width: 27.5rem;
+    }
+    .hero__heading {
+        font-size: 3.375rem;
+    }
+    .hero__description {
+        font-size: 1.18125rem;
+    }
+    .rating {
+        align-content: center;
+    }
+    .testimonial__card-list {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.875rem;
+      & li:nth-child(2) {
+        padding-block-start: 1rem;
+      }
+      & li:nth-child(3) {
+        padding-block-start: 2rem;
+      }
+    }
+    .testimonial__card {
+      padding-block-end: 2.5rem;
+      font-size: 1.0625rem;
+      text-wrap: balance;
+    }
+}
+
+@media (min-width:1180px) {
+    main {
+        padding-inline: 0;
+    }
+    .rating__card-list {
+        width: max-content;
+        margin-inline-start: auto;
+        & li:nth-child(2) {
+            padding-inline-start: 3rem;
+        }
+        & li:nth-child(3) {
+            padding-inline-start: 6rem;
+        }
+    }
+    .rating__card {
+        /* width: 27.75rem; */
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding-block: 1rem;
+
+    }
+} 
+
