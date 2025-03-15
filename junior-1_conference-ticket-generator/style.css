@@ -180,6 +180,9 @@
       outline: 2px solid var(--clr-Neutral-500);
       outline-offset: 2px;
     }
+    &:hover {
+      background-color: hsl(from var(--background-input) h s l / 0.2);
+    }
   }
   .form__field-upload-img-label {
     display: grid;
@@ -258,9 +261,13 @@
     border-radius: var(--border-radius);
     padding-inline-start: 1rem;
     color: var(--clr-Neutral-500);
+    cursor: pointer;
     &:focus {
       outline: 2px solid var(--clr-Neutral-500);
       outline-offset: 2px;
+    }
+    &:hover {
+      background-color: hsl(from var(--background-input) h s l / 0.2);
     }
   }
   .form__field-email-description-svg {
