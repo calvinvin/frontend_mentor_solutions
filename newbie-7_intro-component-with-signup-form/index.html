@@ -45,7 +45,7 @@
                   name="first-name"
                   autocomplete="given-name"
                   placeholder="First Name"
-                  pattern=".*[\w]+.*"
+                  pattern=".*[\S]+.*"
                   required
                 />
                 <!-- pattern="^[^-\s][\w\s-]+$" -->
@@ -67,6 +67,7 @@
                   name="last-name"
                   autocomplete="family-name"
                   placeholder="Last Name"
+                  pattern=".*[\S]+.*"
                   required
                 />
                 <img
@@ -87,6 +88,7 @@
                   name="email"
                   autocomplete="email"
                   placeholder="Email Address"
+                  pattern=".*[\S]+.*"
                   required
                 />
                 <img
@@ -107,6 +109,7 @@
                   name="password"
                   autocomplete="new-password"
                   placeholder="Password"
+                  pattern=".*[\S]+.*"
                   required
                 />
                 <img
