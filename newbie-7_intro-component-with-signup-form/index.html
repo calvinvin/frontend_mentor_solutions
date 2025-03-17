@@ -1,42 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Intro component with sign up form</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-
-  Learn to code by watching others
-
-  See how experienced developers solve problems in real-time. Watching scripted tutorials is great, 
-  but understanding how developers think is invaluable. 
-
-  Try it free 7 days then $20/mo. thereafter
-
-  First Name 
-  Last Name 
-  Email Address
-  Password
-
-  Claim your free trial 
-
-  By clicking the button, you are agreeing to our Terms and Services
-  
-  <footer>
-    <p class="attribution">
-      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-      Coded by <a href="#">Your Name Here</a>.
-    </p>
-  </footer>
-</body>
+    <title>Frontend Mentor | Intro component with sign up form</title>
+  </head>
+  <body>
+    <div class="wrapper-body">
+      <main>
+        <div class="wrapper-left">
+          <h1 class="hero__heading">Learn to code by watching others</h1>
+          <p class="hero__description">
+            See how experienced developers solve problems in real-time. Watching
+            scripted tutorials is great, but understanding how developers think
+            is invaluable.
+          </p>
+        </div>
+        <div class="wrapper-right">
+          <h2 class="right__heading">
+            <em>Try it free 7 days</em> then $20/mo. thereafter
+          </h2>
+          <form class="form">
+            <div class="form__wrapper-field">
+              <label class="visually-hidden" for="first-name">First Name</label>
+              <div class="form__wrapper-input">
+                <input
+                  class="form__input"
+                  id="first-name"
+                  type="text"
+                  name="first-name"
+                  autocomplete="given-name"
+                  placeholder="First Name"
+                  pattern=".*[\w]+.*"
+                  required
+                />
+                <!-- pattern="^[^-\s][\w\s-]+$" -->
+                <img
+                  class="form__error-icon"
+                  src="./images/icon-error.svg"
+                  alt=""
+                />
+              </div>
+              <p class="form__error-message">First Name cannot be empty</p>
+            </div>
+            <div class="form__wrapper-field">
+              <label class="visually-hidden" for="last-name">Last Name</label>
+              <div class="form__wrapper-input">
+                <input
+                  class="form__input"
+                  id="last-name"
+                  type="text"
+                  name="last-name"
+                  autocomplete="family-name"
+                  placeholder="Last Name"
+                  required
+                />
+                <img
+                  class="form__error-icon"
+                  src="./images/icon-error.svg"
+                  alt=""
+                />
+              </div>
+              <p class="form__error-message">Last Name cannot be empty</p>
+            </div>
+            <div class="form__wrapper-field">
+              <label class="visually-hidden" for="email">Email Address</label>
+              <div class="form__wrapper-input">
+                <input
+                  class="form__input"
+                  id="email"
+                  type="email"
+                  name="email"
+                  autocomplete="email"
+                  placeholder="Email Address"
+                  required
+                />
+                <img
+                  class="form__error-icon"
+                  src="./images/icon-error.svg"
+                  alt=""
+                />
+              </div>
+              <p class="form__error-message">Looks like this is not an email</p>
+            </div>
+            <div class="form__wrapper-field">
+              <label class="visually-hidden" for="password">Password</label>
+              <div class="form__wrapper-input">
+                <input
+                  class="form__input"
+                  id="password"
+                  type="password"
+                  name="password"
+                  autocomplete="new-password"
+                  placeholder="Password"
+                  required
+                />
+                <img
+                  class="form__error-icon"
+                  src="./images/icon-error.svg"
+                  alt=""
+                />
+              </div>
+              <p class="form__error-message">Password cannot be empty</p>
+            </div>
+            <div class="form__wrapper-field">
+              <button class="form__submit button">Claim your free trial</button>
+              <p class="form__term">
+                By clicking the button, you are agreeing to our
+                <a class="form__term-link" href="#">Terms and Services</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </body>
 </html>
