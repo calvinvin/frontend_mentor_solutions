@@ -261,6 +261,9 @@
     .form__error-icon {
       right: 1.5rem;
     }
+    .form__input {
+      padding-inline-start: 1.875rem;
+    }
     .form__term {
       margin-block-start: 1rem;
     }
