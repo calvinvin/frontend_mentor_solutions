@@ -1,36 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Todo app</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-
-  Todo
-
-  <!-- Add dynamic number --> items left
-
-  All
-  Active 
-  Completed
-
-  Clear Completed
-
-  Drag and drop to reorder list
-
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    <title>Frontend Mentor | Todo app</title>
+  </head>
+  <body>
+    <main>
+      <div class="wrapper" data-content="main">
+        <header class="wrapper" data-content="header">
+          <h1 class="header__heading">Todo</h1>
+          <button
+            id="switch-color-scheme-button"
+            class="color-theme-wrapper button"
+          >
+            <span class="visually-hidden">Switch color scheme</span>
+          </button>
+        </header>
+        <div class="create-todo-wrapper row">
+          <div class="create-todo__circle circle"></div>
+          <form id="create-todo__form" class="create-todo__form">
+            <input
+              class="create-todo__input"
+              type="text"
+              name="todo"
+              placeholder="Create a new todo..."
+            />
+          </form>
+        </div>
+        <div class="todo-list-wrapper">
+          <ol class="todo-list" role="list">
+            <template id="todo-row-template">
+              <li
+                class="todo-item row"
+                id=""
+                data-number=""
+                data-status="active"
+                draggable="true"
+                ondragstart="handleDragStart(event)"
+                ondragover="handleDragOver(event)"
+                ondrop="handleDrop(event)"
+              >
+                <button class="todo-item__status-wrapper button circle">
+                  <svg
+                    class="todo-item__status-svg"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="11"
+                    height="9"
+                  >
+                    <path
+                      fill="none"
+                      stroke="#FFF"
+                      stroke-width="2"
+                      d="M1 4.304L3.696 7l6-6"
+                    />
+                  </svg>
+                </button>
+                <p class="todo-item__description"></p>
+                <button class="todo-item__delete-wrapper button">
+                  <svg
+                    class="todo-item__delete-svg"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 18 18"
+                  >
+                    <path
+                      fill="#494C6B"
+                      fill-rule="evenodd"
+                      d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
+                    />
+                  </svg>
+                </button>
+              </li>
+            </template>
+            <!-- <li
+              class="todo-item row"
+              id="todo-item-1"
+              data-number="1"
+              data-status="completed"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              ondragover="handleDragOver(event)"
+              ondrop="handleDrop(event)"
+            >
+              <button class="todo-item__status-wrapper button circle">
+                <svg
+                  class="todo-item__status-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="11"
+                  height="9"
+                >
+                  <path
+                    fill="none"
+                    stroke="#FFF"
+                    stroke-width="2"
+                    d="M1 4.304L3.696 7l6-6"
+                  />
+                </svg>
+              </button>
+              <p class="todo-item__description">
+                Complete online JavaScript course
+              </p>
+              <button class="todo-item__delete-wrapper button">
+                <svg
+                  class="todo-item__delete-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 18 18"
+                >
+                  <path
+                    fill="#494C6B"
+                    fill-rule="evenodd"
+                    d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              class="todo-item row"
+              id="todo-item-2"
+              data-number="2"
+              data-status="active"
+              draggable="true"
+              ondragstart="handleDragStart(event);"
+              ondragover="handleDragOver(event)"
+              ondrop="handleDrop(event);"
+            >
+              <button class="todo-item__status-wrapper button circle">
+                <svg
+                  class="todo-item__status-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="11"
+                  height="9"
+                >
+                  <path
+                    fill="none"
+                    stroke="#FFF"
+                    stroke-width="2"
+                    d="M1 4.304L3.696 7l6-6"
+                  />
+                </svg>
+              </button>
+              <p class="todo-item__description">Jog around the par 3x</p>
+              <button class="todo-item__delete-wrapper button">
+                <svg
+                  class="todo-item__delete-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 18 18"
+                >
+                  <path
+                    fill="#494C6B"
+                    fill-rule="evenodd"
+                    d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              class="todo-item row"
+              id="todo-item-3"
+              data-number="3"
+              data-status="active"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              ondragover="handleDragOver(event)"
+              ondrop="handleDrop(event)"
+            >
+              <button class="todo-item__status-wrapper button circle">
+                <svg
+                  class="todo-item__status-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="11"
+                  height="9"
+                >
+                  <path
+                    fill="none"
+                    stroke="#FFF"
+                    stroke-width="2"
+                    d="M1 4.304L3.696 7l6-6"
+                  />
+                </svg>
+              </button>
+              <p class="todo-item__description">10 minutes meditation</p>
+              <button class="todo-item__delete-wrapper button">
+                <svg
+                  class="todo-item__delete-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 18 18"
+                >
+                  <path
+                    fill="#494C6B"
+                    fill-rule="evenodd"
+                    d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              class="todo-item row"
+              id="todo-item-4"
+              data-number="4"
+              data-status="active"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              ondragover="handleDragOver(event)"
+              ondrop="handleDrop(event)"
+            >
+              <button class="todo-item__status-wrapper button circle">
+                <svg
+                  class="todo-item__status-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="11"
+                  height="9"
+                >
+                  <path
+                    fill="none"
+                    stroke="#FFF"
+                    stroke-width="2"
+                    d="M1 4.304L3.696 7l6-6"
+                  />
+                </svg>
+              </button>
+              <p class="todo-item__description">Read for 1 hour</p>
+              <button class="todo-item__delete-wrapper button">
+                <svg
+                  class="todo-item__delete-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 18 18"
+                >
+                  <path
+                    fill="#494C6B"
+                    fill-rule="evenodd"
+                    d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              class="todo-item row"
+              id="todo-item-5"
+              data-number="5"
+              data-status="active"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              ondragover="handleDragOver(event)"
+              ondrop="handleDrop(event)"
+            >
+              <button class="todo-item__status-wrapper button circle">
+                <svg
+                  class="todo-item__status-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="11"
+                  height="9"
+                >
+                  <path
+                    fill="none"
+                    stroke="#FFF"
+                    stroke-width="2"
+                    d="M1 4.304L3.696 7l6-6"
+                  />
+                </svg>
+              </button>
+              <p class="todo-item__description">Pick up groceries</p>
+              <button class="todo-item__delete-wrapper button">
+                <svg
+                  class="todo-item__delete-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 18 18"
+                >
+                  <path
+                    fill="#494C6B"
+                    fill-rule="evenodd"
+                    d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              class="todo-item row"
+              id="todo-item-6"
+              data-number="6"
+              data-status="active"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              ondragover="handleDragOver(event)"
+              ondrop="handleDrop(event)"
+            >
+              <button class="todo-item__status-wrapper button circle">
+                <svg
+                  class="todo-item__status-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="11"
+                  height="9"
+                >
+                  <path
+                    fill="none"
+                    stroke="#FFF"
+                    stroke-width="2"
+                    d="M1 4.304L3.696 7l6-6"
+                  />
+                </svg>
+              </button>
+              <p class="todo-item__description">
+                Complete Todo App on Frontend Mentor
+              </p>
+              <button class="todo-item__delete-wrapper button">
+                <svg
+                  class="todo-item__delete-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 18 18"
+                >
+                  <path
+                    fill="#494C6B"
+                    fill-rule="evenodd"
+                    d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
+                  />
+                </svg>
+              </button>
+            </li> -->
+          </ol>
+          <div class="wrapper status-bar-wrapper row" data-content="status-bar">
+            <p class="item-amount">
+              <span id="item-amount__number"></span> items left
+            </p>
+            <form class="todo-filter-form desktop">
+              <menu class="todo-filter-list desktop" role="list">
+                <li>
+                  <label class="todo-filter__label">
+                    All
+                    <input
+                      class="visually-hidden"
+                      name="todo-filter"
+                      value="all"
+                      type="radio"
+                      checked
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label class="todo-filter__label">
+                    Active
+                    <input
+                      class="visually-hidden"
+                      name="todo-filter"
+                      value="active"
+                      type="radio"
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label class="todo-filter__label">
+                    Completed
+                    <input
+                      class="visually-hidden"
+                      name="todo-filter"
+                      value="completed"
+                      type="radio"
+                    />
+                  </label>
+                </li>
+              </menu>
+            </form>
+            <button
+              id="clear-completed-button"
+              class="clear-completed-button button"
+            >
+              Clear Completed
+            </button>
+          </div>
+        </div>
+        <form class="todo-filter-form mobile">
+          <menu class="todo-filter-list mobile row" role="list">
+            <li>
+              <label class="todo-filter__label">
+                All
+                <input
+                  class="visually-hidden"
+                  name="todo-filter"
+                  value="all"
+                  type="radio"
+                  checked
+                />
+              </label>
+            </li>
+            <li>
+              <label class="todo-filter__label">
+                Active
+                <input
+                  class="visually-hidden"
+                  name="todo-filter"
+                  value="active"
+                  type="radio"
+                />
+              </label>
+            </li>
+            <li>
+              <label class="todo-filter__label">
+                Completed
+                <input
+                  class="visually-hidden"
+                  name="todo-filter"
+                  value="completed"
+                  type="radio"
+                />
+              </label>
+            </li>
+          </menu>
+        </form>
+        <p class="drag">Drag and drop to reorder list</p>
+      </div>
+    </main>
+  </body>
 </html>
