@@ -20,6 +20,19 @@
     <title>Frontend Mentor | Interactive comments section</title>
   </head>
   <body>
+    <template id="template-edit-form">
+      <form class="edit-form__form">
+        <div class="wrapper" data-content="edit-comment">
+          <input type="text" name="replying-to" hidden />
+          <input type="text" name="post-id" hidden />
+          <textarea
+            class="edit-comment__textarea"
+            name="edited-content"
+          ></textarea>
+          <button class="edit-comment__submit-button">update</button>
+        </div>
+      </form>
+    </template>
     <template id="template-reply-form">
       <form class="new-comment__form reply-form">
         <div class="wrapper" data-content="new-comment" data-type="reply-reply">
@@ -683,7 +696,7 @@
           </div>
         </form>
       </div>
-      <dialog class="modal">
+      <dialog class="modal" id="delete-confirm-modal">
         <div class="wrapper" data-content="modal">
           <h2 class="modal__heading">Delete comment</h2>
           <p class="modal__description">
@@ -691,12 +704,20 @@
             comment and can't be undone.
           </p>
           <form class="modal__form" id="delete-confirm-form">
-            <input type="text" name="delete-post-id" value="" hidden />
+            <input
+              type="text"
+              id="delete-post-id"
+              name="delete-post-id"
+              value=""
+              hidden
+            />
             <div class="modal__button-wrapper">
-              <button class="modal__button cancel" formmethod="dialog">
+              <button class="modal__button cancel" value="cancel-delete">
                 No, cancel
               </button>
-              <button class="modal__button delete">Yes, delete</button>
+              <button class="modal__button delete" value="confirm-delete">
+                Yes, delete
+              </button>
             </div>
           </form>
         </div>

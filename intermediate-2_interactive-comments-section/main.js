@@ -1,6 +1,8 @@
+// initilaize
 attachHandleSelectUser();
 attachHandleSubmitReply();
 attachHandleClickResetButton();
+attachHandleConfirmDeleteModal();
 let localData = localStorage.getItem("data");
 if (localData) {
   renderPage();
@@ -8,6 +10,7 @@ if (localData) {
   loadData();
 }
 
+// initialize functions
 function attachHandleSelectUser() {
   const selectUserForm = document.getElementById("select-user-form");
   selectUserForm.addEventListener("change", handleSelectUser);
@@ -22,12 +25,22 @@ function attachHandleClickResetButton() {
     .getElementById("reset-button")
     .addEventListener("click", handleClickResetButton);
 }
+function attachHandleConfirmDeleteModal() {
+  document
+    .getElementById("delete-confirm-modal")
+    .querySelectorAll("button.modal__button")
+    .forEach((modalButton) =>
+      modalButton.addEventListener("click", handleConfirmDeleteModal)
+    );
+}
 async function loadData() {
   const response = await fetch("./data.json");
   const data = await response.json();
   localStorage.setItem("data", JSON.stringify(data));
   renderPage();
 }
+
+// render functions
 function renderPage() {
   renderUserOptions();
   renderCurrentUser();
@@ -63,12 +76,10 @@ function renderCurrentUser() {
   const currentUserAvatars = document.querySelectorAll(".current-user.avatar");
   const currentUserInputs = document.querySelectorAll("input[name='author']");
   currentUserAvatars.forEach((avatarElement) => {
-    avatarElement.src = currentUser.image.webp;
-    avatarElement.alt = currentUser.username;
+    setUserAvatarImg(avatarElement, currentUser);
   });
   currentUserInputs.forEach((inputElement) => {
-    inputElement.setAttribute("value", currentUser.username);
-    inputElement.value = currentUser.username;
+    setValueOfInputElement(inputElement, currentUser.username);
   });
 }
 function renderComments() {
@@ -83,7 +94,6 @@ function renderComments() {
 function reRenderRepliedComment(replyObject) {
   const { originPostId } = replyObject;
   if (!originPostId) {
-    // console.log(replyObject);
     document
       .getElementById("comments-list")
       .appendChild(CommentListItem(replyObject));
@@ -101,6 +111,36 @@ function reRenderRepliedComment(replyObject) {
     )
   );
 }
+function reRenderEditedComment(postId) {
+  const { comments } = JSON.parse(localStorage.getItem("data"));
+  let articleObject;
+  comments.forEach((comment) => {
+    if (comment.id === Number(postId)) {
+      articleObject = comment;
+    } else {
+      comment.replies.forEach((reply) => {
+        if (reply.id === Number(postId)) {
+          articleObject = reply;
+        }
+      });
+    }
+  });
+  const templateArticleElement = document.getElementById("template-article");
+  const clonedArticleElement = templateArticleElement.content.cloneNode(true);
+  const newContentWrapperElement = clonedArticleElement.querySelector(
+    "div.wrapper[data-content='content']"
+  );
+  newContentWrapperElement.querySelector("p.content__reply-to").textContent =
+    articleObject.replyingTo;
+  newContentWrapperElement.querySelector("p.content__content").textContent =
+    articleObject.content;
+  const toBeUpdatedContentWrapperElement = document
+    .querySelector(`article[data-id="${postId}"]`)
+    .querySelector("div.wrapper[data-content='content']");
+  toBeUpdatedContentWrapperElement.replaceWith(newContentWrapperElement);
+}
+
+// utility functions
 function getUserByUsername(username) {
   return JSON.parse(localStorage.getItem("data")).users.filter(
     (user) => user.username === username
@@ -120,7 +160,7 @@ function setUserAvatarImg(imgElement, user) {
 function saveData(object) {
   localStorage.setItem("data", JSON.stringify(object));
 }
-function replyDataObject(replyObject) {
+function dataObjectReplied(replyObject) {
   const { originPostId, ...postObject } = replyObject;
   const { comments, ...otherProperties } = JSON.parse(
     localStorage.getItem("data")
@@ -138,7 +178,32 @@ function replyDataObject(replyObject) {
     : [...comments, replyObject];
   return { comments: newComments, ...otherProperties };
 }
-function deleteDataObject(deletePostId) {
+function deletePost(deletePostId) {
+  const data = JSON.parse(localStorage.getItem("data"));
+  const deleteArticleElement = document.querySelector(
+    `article[data-id="${deletePostId}"]`
+  );
+  const deletePostIsOriginPost = data.comments
+    .map((comment) => comment.id)
+    .includes(deletePostId);
+  if (deletePostIsOriginPost) {
+    deleteArticleElement.closest("li").remove();
+  } else {
+    const originPost = data.comments.filter((comment) =>
+      comment.replies.map((reply) => reply.id).includes(deletePostId)
+    )[0];
+    const deletePostIsTheOnlyReply = originPost.replies.length === 1;
+    if (deletePostIsTheOnlyReply) {
+      deleteArticleElement
+        .closest("div.wrapper[data-content='replies']")
+        .remove();
+    } else {
+      deleteArticleElement.remove();
+    }
+  }
+  saveData(dataObjectDeleted(deletePostId));
+}
+function dataObjectDeleted(deletePostId) {
   const { comments, ...otherProperties } = JSON.parse(
     localStorage.getItem("data")
   );
@@ -168,6 +233,38 @@ function deleteDataObject(deletePostId) {
     return { comments: newComments, ...otherProperties };
   }
 }
+function dataObjectEdited(editObject) {
+  const { postId, replyingTo, content } = editObject;
+  const { comments, ...otherProperties } = JSON.parse(
+    localStorage.getItem("data")
+  );
+  const newComments = comments.map((comment) => {
+    if (comment.id === Number(postId)) {
+      const newComment = comment;
+      newComment.content = content;
+      return newComment;
+    } else if (
+      comment.replies.map((reply) => reply.id).includes(Number(postId))
+    ) {
+      const { replies, ...otherPropertiesOfComment } = comment;
+      const newReplies = replies.map((reply) => {
+        if (reply.id === Number(postId)) {
+          const newReply = reply;
+          newReply.content = content;
+          return newReply;
+        } else {
+          return reply;
+        }
+      });
+      return { replies: newReplies, ...otherPropertiesOfComment };
+    } else {
+      return comment;
+    }
+  });
+  return { comments: newComments, ...otherProperties };
+}
+
+// event actions
 function handleSelectUser(e) {
   const selectedOptionElement = e.target.querySelector("option:checked");
   if (selectedOptionElement.id === "log-out-option") {
@@ -177,41 +274,53 @@ function handleSelectUser(e) {
   }
   const selectedUsername = selectedOptionElement.value;
   setCurrentUsername(selectedUsername);
-  renderUserOptions();
-  renderCurrentUser();
-  renderComments();
+  renderPage();
 }
 function handleClickResetButton(e) {
   loadData();
 }
 function handleClickDeleteButton(e) {
   const deletePostId = Number(e.target.closest("article[data-id]").dataset.id);
-  const data = JSON.parse(localStorage.getItem("data"));
-  const deleteArticleElement = document.querySelector(
-    `article[data-id="${deletePostId}"]`
+  const confirmDeleteModal = document.getElementById("delete-confirm-modal");
+  setValueOfInputElement(
+    document.getElementById("delete-post-id"),
+    deletePostId
   );
-  const deleteOriginPost = data.comments
-    .map((comment) => comment.id)
-    .includes(deletePostId);
-  if (deleteOriginPost) {
-    deleteArticleElement.closest("li").remove();
-  } else {
-    const originPost = data.comments.filter((comment) =>
-      comment.replies.map((reply) => reply.id).includes(deletePostId)
-    )[0];
-    const deleteOnlyReply = originPost.replies.length === 1;
-    if (deleteOnlyReply) {
-      deleteArticleElement
-        .closest("div.wrapper[data-content='replies']")
-        .remove();
-    } else {
-      deleteArticleElement.remove();
-    }
-  }
-  saveData(deleteDataObject(deletePostId));
+  confirmDeleteModal.showModal();
 }
-function handleClickEditButton(e) {}
-
+function handleClickEditButton(e) {
+  const templateEditFormElement = document.getElementById("template-edit-form");
+  const clonedEditFormElement = templateEditFormElement.content.cloneNode(true);
+  const articleElement = e.currentTarget.closest("article[data-id]");
+  const contentWrapperElement = articleElement.querySelector(
+    "div.wrapper[data-content='content']"
+  );
+  const isAlreadyEditing = contentWrapperElement.querySelector(
+    "form.edit-form__form"
+  );
+  if (isAlreadyEditing) return;
+  const replyingTo = contentWrapperElement.querySelector(
+    "p.content__reply-to"
+  ).textContent;
+  const oldContent =
+    contentWrapperElement.querySelector("p.content__content").textContent;
+  setValueOfInputElement(
+    clonedEditFormElement.querySelector("input[name='replying-to']"),
+    replyingTo
+  );
+  setValueOfInputElement(
+    clonedEditFormElement.querySelector("input[name='post-id']"),
+    articleElement.dataset.id
+  );
+  clonedEditFormElement.querySelector(
+    "textarea"
+  ).value = `@${replyingTo} ${oldContent}`;
+  clonedEditFormElement
+    .querySelector("form.edit-form__form")
+    .addEventListener("submit", handleSubmitEdit);
+  contentWrapperElement.innerText = "";
+  contentWrapperElement.appendChild(clonedEditFormElement);
+}
 function handleClickReplyButton(e) {
   const loggedIn = localStorage.getItem("username");
   if (!loggedIn) {
@@ -221,8 +330,8 @@ function handleClickReplyButton(e) {
   }
   const articleWrapper = e.target.closest("div.wrapper[data-content='article'");
   const articleElement = articleWrapper.closest("article[data-id]");
-  const alreadyReplying = articleElement.querySelector("form.reply-form");
-  if (alreadyReplying) return;
+  const isAlreadyReplying = articleElement.querySelector("form.reply-form");
+  if (isAlreadyReplying) return;
   const commentWrapper = articleElement.closest(
     "div.wrapper[data-content='comment'"
   );
@@ -231,7 +340,6 @@ function handleClickReplyButton(e) {
   const replyingTo = articleElement.querySelector(
     "h2.metadata__author"
   ).textContent;
-  console.log(replyingTo);
   articleElement.appendChild(
     ReplyForm(
       getUserByUsername(localStorage.getItem("username")),
@@ -271,8 +379,35 @@ function handleSubmitReply(e) {
   };
   console.log(replyObject.replyingTo);
   if (!replyObject.replyingTo) replyObject.replies = [];
-  saveData(replyDataObject(replyObject));
+  saveData(dataObjectReplied(replyObject));
   reRenderRepliedComment(replyObject);
+}
+function handleSubmitEdit(e) {
+  e.preventDefault();
+  const formObject = Object.fromEntries(new FormData(e.currentTarget));
+  const splitContentArray = formObject["edited-content"].split(
+    `@${formObject["replying-to"]}`
+  );
+  const editObject = {
+    postId: formObject["post-id"],
+    replyingTo: formObject["replying-to"],
+    content:
+      splitContentArray.length === 1
+        ? splitContentArray[0]
+        : splitContentArray[1].trim(),
+  };
+  saveData(dataObjectEdited(editObject));
+  reRenderEditedComment(editObject.postId);
+}
+function handleConfirmDeleteModal(e) {
+  e.preventDefault();
+  const buttonValue = e.currentTarget.value;
+  const dialogElement = document.getElementById("delete-confirm-modal");
+  dialogElement.close();
+  if (buttonValue !== "confirm-delete") return;
+  const deletePostId = document.getElementById("delete-post-id").value;
+  deletePost(Number(deletePostId));
+  setValueOfInputElement(document.getElementById("delete-post-id"), "");
 }
 function handleClickScoreButton(e) {
   const buttonElement = e.currentTarget;
@@ -312,8 +447,10 @@ function handleClickScoreButton(e) {
   });
   saveData({ comments: newComments, ...otherProperties });
 }
+
+// components
 function UserOption(user) {
-  const { username, image } = user;
+  const { username } = user;
   const templateUserOption = document.getElementById("template-user-option");
   const clonedUserOption = templateUserOption.content.cloneNode(true);
   const userOptionElement = clonedUserOption.querySelector("option");

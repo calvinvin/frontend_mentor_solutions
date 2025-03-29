@@ -157,6 +157,10 @@
   .wrapper[data-content="content"] {
     grid-area: content;
   }
+  .wrapper[data-content="edit-comment"] {
+    display: grid;
+    row-gap: var(--gap-md);
+  }
   .wrapper[data-content="new-comment"] {
     padding: 1rem 1rem 0.75rem;
     display: grid;
@@ -300,7 +304,8 @@
       }
     }
   }
-  .new-comment__textarea {
+  .new-comment__textarea,
+  .edit-comment__textarea {
     padding: 1rem 1.25rem;
     height: 6lh;
     color: var(--clr-Dark-blue);
@@ -312,13 +317,17 @@
       outline-offset: 1px;
     }
   }
-  .new-comment__submit-button {
+  .new-comment__submit-button,
+  .edit-comment__submit-button {
     padding: 0.75rem 1.5rem;
     background-color: var(--color-accent);
     color: var(--clr-White);
     font-weight: var(--fw-bold);
     border-radius: 0.5rem;
     text-transform: uppercase;
+    &.edit-comment__submit-button {
+      justify-self: end;
+    }
     &:focus-visible {
       background-color: var(--color-accent-faded);
     }
