@@ -1,0 +1,476 @@
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+  }
+  button {
+    border: none;
+  }
+}
+
+
+@layer base {
+  * {
+    transition-property: color, background-color, box-shadow;
+    transition-duration: 0.15s;
+    transition-timing-function: linear;
+  }
+  body {
+    padding: 1.5rem 1.5rem 2rem;
+    font-size: 2rem;
+    font-family: "League Spartan";
+    font-weight: 700;
+    background-color: var(--background-main);
+  }
+}
+
+@layer layout {
+  .wrapper[data-content="main"] {
+    max-width: min(100vw, 33.75rem);
+    margin-inline: auto;
+    max-height: 100vh;
+  }
+  .wrapper[data-content="header"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .wrapper[data-content="theme"] {
+    --_cell-width: 1.5rem;
+    --_indicator-width: 1rem;
+    --_indicator-tract-starting-X: calc(var(--_cell-width) / 2);
+    --_border-radius: calc(var(--_indicator-width) / 2);
+    --_half-width: calc(var(--_indicator-width) * 0.5 + var(--_cell-width));
+    --_full-width: calc(var(--_indicator-width) * 0.5 + var(--_cell-width) * 2);
+    --_transition-time: 0.15s;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(2, var(--_cell-width));
+    column-gap: var(--_cell-width);
+    & .theme__heading-wrapper {
+      grid-column: 1 / 2;
+      grid-row: 2 / -1;
+    }
+    & form {
+      grid-column: 2 / -1;
+      grid-row: 1 / -1;
+    }
+  }
+  .wrapper[data-content="theme-control"] {
+    display: grid;
+    grid-template-columns: repeat(3, var(--_cell-width));
+    grid-template-rows: repeat(2, var(--_cell-width));
+    position: relative;
+    & label {
+      grid-row: span 2;
+    }
+  }
+  .wrapper[data-content="theme-panel"] {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    grid-column: 1 / -1;
+    grid-row: 2 / -1;
+    display: flex;
+    background-color: var(--background-panel);
+    border-radius: 2rem;
+  }
+  .wrapper[data-content="display-panel"] {
+    margin-block-start: 2rem;
+    height: 5.5rem;
+    padding-inline-end: 1.5rem;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-size: 3rem;
+    color: var(--text);
+    background-color: var(--background-display);
+    border-radius: 0.75rem;
+  }
+  .wrapper[data-content="button-panel"] {
+    margin-block-start: 1.5rem;
+    padding: 1.5rem 1.5rem 1.75rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem 0.75rem;
+    background-color: var(--background-panel);
+    border-radius: 0.75rem;
+    & > menu {
+      display: contents;
+    }
+  }
+}
+
+@layer components {
+  .h1 {
+    color: var(--text);
+  }
+  .theme__heading-wrapper {
+    display: grid;
+    place-items: center;
+  }
+  .theme__heading {
+    font-size: 1rem;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  .theme__label {
+    font-size: 1rem;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    color: var(--text);
+    cursor: pointer;
+    z-index: 100;
+    & > p {
+      display: grid;
+      place-items: center;
+    }
+  }
+  .theme__indicator-wrapper {
+    width: var(--_cell-width);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    position: relative;
+    &.theme-1 {
+      & .theme__indicator-track {
+        left: 50%;
+        width: var(--_full-width);
+        border-top-right-radius: var(--_border-radius);
+        border-bottom-right-radius: var(--_border-radius);
+        transform-origin: left;
+      }
+    }
+    &.theme-2 {
+      & .theme__indicator-track.to-left {
+        right: 50%;
+        width: var(--_half-width);
+        border-top-left-radius: var(--_border-radius);
+        border-bottom-left-radius: var(--_border-radius);
+        transform-origin: right;
+      }
+      & .theme__indicator-track.to-right {
+        left: 50%;
+        width: var(--_half-width);
+        border-top-right-radius: var(--_border-radius);
+        border-bottom-right-radius: var(--_border-radius);
+        transform-origin: left;
+      }
+    }
+    &.theme-3 {
+      & .theme__indicator-track {
+        right: 50%;
+        width: var(--_full-width);
+        border-top-left-radius: var(--_border-radius);
+        border-bottom-left-radius: var(--_border-radius);
+        transform-origin: right;        
+      }
+    }
+  }
+  .theme__indicator, .theme__indicator-shadow {
+    width: var(--_indicator-width);
+    aspect-ratio: 1;
+    background-color: var(--background-button-accent);
+    border-radius: 50%;
+    transition: transform var(--_transition-time) ease;
+    &.theme__indicator {
+      z-index: 50;
+      position: absolute;
+    }
+    &.theme__indicator-shadow {
+      z-index: -100;
+      background-color: var(--shadow-button-accent);
+      transition-delay: var(--_transition-time);
+    }
+  }
+  .theme__indicator-track {
+    position: absolute;
+    height: var(--_indicator-width);
+    background-color: var(--background-button-accent);
+    opacity: .3;
+    transform: scaleX(0);
+    transition: none;
+  }
+  .button {
+    --_color-text: var(--text-button-number);
+    --_color-background: var(--background-button-number);
+    --_color-shadow: var(--shadow-button-number);
+    aspect-ratio: 1;
+    display: grid;
+    place-content: center;
+    color: var(--_color-text);
+    text-transform: uppercase;
+    background-color: var(--_color-background);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0 0 var(--_color-shadow);
+    cursor: pointer;
+    &.alert {
+      --_color-text: var(--text-button-alert);
+      --_color-background: var(--background-button-alert);
+      --_color-shadow: var(--shadow-button-alert);
+    }
+    &.accent {
+      --_color-text: var(--text-button-accent);
+      --_color-background: var(--background-button-accent);
+      --_color-shadow: var(--shadow-button-accent);
+    }
+    &.col-span-2 {
+      aspect-ratio: 2/1;
+      grid-column: span 2;
+    }
+  }
+}
+
+@layer color-theme {
+  body[data-theme=""] {
+    --background-main: hsl(0, 0%, 90%);
+    --background-panel: hsl(0, 5%, 81%);
+    --background-display: hsl(0, 0%, 93%);
+    --background-button-number: hsl(45, 7%, 89%);
+    --shadow-button-number: hsl(35, 11%, 61%);
+    --background-button-alert: hsl(185, 42%, 37%);
+    --shadow-button-alert: hsl(185, 58%, 25%);
+    --background-button-accent: hsl(25, 98%, 40%);
+    --shadow-button-accent: hsl(25, 99%, 27%);
+    --text: hsl(60, 10%, 19%);
+    --text-button-number: hsl(60, 10%, 19%);
+    --text-button-alert: hsl(0, 0%, 100%);
+    --text-button-accent: hsl(0, 0%, 100%);
+    & .wrapper[data-content="theme-control"] {
+      & .theme__indicator {
+        transform: translateX(0);
+      }
+      &:has(input[value="2"]:hover, input[value="2"]:focus-visible) {
+        & .theme__indicator-wrapper.theme-1 {
+          & .theme__indicator-shadow {
+            transform: translateX(calc(var(--_cell-width) * 1));
+            z-index: 50;
+            transition: transform var(--_transition-time);
+          }
+          & .theme__indicator-track {
+            transform: scaleX(calc(var(--_cell-width) / var(--_full-width)));
+            transition: transform var(--_transition-time);
+          }
+        }
+      }
+      &:has(input[value="3"]:hover, input[value="3"]:focus-visible) {
+        & .theme__indicator-wrapper.theme-1 {
+          & .theme__indicator-shadow {
+            transform: translateX(calc(var(--_cell-width) * 2));
+            z-index: 50;
+            transition: transform var(--_transition-time);
+          }
+          & .theme__indicator-track.to-right {
+            transform: scaleX(100%);
+            transition: transform var(--_transition-time);
+          }
+        }
+      }
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    body[data-theme=""] {
+      --background-main: hsl(222, 26%, 31%);
+      --background-panel: hsl(223, 31%, 20%);
+      --background-display: hsl(224, 36%, 15%);
+      --background-button-number: hsl(30, 25%, 89%);
+      --shadow-button-number: hsl(28, 16%, 65%);
+      --background-button-alert: hsl(225, 21%, 49%);
+      --shadow-button-alert: hsl(224, 28%, 35%);
+      --background-button-accent: hsl(6, 63%, 50%);
+      --shadow-button-accent: hsl(6, 70%, 34%);
+      --text: hsl(0, 0%, 100%);
+      --text-button-number: hsl(221, 14%, 31%);
+      --text-button-alert: hsl(0, 0%, 100%);
+      --text-button-accent: hsl(0, 0%, 100%);
+      & .wrapper[data-content="theme-control"] {
+        & .theme__indicator {
+          transform: translateX(calc(var(--_cell-width) * 1));
+        }
+        &:has(input[value="1"]:hover, input[value="1"]:focus-visible) {
+          & .theme__indicator-wrapper.theme-2 {
+            & .theme__indicator-shadow {
+              transform: translateX(calc(var(--_cell-width) * -1));
+              z-index: 50;
+              transition: transform var(--_transition-time);
+            }
+            & .theme__indicator-track.to-left {
+              transform: scaleX(100%);
+              transition: transform var(--_transition-time);
+            }
+          }
+        }
+        &:has(input[value="3"]:hover, input[value="3"]:focus-visible) {
+          & .theme__indicator-wrapper.theme-2 {
+            & .theme__indicator-shadow {
+              transform: translateX(calc(var(--_cell-width) * 1));
+              z-index: 50;
+              transition: transform var(--_transition-time);
+            }
+            & .theme__indicator-track.to-right {
+              transform: scaleX(100%);
+              transition: transform var(--_transition-time);
+            }
+          }
+        }
+      }
+    }
+  }
+  body[data-theme="1"] {
+    --background-main: hsl(0, 0%, 90%);
+    --background-panel: hsl(0, 5%, 81%);
+    --background-display: hsl(0, 0%, 93%);
+    --background-button-number: hsl(45, 7%, 89%);
+    --shadow-button-number: hsl(35, 11%, 61%);
+    --background-button-alert: hsl(185, 42%, 37%);
+    --shadow-button-alert: hsl(185, 58%, 25%);
+    --background-button-accent: hsl(25, 98%, 40%);
+    --shadow-button-accent: hsl(25, 99%, 27%);
+    --text: hsl(60, 10%, 19%);
+    --text-button-number: hsl(60, 10%, 19%);
+    --text-button-alert: hsl(0, 0%, 100%);
+    --text-button-accent: hsl(0, 0%, 100%);
+    & .wrapper[data-content="theme-control"] {
+      & .theme__indicator {
+        transform: translateX(0);
+      }
+      &:has(input[value="2"]:hover, input[value="2"]:focus-visible) {
+        & .theme__indicator-wrapper.theme-1 {
+          & .theme__indicator-shadow {
+            transform: translateX(calc(var(--_cell-width) * 1));
+            z-index: 50;
+            transition: transform var(--_transition-time);
+          }
+          & .theme__indicator-track {
+            transform: scaleX(calc(var(--_cell-width) / var(--_full-width)));
+            transition: transform var(--_transition-time);
+          }
+        }
+      }
+      &:has(input[value="3"]:hover, input[value="3"]:focus-visible) {
+        & .theme__indicator-wrapper.theme-1 {
+          & .theme__indicator-shadow {
+            transform: translateX(calc(var(--_cell-width) * 2));
+            z-index: 50;
+            transition: transform var(--_transition-time);
+          }
+          & .theme__indicator-track.to-right {
+            transform: scaleX(100%);
+            transition: transform var(--_transition-time);
+          }
+        }
+      }
+    }
+  }
+
+  body[data-theme="2"] {
+    --background-main: hsl(222, 26%, 31%);
+    --background-panel: hsl(223, 31%, 20%);
+    --background-display: hsl(224, 36%, 15%);
+    --background-button-number: hsl(30, 25%, 89%);
+    --shadow-button-number: hsl(28, 16%, 65%);
+    --background-button-alert: hsl(225, 21%, 49%);
+    --shadow-button-alert: hsl(224, 28%, 35%);
+    --background-button-accent: hsl(6, 63%, 50%);
+    --shadow-button-accent: hsl(6, 70%, 34%);
+    --text: hsl(0, 0%, 100%);
+    --text-button-number: hsl(221, 14%, 31%);
+    --text-button-alert: hsl(0, 0%, 100%);
+    --text-button-accent: hsl(0, 0%, 100%);
+    & .wrapper[data-content="theme-control"] {
+      & .theme__indicator {
+        transform: translateX(calc(var(--_cell-width) * 1));
+      }
+      &:has(input[value="1"]:hover, input[value="1"]:focus-visible) {
+        & .theme__indicator-wrapper.theme-2 {
+          & .theme__indicator-shadow {
+            transform: translateX(calc(var(--_cell-width) * -1));
+            z-index: 50;
+            transition: transform var(--_transition-time);
+          }
+          & .theme__indicator-track.to-left {
+            transform: scaleX(100%);
+            transition: transform var(--_transition-time);
+          }
+        }
+      }
+      &:has(input[value="3"]:hover, input[value="3"]:focus-visible) {
+        & .theme__indicator-wrapper.theme-2 {
+          & .theme__indicator-shadow {
+            transform: translateX(calc(var(--_cell-width) * 1));
+            z-index: 50;
+            transition: transform var(--_transition-time);
+          }
+          & .theme__indicator-track.to-right {
+            transform: scaleX(100%);
+            transition: transform var(--_transition-time);
+          }
+        }
+      }
+    }
+  }
+  body[data-theme="3"] {
+    --background-main: hsl(268, 75%, 9%);
+    --background-panel: hsl(268, 71%, 12%);
+    --background-display: hsl(268, 71%, 12%);
+    --background-button-number: hsl(268, 47%, 21%);
+    --shadow-button-number: hsl(290, 70%, 36%);
+    --background-button-alert: hsl(281, 89%, 26%);
+    --shadow-button-alert: hsl(285, 91%, 52%);
+    --background-button-accent: hsl(176, 100%, 44%);
+    --shadow-button-accent: hsl(177, 92%, 70%);
+    --text: hsl(52, 100%, 62%);
+    --text-button-number: hsl(52, 100%, 62%);
+    --text-button-alert: hsl(0, 0%, 100%);
+    --text-button-accent: (198, 20%, 13%);
+    & .wrapper[data-content="theme-control"] {
+      & .theme__indicator {
+        transform: translateX(calc(var(--_cell-width) * 2));
+      }
+      &:has(input[value="1"]:hover, input[value="1"]:focus-visible) {
+        & .theme__indicator-wrapper.theme-3 {
+          & .theme__indicator-shadow {
+            transform: translateX(calc(var(--_cell-width) * -2));
+            z-index: 50;
+            transition: transform var(--_transition-time);
+          }
+          & .theme__indicator-track {
+            transform: scaleX(100%);
+            transition: transform var(--_transition-time);
+          }
+        }
+      }
+      &:has(input[value="2"]:hover, input[value="2"]:focus-visible) {
+        & .theme__indicator-wrapper.theme-3 {
+          & .theme__indicator-shadow {
+            transform: translateX(calc(var(--_cell-width) * -1));
+            z-index: 50;
+            transition: transform var(--_transition-time);
+          }
+          & .theme__indicator-track {
+            transform: scaleX(calc(var(--_cell-width) / var(--_full-width)));
+            transition: transform var(--_transition-time);
+          }
+        }
+      }
+    }    
+  }
+}
+
+
+@layer utility {
+  .visually-hidden {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+}

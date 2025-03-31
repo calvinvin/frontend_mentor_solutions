@@ -1,26 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Calculator app</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-
-
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    <title>Frontend Mentor | Calculator app</title>
+  </head>
+  <body data-theme="">
+    <main>
+      <div class="wrapper" data-content="main">
+        <header>
+          <div class="wrapper" data-content="header">
+            <h1 class="h1">calc</h1>
+            <div class="wrapper" data-content="theme">
+              <div class="theme__heading-wrapper">
+                <h2 class="theme__heading">theme</h2>
+              </div>
+              <form class="theme__form" id="theme-control-form">
+                <div class="wrapper" data-content="theme-control">
+                  <label class="theme__label">
+                    <p>1</p>
+                    <input
+                      type="radio"
+                      class="visually-hidden"
+                      name="theme"
+                      value="1"
+                    />
+                  </label>
+                  <label class="theme__label">
+                    <p>2</p>
+                    <input
+                      type="radio"
+                      class="visually-hidden"
+                      name="theme"
+                      value="2"
+                    />
+                  </label>
+                  <label class="theme__label">
+                    <p>3</p>
+                    <input
+                      type="radio"
+                      class="visually-hidden"
+                      name="theme"
+                      value="3"
+                    />
+                  </label>
+                  <div class="wrapper theme__panel" data-content="theme-panel">
+                    <div class="theme__indicator-wrapper theme-1">
+                      <div class="theme__indicator"></div>
+                      <div class="theme__indicator-shadow"></div>
+                      <div class="theme__indicator-track to-right"></div>
+                    </div>
+                    <div class="theme__indicator-wrapper theme-2">
+                      <div class="theme__indicator-shadow"></div>
+                      <div class="theme__indicator-track to-left"></div>
+                      <div class="theme__indicator-track to-right"></div>
+                    </div>
+                    <div class="theme__indicator-wrapper theme-3">
+                      <div class="theme__indicator-shadow"></div>
+                      <div class="theme__indicator-track to-left"></div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </header>
+        <div class="wrapper" data-content="display-panel">
+          <output id="output" form="theme-control-form">399,981</output>
+        </div>
+        <div class="wrapper" data-content="button-panel">
+          <menu>
+            <button class="button" value="7">7</button>
+            <button class="button" value="8">8</button>
+            <button class="button" value="9">9</button>
+            <button class="button alert" value="del">del</button>
+            <button class="button" value="4">4</button>
+            <button class="button" value="5">5</button>
+            <button class="button" value="6">6</button>
+            <button class="button" value="+">+</button>
+            <button class="button" value="1">1</button>
+            <button class="button" value="2">2</button>
+            <button class="button" value="3">3</button>
+            <button class="button" value="-">-</button>
+            <button class="button" value=".">.</button>
+            <button class="button" value="0">0</button>
+            <button class="button" value="/">/</button>
+            <button class="button" value="x">x</button>
+            <button class="button alert col-span-2" value="reset">reset</button>
+            <button class="button accent col-span-2" value="=">=</button>
+          </menu>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
