@@ -228,47 +228,49 @@
 }
 
 @layer color-theme {
-  body[data-theme=""] {
-    --background-main: hsl(0, 0%, 90%);
-    --background-panel: hsl(0, 5%, 81%);
-    --background-display: hsl(0, 0%, 93%);
-    --background-button-number: hsl(45, 7%, 89%);
-    --shadow-button-number: hsl(35, 11%, 61%);
-    --background-button-alert: hsl(185, 42%, 37%);
-    --shadow-button-alert: hsl(185, 58%, 25%);
-    --background-button-accent: hsl(25, 98%, 40%);
-    --shadow-button-accent: hsl(25, 99%, 27%);
-    --text: hsl(60, 10%, 19%);
-    --text-button-number: hsl(60, 10%, 19%);
-    --text-button-alert: hsl(0, 0%, 100%);
-    --text-button-accent: hsl(0, 0%, 100%);
-    & .wrapper[data-content="theme-control"] {
-      & .theme__indicator {
-        transform: translateX(0);
-      }
-      &:has(input[value="2"]:hover, input[value="2"]:focus-visible) {
-        & .theme__indicator-wrapper.theme-1 {
-          & .theme__indicator-shadow {
-            transform: translateX(calc(var(--_cell-width) * 1));
-            z-index: 50;
-            transition: transform var(--_transition-time);
-          }
-          & .theme__indicator-track {
-            transform: scaleX(calc(var(--_cell-width) / var(--_full-width)));
-            transition: transform var(--_transition-time);
+  @media (prefers-color-scheme: light) {
+    body[data-theme=""] {
+      --background-main: hsl(0, 0%, 90%);
+      --background-panel: hsl(0, 5%, 81%);
+      --background-display: hsl(0, 0%, 93%);
+      --background-button-number: hsl(45, 7%, 89%);
+      --shadow-button-number: hsl(35, 11%, 61%);
+      --background-button-alert: hsl(185, 42%, 37%);
+      --shadow-button-alert: hsl(185, 58%, 25%);
+      --background-button-accent: hsl(25, 98%, 40%);
+      --shadow-button-accent: hsl(25, 99%, 27%);
+      --text: hsl(60, 10%, 19%);
+      --text-button-number: hsl(60, 10%, 19%);
+      --text-button-alert: hsl(0, 0%, 100%);
+      --text-button-accent: hsl(0, 0%, 100%);
+      & .wrapper[data-content="theme-control"] {
+        & .theme__indicator {
+          transform: translateX(0);
+        }
+        &:has(input[value="2"]:hover, input[value="2"]:focus-visible) {
+          & .theme__indicator-wrapper.theme-1 {
+            & .theme__indicator-shadow {
+              transform: translateX(calc(var(--_cell-width) * 1));
+              z-index: 50;
+              transition: transform var(--_transition-time);
+            }
+            & .theme__indicator-track {
+              transform: scaleX(calc(var(--_cell-width) / var(--_full-width)));
+              transition: transform var(--_transition-time);
+            }
           }
         }
-      }
-      &:has(input[value="3"]:hover, input[value="3"]:focus-visible) {
-        & .theme__indicator-wrapper.theme-1 {
-          & .theme__indicator-shadow {
-            transform: translateX(calc(var(--_cell-width) * 2));
-            z-index: 50;
-            transition: transform var(--_transition-time);
-          }
-          & .theme__indicator-track.to-right {
-            transform: scaleX(100%);
-            transition: transform var(--_transition-time);
+        &:has(input[value="3"]:hover, input[value="3"]:focus-visible) {
+          & .theme__indicator-wrapper.theme-1 {
+            & .theme__indicator-shadow {
+              transform: translateX(calc(var(--_cell-width) * 2));
+              z-index: 50;
+              transition: transform var(--_transition-time);
+            }
+            & .theme__indicator-track.to-right {
+              transform: scaleX(100%);
+              transition: transform var(--_transition-time);
+            }
           }
         }
       }
@@ -306,6 +308,17 @@
             }
           }
         }
+        /* &:has(input[value="2"]:hover, input[value="2"]:focus-visible) {
+          & .theme__indicator-wrapper.theme-1 {
+            & .theme__indicator-shadow {
+              transform: translateX(0);
+              z-index: -100;
+            }
+            & .theme__indicator-track {
+              transform: scaleX(0);
+            }
+          }
+          } */
         &:has(input[value="3"]:hover, input[value="3"]:focus-visible) {
           & .theme__indicator-wrapper.theme-2 {
             & .theme__indicator-shadow {
@@ -318,6 +331,15 @@
               transition: transform var(--_transition-time);
             }
           }
+          /* & .theme__indicator-wrapper.theme-1 {
+            & .theme__indicator-shadow {
+              transform: translateX(0);
+              z-index: -100;
+            }
+            & .theme__indicator-track.to-right {
+              transform: scaleX(0);
+            }
+          }   */
         }
       }
     }
