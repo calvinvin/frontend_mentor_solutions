@@ -1,0 +1,52 @@
+body {
+    min-height: 100vh;
+    background-color: #F0F0F0;
+    display: grid;
+    place-items: center;
+}
+.main {
+    position: relative;
+    width: 20rem;
+    aspect-ratio: 1 / 2;
+}
+.p {
+    font-size: 5rem;
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 100;
+}
+.card {
+    position: absolute;
+    inset: 0;
+}
+.side {
+    position: absolute;
+}
+.top {
+    inset: 0 0 50% 0;
+    background-color: red;
+}
+.bottom {
+    inset: 50% 0 0 0;
+    background-color: green;
+}
+.flip {
+    inset: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: rotateX(0.5turn);
+    transition: transform 3s;
+}
+.flip-front, .flip-back {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, yellow 50%, blue 50%);
+    backface-visibility: hidden;
+}
+.flip-front {
+}
+.flip-back {
+    transform: rotateX(0.5turn);
+}
