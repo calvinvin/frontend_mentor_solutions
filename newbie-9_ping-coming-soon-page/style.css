@@ -1,0 +1,210 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: inherit;
+}
+img {
+    display: block;
+    max-width: 100%;
+}
+[role="list"] {
+    list-style: none;
+}
+input {
+    display: block;
+}
+button {
+    border: none;
+    background: inherit;
+    cursor: pointer;
+}
+:root {
+    --clr-Blue: hsl(223, 87%, 63%);
+    --clr-Pale-Blue: hsl(223, 100%, 88%);
+    --clr-Light-Red: hsl(354, 100%, 66%);
+    --clr-Gray: hsl(0, 0%, 59%);
+    --clr-Very-Dark-Blue: hsl(209, 33%, 12%);
+}
+body {
+    font-family: "Libre Franklin";
+    font-weight: 300;
+    text-align: center;
+    padding: 168px 56px 72px;
+    line-height: 1.5;
+}
+header a {
+    cursor: pointer;
+    & > img {
+        display: inline-block;
+        vertical-align: bottom;
+        margin-inline: auto;
+        width: 108px;
+    }
+}
+main {
+    max-width: 640px;
+    margin-inline: auto;
+}
+main > h1 {
+    margin-block-start: 72px;
+    font-size: 2.75rem;
+    color: var(--clr-Gray);
+    & em {
+        color: var(--clr-Very-Dark-Blue);
+        font-weight: 700;
+    }
+}
+main > p {
+    font-size: 1.5rem;
+    margin-block-start: 24px;
+    color: var(--clr-Very-Dark-Blue);
+}
+.form-wrapper {
+    margin-block-start: 64px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 16px;
+    align-items: start;
+}
+.email-wrapper {
+    flex-grow: 9999;
+    &:has(input:user-invalid) {
+        & > .error-message {
+            display: block;
+        }
+    }
+}
+.pill {
+    padding: 1.25rem 2.5rem;
+    border-radius: 100vw;
+}
+input {
+    font-size: 1.375rem;
+    width: 100%;
+    border: 2px solid var(--clr-Pale-Blue);
+    color: var(--clr-Blue);
+    font-weight: 600;
+    &::placeholder {
+        color: var(--clr-Pale-Blue);
+    }
+}
+form button {
+    flex-basis: 200px;
+    flex-grow: 1;
+    color: white;
+    font-size: 1.375rem;
+    font-weight: 600;
+    background-color: var(--clr-Blue);
+    border: 2px solid var(--clr-Blue);
+    box-shadow: 0 8px 8px -2px var(--clr-Pale-Blue);
+    @media (hover: hover) {
+        &:hover {
+            opacity: .8;
+        }
+    }
+    &:focus {
+        opacity: .8;
+    }
+}
+.error-message {
+    display: none;
+    margin-block-start: 8px;
+    color: var(--clr-Light-Red);
+    font-size: 1.3125rem;
+    font-style: italic;
+    text-align: center;
+}
+.illustration {
+    margin-block-start: 140px;
+}
+.social-links-list {
+    width: fit-content;
+    margin-inline: auto;
+    display: flex;
+    gap: 26px;
+}
+.social-link {
+    display: grid;
+    width: 3.75rem;
+    aspect-ratio: 1;
+    place-content: center;
+    border: 1px solid var(--clr-Pale-Blue);
+    border-radius: 50%;
+    @media (hover: hover) {
+        &:hover {
+            background-color: #4f7df3;
+            & svg path {
+                fill: white;
+            }
+        }
+    }
+    &:focus {
+        background-color: #4f7df3;
+        & svg path {
+            fill: white;
+        }
+    }
+}
+.icon {
+    width: 1.5rem;
+}
+footer { 
+    margin-block-start: 240px;
+}
+footer p {
+    margin-block-start: 56px;
+    font-size: 1.25rem;
+    color: var(--clr-Gray);
+}
+
+@media (min-width: 840px) {
+    header a img {
+        width: 84px;
+    }
+    body {
+        padding-block-start: 86px;
+        padding-block-end: 48px; 
+    }
+    main h1 {
+        margin-block-start: 42px;
+        font-size: 3rem;
+    }
+    main > p {
+        margin-block-start: 8px;
+        font-size: 1.25rem;
+    }
+    .form-wrapper {
+        margin-block-start: 36px;
+    }
+    .pill {
+        padding: 0.875rem 1.75rem;
+    }
+    input, form button {
+        font-size: 1rem;
+    }
+    .error-message {
+        font-size: 0.75rem;
+        text-align: start;
+        padding-inline-start: 2.5rem;
+    }
+    .illustration {
+        margin-block-start: 86px;
+    }
+    footer {
+        margin-block-start: 72px;
+    }
+    footer p {
+        margin-block-start: 28px;
+        font-size: 0.75rem;
+    }
+    .social-links-list {
+        gap: 16px;
+    }
+    .social-link {
+        width: 1.75rem;
+    }
+    .icon {
+        width: 0.875rem;
+    }
+}
