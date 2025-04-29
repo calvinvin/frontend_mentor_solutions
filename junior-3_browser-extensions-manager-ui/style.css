@@ -173,14 +173,16 @@ h1 {
     }
 }
 .extensions-wrapper {
-    --_max-card-width: 18rem;
+    --_card-width: 18rem;
     margin-block-start: 32px;
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--_max-card-width)), 45ch));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--_card-width)), 1fr));
     gap: 14px;
 }
 .extension-card {
+    max-width: 45ch;
+    margin-inline: auto;
     padding: 18px;
     min-height: 12.5rem;
     display: grid;

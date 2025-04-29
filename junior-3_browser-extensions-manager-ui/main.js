@@ -36,9 +36,10 @@ function filterActiveStatus(e) {
       labelElement.querySelector("input").value === filterStatus
     );
   });
-  filterExtensionCards();
+  viewTransition(filterExtensionCards);
 }
 function filterExtensionCards() {
+  console.log(123);
   const filterStatus = document
     .querySelector("form.filter-form")
     .getAttribute("data-filter");
@@ -60,6 +61,13 @@ function filterExtensionCards() {
     }
   });
 }
+function viewTransition(fn) {
+  if (!document.startViewTransition) {
+    fn();
+    return;
+  }
+  document.startViewTransition(() => fn());
+}
 function toggleActiveStatus(e) {
   const currentStatus = e.target
     .closest("div.extension-card")
@@ -68,10 +76,16 @@ function toggleActiveStatus(e) {
   e.target
     .closest("div.extension-card")
     .setAttribute("data-is-active", nextStatus);
-  filterExtensionCards();
+  viewTransition(filterExtensionCards);
 }
 function removeExtension(e) {
-  e.target.closest("div.extension-card").remove();
+  if (!document.startViewTransition) {
+    e.target.closest("div.extension-card").remove();
+    return;
+  }
+  document.startViewTransition(() =>
+    e.target.closest("div.extension-card").remove()
+  );
 }
 function ExtensionCard(extensionObject) {
   const { logo, name, description, isActive } = extensionObject;
