@@ -1,6 +1,6 @@
 urlJSON = "./data.json";
 loadJSON(urlJSON);
-attachFilterColorScheme();
+attachSwitchColorScheme();
 attachFilterActiveStatus();
 
 async function loadJSON(url) {
@@ -13,7 +13,7 @@ async function loadJSON(url) {
       .appendChild(ExtensionCard(extensionObject));
   });
 }
-function attachFilterColorScheme() {
+function attachSwitchColorScheme() {
   document
     .querySelector("button.switch-color-scheme")
     .addEventListener("click", () => {
