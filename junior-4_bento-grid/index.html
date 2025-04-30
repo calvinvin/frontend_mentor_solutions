@@ -1,42 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Bento grid</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-
-  Social Media 10x Faster with AI
-  Over 4,000 5-star reviews
-
-  Manage multiple accounts and platforms.
-
-  Maintain a consistent posting schedule.
-
-  Schedule to social media.
-  Optimize post timings to publish content at the perfect time for your audience.
-  
-  Grow followers with non-stop content.
-
-  >56% faster audience growth
-  
-  Create and schedule content quicker.
-
-  Write your content using AI.
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    <title>Frontend Mentor | Bento grid</title>
+  </head>
+  <body>
+    <main>
+      <h1 class="visually-hidden">Features</h1>
+      <ul class="grid-container mx-auto" role="list">
+        <li class="grid-cell grid-top-middle bg-purple-500 px-4 py-5 lg-py-8">
+          <h2 class="center text-44 bold white lg-text-56 lg-leading-1">
+            Social Media
+            <em
+              ><span class="text-yellow-500">10x</span>
+              <span class="italic">Faster</span></em
+            >
+            with AI
+          </h2>
+          <img
+            class="mx-auto width-192 mt-3"
+            src="./assets/images/illustration-five-stars.webp"
+            alt=""
+          />
+          <p class="center text-18 white mt-1-5">Over 4,000 5-star reviews</p>
+        </li>
+        <li
+          class="grid-cell grid-middle-left bg-white px-2 py-2 lg-px-3 lg-py-3-25"
+        >
+          <img
+            class="radius-4 lg-h-68 lg-max-width-unset"
+            src="./assets/images/illustration-multiple-platforms.webp"
+            alt=""
+          />
+          <h2 class="text-24 bold mt-2 lg-text-28">
+            Manage multiple accounts and platforms.
+          </h2>
+        </li>
+        <li
+          class="grid-cell grid-middle-right bg-yellow-500 px-2 pt-2 lg-px-3 lg-py-3-25"
+        >
+          <h2 class="text-23 bold lg-text-28 lg-leading-1">
+            Maintain a consistent posting schedule.
+          </h2>
+          <img
+            class="width-208 mt-2"
+            src="./assets/images/illustration-consistent-schedule.webp"
+            alt=""
+          />
+        </li>
+        <li
+          class="grid-cell grid-right-top bg-purple-100 px-2 py-4 lg-px-4 lg-py-6-25"
+        >
+          <h2 class="center text-23 bold lg-start lg-text-30">
+            Schedule to social media.
+          </h2>
+          <img
+            class="mt-3 lg-h-320 lg-max-width-unset"
+            src="./assets/images/illustration-schedule-posts.webp"
+            alt=""
+          />
+          <p class="center text-18 mt-3 lg-start lg-leading-1-2">
+            Optimize post timings to publish content at the perfect time for
+            your audience.
+          </p>
+        </li>
+        <li
+          class="grid-cell grid-bottom-right bg-purple-500 px-6 py-3 lg-flex lg-flex-align-center lg-px-3"
+        >
+          <img
+            class="width-228 mx-auto"
+            src="./assets/images/illustration-grow-followers.webp"
+            alt=""
+          />
+          <h2
+            class="center bold text-28 white mt-5 lg-text-36 lg-mt-0 lg-leading-1"
+          >
+            Grow followers with non-stop content.
+          </h2>
+        </li>
+        <li class="grid-cell grid-bottom-middle bg-white px-3 py-3">
+          <h2 class="text-18">
+            <em class="block text-44 bold lg-text-56">>56%</em>
+            <span class="block mt-2">faster audience growth</span>
+          </h2>
+          <img
+            class="width-180 mt-3"
+            src="./assets/images/illustration-audience-growth.webp"
+            alt=""
+          />
+        </li>
+        <li
+          class="grid-cell grid-left-top bg-yellow-100 px-4 py-4 lg-grid-align-content-center"
+        >
+          <h2 class="text-28 bold lg-text-32">
+            Create and schedule content
+            <strong class="italic text-purple-500 bold">quicker.</strong>
+          </h2>
+          <img
+            class="width-190 mt-3"
+            src="./assets/images/illustration-create-post.webp"
+            alt=""
+          />
+        </li>
+        <li class="grid-cell grid-left-bottom bg-yellow-500 px-3 py-3">
+          <h2 class="text-28 bold lg-text-34">Write your content using AI.</h2>
+          <img
+            class="width-220 mt-3 lg-mt-6-5"
+            src="./assets/images/illustration-ai-content.webp"
+            alt=""
+          />
+        </li>
+      </ul>
+    </main>
+  </body>
 </html>
