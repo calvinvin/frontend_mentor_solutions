@@ -1,28 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Advice generator app</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-
-  Advice #<!-- Advice ID goes here -->
-
-  "<!-- Advice text goes here -->"
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    <title>Frontend Mentor | Advice generator app</title>
+  </head>
+  <body>
+    <main>
+      <form class="language-form">
+        <fieldset>
+          <legend>Choose language:</legend>
+          <label
+            ><input
+              type="radio"
+              name="language"
+              value="en"
+              checked
+            />English</label
+          >
+          <label
+            ><input type="radio" name="language" value="zh-TW" />正體中文</label
+          >
+          <label
+            ><input type="radio" name="language" value="es" />español</label
+          >
+          <label
+            ><input type="radio" name="language" value="fr" />Français</label
+          >
+          <label><input type="radio" name="language" value="ja" />日本語</label>
+          <label><input type="radio" name="language" value="ko" />한국어</label>
+        </fieldset>
+      </form>
+      <div class="advice-wrapper">
+        <div class="loading-display"></div>
+        <h1>
+          Advice #<span id="advice-id">
+            <!-- 117 -->
+          </span>
+        </h1>
+        <p>
+          "
+          <span id="advice-content">
+            <!-- It is easy to sit up and take notice, what's difficult is getting
+            up and taking action. -->
+          </span>
+          "
+        </p>
+        <svg
+          title=""
+          class="pattern mobile"
+          viewBox="0 0 295 16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g fill="none" fill-rule="evenodd">
+            <path fill="#4F5D74" d="M0 8h122v1H0zM173 8h122v1H173z" />
+            <g transform="translate(138)" fill="#CEE3E9">
+              <rect width="6" height="16" rx="3" />
+              <rect x="14" width="6" height="16" rx="3" />
+            </g>
+          </g>
+        </svg>
+        <svg
+          title=""
+          class="pattern desktop"
+          viewBox="0 0 444 16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g fill="none" fill-rule="evenodd">
+            <path fill="#4F5D74" d="M0 8h196v1H0zM248 8h196v1H248z" />
+            <g transform="translate(212)" fill="#CEE3E9">
+              <rect width="6" height="16" rx="3" />
+              <rect x="14" width="6" height="16" rx="3" />
+            </g>
+          </g>
+        </svg>
+        <button id="button-fetch-advice" aria-label="get advice">
+          <svg
+            title=""
+            class="icon-dice"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20 0H4a4.005 4.005 0 0 0-4 4v16a4.005 4.005 0 0 0 4 4h16a4.005 4.005 0 0 0 4-4V4a4.005 4.005 0 0 0-4-4ZM7.5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"
+              fill="#202733"
+            />
+          </svg>
+        </button>
+      </div>
+    </main>
+  </body>
 </html>
