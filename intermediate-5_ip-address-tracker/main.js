@@ -15,7 +15,7 @@ function handleIPForm(e) {
   getIPGeolocation(ip);
 }
 async function getIP() {
-  const apiURL = "https://api64.ipify.org";
+  const apiURL = "https://api.ipify.org";
   const response = await fetch(apiURL);
   if (!response.ok) {
     console.log("Cannot get IP...");
@@ -29,9 +29,9 @@ function handleIP(ip) {
   getIPGeolocation(ip);
 }
 async function getIPGeolocation(ip) {
-  const ipV4V6Reg = /^(\d+\.\d+\.\d+\.\d+)(\.\d+\.\d+)?$/;
-  if (!ipV4V6Reg.test(ip)) {
-    console.log(`ip: "${ip}" is not a valid ip address.`);
+  const ipV4Reg = /^(\d+\.\d+\.\d+\.\d+)$/;
+  if (!ipV4Reg.test(ip)) {
+    console.log(`ip: "${ip}" is not a valid IPV4 address.`);
     return;
   }
   const apiURL = "https://geo.ipify.org/api/v2/country,city";
