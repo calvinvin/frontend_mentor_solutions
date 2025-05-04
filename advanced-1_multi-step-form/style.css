@@ -108,7 +108,7 @@ body {
       cursor: default !important;
     }
     @media (hover: hover) {
-      &:not([disabled])hover {
+      &:not([disabled]):hover {
         & .tab__indicator {
           outline: 2px solid var(--clr-Blue-200);
           outline-offset: 1px;
