@@ -1,0 +1,370 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+svg {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+[role="list"] {
+  list-style: none;
+}
+th {
+  text-align: start;
+}
+:root {
+  --clr-Desaturated-Dark-Cyan: hsl(180, 29%, 50%);
+  --clr-Light-Grayish-Cyan-Background: hsl(180, 52%, 96%);
+  --clr-Light-Grayish-Cyan-Filter-Tablets: hsl(180, 31%, 95%);
+  --clr-Dark-Grayish-Cyan: hsl(180, 8%, 52%);
+  --clr-Very-Dark-Grayish-Cyan: hsl(180, 14%, 20%);
+  --ff: "League Spartan";
+  --fw-regular: 500;
+  --fw-bold: 700;
+  --rounded: 4px;
+}
+
+body {
+  padding: 120px 24px 150px;
+  min-height: 100svh;
+  font-family: var(--ff);
+  font-weight: var(--fw-regular);
+  background: url("./images/bg-header-mobile.svg") top/100% 156px no-repeat,
+    linear-gradient(
+      to bottom,
+      var(--clr-Desaturated-Dark-Cyan) 156px,
+      var(--clr-Light-Grayish-Cyan-Background) 156px
+    );
+  line-height: 1.5;
+}
+
+form.filter-form {
+  max-width: 69.5rem;
+  margin-inline: auto;
+  background: white;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  border-radius: var(--rounded);
+  &:not(:has(input:checked)) {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  & fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    border: none;
+  }
+  & .filter-tag-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: var(--clr-Light-Grayish-Cyan-Filter-Tablets);
+    border-radius: var(--rounded);
+    overflow: hidden;
+    &:has(:focus) {
+      outline: 2px solid var(--clr-Very-Dark-Grayish-Cyan);
+      outline-offset: 2px;
+    }
+    & span {
+      padding: 6px 8px 2px;
+      font-weight: var(--fw-bold);
+      color: var(--clr-Desaturated-Dark-Cyan);
+      text-transform: capitalize;
+      cursor: default;
+    }
+    & label {
+      height: 100%;
+      min-width: 2rem;
+      aspect-ratio: 1;
+      display: grid;
+      place-content: center;
+      background: var(--clr-Desaturated-Dark-Cyan);
+      cursor: pointer;
+      & svg {
+        width: 1rem;
+        aspect-ratio: 1;
+      }
+      @media (hover: hover) {
+        &:hover {
+          background: var(--clr-Very-Dark-Grayish-Cyan);
+        }
+      }
+      &:has(:focus) {
+        background: var(--clr-Very-Dark-Grayish-Cyan);
+      }
+    }
+    &:not(:has(:checked)) {
+      position: absolute;
+      left: -10000px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+  }
+  & .clear-filter-button {
+    padding: 0.75em 0.25em;
+    font-weight: var(--fw-bold);
+    color: var(--clr-Dark-Grayish-Cyan);
+    border-radius: var(--rounded);
+    @media (hover: hover) {
+      &:hover {
+        color: var(--clr-Desaturated-Dark-Cyan);
+        text-decoration: underline;
+      }
+    }
+    &:focus-visible {
+      color: var(--clr-Desaturated-Dark-Cyan);
+      text-decoration: underline;
+    }
+  }
+}
+table.job-list-table {
+  margin-block-start: 56px;
+  width: 100%;
+  max-width: 69.5rem;
+  margin-inline: auto;
+}
+tr.job-wrapper {
+  --_company-logo-width: 3rem;
+  &:not(:first-child) {
+    margin-block-start: 40px;
+  }
+  padding-inline-start: 16px;
+  padding-inline-end: 22px;
+  padding-block-end: 8px;
+  display: grid;
+  grid-template-areas:
+    "logo"
+    "descriptions"
+    "position"
+    "metadata"
+    "tags";
+  align-items: center;
+  background: white;
+  border-inline-start: 5px solid var(--clr-Desaturated-Dark-Cyan);
+  border-radius: var(--rounded);
+}
+.position {
+  grid-area: position;
+  margin-block-start: 12px;
+  font-size: 0.9375rem;
+  font-weight: var(--fw-bold);
+  line-height: 1.2;
+  @media (hover: hover) {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &:has(:focus-visible) {
+    text-decoration: underline;
+  }
+}
+.descriptions-wrapper {
+  grid-area: descriptions;
+  margin-block-start: 8px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  & .company {
+    margin-inline-end: 16px;
+    font-size: 0.9375rem;
+    font-weight: var(--fw-bold);
+    color: var(--clr-Desaturated-Dark-Cyan);
+    cursor: default;
+  }
+  & .new {
+    &:not(:empty) {
+      padding: 0.25em 0.6125em 0.0625em;
+    }
+    font-size: 0.875rem;
+    color: white;
+    text-transform: uppercase;
+    background: var(--clr-Desaturated-Dark-Cyan);
+    border-radius: 100vw;
+    cursor: default;
+  }
+  & .featured {
+    &:not(:empty) {
+      padding: 0.25em 0.6125em 0.0625em;
+    }
+    font-size: 0.875rem;
+    color: white;
+    text-transform: uppercase;
+    background: var(--clr-Very-Dark-Grayish-Cyan);
+    border-radius: 100vw;
+    cursor: default;
+  }
+}
+.metadata-wrapper {
+  grid-area: metadata;
+  margin-block: 8px;
+  color: var(--clr-Dark-Grayish-Cyan);
+  & ul {
+    --_gap: 22px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--_gap);
+  }
+  & li {
+    cursor: default;
+  }
+  & li:not(:first-child) {
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      margin: auto;
+      width: 3px;
+      aspect-ratio: 1;
+      background-color: var(--clr-Dark-Grayish-Cyan);
+      border-radius: 50%;
+      transform: translateX(calc(var(--_gap) * -1 / 2 - 50%)) translateY(-2px);
+    }
+  }
+}
+.tags-wrapper {
+  grid-area: tags;
+  padding-block: 16px;
+  font-weight: var(--fw-bold);
+  border-top: 1px solid var(--clr-Dark-Grayish-Cyan);
+  & > ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    & ul {
+      display: contents;
+    }
+  }
+  & .tag-button {
+    padding: 0.25em 0.56125em 0.0625em;
+    background: var(--clr-Light-Grayish-Cyan-Filter-Tablets);
+    color: var(--clr-Desaturated-Dark-Cyan);
+    border-radius: var(--rounded);
+    @media (hover: hover) {
+      &:hover {
+        color: white;
+        background: var(--clr-Desaturated-Dark-Cyan);
+      }
+    }
+    &:focus-visible {
+      color: white;
+      background: var(--clr-Desaturated-Dark-Cyan);
+    }
+  }
+}
+.company-logo-wrapper {
+  grid-area: logo;
+  margin-block-start: calc(var(--_company-logo-width) * -0.5);
+  & .company-logo {
+    width: var(--_company-logo-width);
+    aspect-ratio: 1;
+  }
+}
+.languages-wrapper,
+.tools-wrapper {
+  display: contents;
+}
+
+@media (min-width: 680px) {
+  body {
+    background: url("./images/bg-header-desktop.svg") top/100% 156px no-repeat,
+      linear-gradient(
+        to bottom,
+        var(--clr-Desaturated-Dark-Cyan) 156px,
+        var(--clr-Light-Grayish-Cyan-Background) 156px
+      );
+  }
+  form.filter-form {
+    padding-inline: 40px;
+    & .filter-tag-wrapper label {
+      margin-inline-start: 2px;
+    }
+    & .clear-filter-button {
+      padding-block: 0.25em;
+    }
+  }
+  table.job-list-table {
+    margin-block-start: 36px;
+  }
+  tr.job-wrapper {
+    padding: 32px 40px 32px 35px;
+    grid-template-columns: auto minmax(max-content, 1fr) 1fr;
+    grid-template-areas:
+      "logo descriptions tags"
+      "logo position tags"
+      "logo metadata tags";
+    column-gap: 24px;
+  }
+  .descriptions-wrapper {
+    margin-block-start: unset;
+    & .company {
+      margin-inline-end: 8px;
+      font-size: 1.125rem;
+    }
+  }
+  .position {
+    margin-block-start: 8px;
+    font-size: 1.375rem;
+    color: var(--clr-Desaturated-Dark-Cyan);
+  }
+  .metadata-wrapper {
+    margin-block: unset;
+    margin-block-end: -2px;
+    font-size: 1.125rem;
+    & ul {
+      --_gap: 36px;
+    }
+    & li:not(:first-child)::before {
+      width: 4px;
+    }
+  }
+  .tags-wrapper {
+    margin-inline-start: 32px;
+    border-top: unset;
+  }
+  .company-logo-wrapper {
+    margin-block-start: unset;
+    & .company-logo {
+      width: 5.5rem;
+    }
+  }
+}
+
+[hidden] {
+  display: none !important;
+}
+.visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

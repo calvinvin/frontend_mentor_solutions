@@ -1,193 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Job Listings</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-  <!-- Item Start -->
-  Photosnap
-  New!
-  Featured
-  Senior Frontend Developer
-  1d ago
-  Full Time
-  USA only
-  <!-- Role -->
-  Frontend
-  <!-- Level -->
-  Senior
-  <!-- Languages -->
-  HTML
-  CSS
-  JavaScript
-  <!-- Item End -->
+    <title>Frontend Mentor | Job Listings</title>
+  </head>
+  <body>
+    <form class="filter-form" aria-label="filter jobs">
+      <fieldset>
+        <legend class="visually-hidden">Filter</legend>
+        <template id="template-filter-tag-wrapper">
+          <div class="filter-tag-wrapper">
+            <span id="aria-frontend">Frontend</span>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
+                <path
+                  fill="#FFF"
+                  fill-rule="evenodd"
+                  d="M11.314 0l2.121 2.121-4.596 4.596 4.596 4.597-2.121 2.121-4.597-4.596-4.596 4.596L0 11.314l4.596-4.597L0 2.121 2.121 0l4.596 4.596L11.314 0z"
+                />
+              </svg>
+              <input
+                class="visually-hidden"
+                type="checkbox"
+                name="filter"
+                value="frontend"
+                aria-labelledby="aria-frontend"
+              />
+            </label>
+          </div>
+        </template>
+      </fieldset>
+      <button type="button" class="clear-filter-button">
+        Clear<span class="visually-hidden"> job filters</span>
+      </button>
+    </form>
 
-  <!-- Item Start -->
-  Manage
-  New!
-  Featured
-  Fullstack Developer
-  1d ago
-  Part Time
-  Remote
-  <!-- Role -->
-  Fullstack
-  <!-- Level -->
-  Midweight
-  <!-- Languages -->
-  Python
-  <!-- Tools -->
-  React
-  <!-- Item End -->
-
-  <!-- Item Start -->
-  Account
-  New!
-  Junior Frontend Developer
-  2d ago
-  Part Time
-  USA only
-  <!-- Role -->
-  Frontend
-  <!-- Level -->
-  Junior
-  <!-- Languages -->
-  JavaScript
-  <!-- Tools -->
-  React
-  Sass
-  <!-- Item End -->
-
-  <!-- Item Start -->
-  MyHome
-  Junior Frontend Developer
-  5d ago
-  Contract
-  USA only
-  <!-- Role -->
-  Frontend
-  <!-- Level -->
-  Junior
-  <!-- Languages -->
-  CSS
-  JavaScript
-  <!-- Item End -->
-
-  <!-- Item Start -->
-  Loop Studios
-  Software Engineer
-  1w ago
-  Full Time
-  Worldwide
-  <!-- Role -->
-  Fullstack
-  <!-- Level -->
-  Midweight
-  <!-- Languages -->
-  JavaScript
-  Ruby
-  <!-- Tools -->
-  Sass
-  <!-- Item End -->
-
-  <!-- Item Start -->
-  FaceIt
-  Junior Backend Developer
-  2w ago
-  Full Time
-  UK only
-  <!-- Role -->
-  Backend
-  <!-- Level -->
-  Junior
-  <!-- Languages -->
-  Ruby
-  <!-- Tools -->
-  RoR
-  <!-- Item End -->
-
-  <!-- Item Start -->
-  Shortly
-  Junior Developer
-  2w ago
-  Full Time
-  Worldwide
-  <!-- Role -->
-  Frontend
-  <!-- Level -->
-  Junior
-  <!-- Languages -->
-  HTML
-  JavaScript
-  <!-- Tools -->
-  Sass
-  <!-- Item End -->
-
-  <!-- Item Start -->
-  Insure
-  Junior Frontend Developer
-  2w ago
-  Full Time
-  USA only
-  <!-- Role -->
-  Frontend
-  <!-- Level -->
-  Junior
-  <!-- Languages -->
-  JavaScript
-  <!-- Tools -->
-  Vue
-  Sass
-  <!-- Item End -->
-
-  <!-- Item Start -->
-  Eyecam Co.
-  Full Stack Engineer
-  3w ago
-  Full Time
-  Worldwide
-  <!-- Role -->
-  Fullstack
-  <!-- Level -->
-  Midweight
-  <!-- Languages -->
-  JavaScript
-  Python
-  <!-- Tools -->
-  Django
-  <!-- Item End -->
-
-  <!-- Item Start -->
-  The Air Filter Company
-  Front-end Dev
-  1mo ago
-  Part Time
-  Worldwide
-  <!-- Role -->
-  Frontend
-  <!-- Level -->
-  Junior
-  <!-- Languages -->
-  JavaScript
-  <!-- Tools -->
-  React
-  Sass
-  <!-- Item End -->
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    <table class="job-list-table">
+      <caption>
+        <h1 class="visually-hidden">Job list</h1>
+      </caption>
+      <thead class="visually-hidden">
+        <tr>
+          <th scope="col">Position</th>
+          <th scope="col">Description</th>
+          <th scope="col">Metadata</th>
+          <th scope="col">Tags</th>
+          <th scope="col">Company logo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template id="template-job-wrapper">
+          <tr
+            class="job-wrapper"
+            data-job-id=""
+            data-role=""
+            data-level=""
+            data-languages=""
+            data-tools=""
+          >
+            <th class="position" scope="row">
+              <a href="#">Senior Frontend Developer</a>
+            </th>
+            <td class="descriptions-wrapper">
+              <p class="company">
+                <span class="visually-hidden">Company: </span>
+                <span class="company__span">Photosnap</span>
+              </p>
+              <p class="new">New!</p>
+              <p class="featured">Featured</p>
+            </td>
+            <td class="metadata-wrapper">
+              <ul role="list">
+                <li class="postedAt">
+                  <span class="visually-hidden">Posted at: </span>
+                  <span class="postedAt__span">1d ago</span>
+                </li>
+                <li class="contract">
+                  <span class="visually-hidden">Contract: </span>
+                  <span class="contract__span">Full Time</span>
+                </li>
+                <li class="location">
+                  <span class="visually-hidden">Location: </span>
+                  <span class="location__span">USA only</span>
+                </li>
+              </ul>
+            </td>
+            <td class="tags-wrapper">
+              <ul role="list">
+                <li class="role-wrapper">
+                  <p class="visually-hidden">
+                    Role:
+                    <span class="role__span">Frontend</span>
+                  </p>
+                  <button class="tag-button">
+                    <span class="visually-hidden">filter jobs with Role: </span>
+                    <span class="tag-button__span">Frontend</span>
+                  </button>
+                </li>
+                <li class="level-wrapper">
+                  <p class="visually-hidden">
+                    Level:
+                    <span class="level__span">Senior</span>
+                  </p>
+                  <button class="tag-button">
+                    <span class="visually-hidden"
+                      >filter jobs with Level:
+                    </span>
+                    <span class="tag-button__span">Senior</span>
+                  </button>
+                </li>
+                <li class="languages-wrapper">
+                  <span class="visually-hidden">Languages: </span>
+                  <ul role="list">
+                    <template id="template-language-wrapper">
+                      <li class="language-wrapper">
+                        <p class="visually-hidden">HTML</p>
+                        <button class="tag-button">
+                          <span class="visually-hidden">filter jobs with </span>
+                          <span class="tag-button__span">HTML</span>
+                        </button>
+                      </li>
+                    </template>
+                  </ul>
+                </li>
+                <li class="tools-wrapper">
+                  <span class="visually-hidden">Tools: </span>
+                  <ul role="list">
+                    <template id="template-tool-wrapper">
+                      <li class="tool-wrapper">
+                        <p class="visually-hidden">Sass</p>
+                        <button class="tag-button">
+                          <span class="visually-hidden">filter jobs with </span>
+                          <span class="tag-button__span">Sass</span>
+                        </button>
+                      </li>
+                    </template>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+            <td class="company-logo-wrapper">
+              <img class="company-logo" src="" alt="" />
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </body>
 </html>
