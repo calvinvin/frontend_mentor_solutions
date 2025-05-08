@@ -3143,7 +3143,23 @@
                 </section>
                 <section class="solution__comment">
                   <h4 class="solution__comment-heading">Comment:</h4>
-                  <div class="solution__comment-content"></div>
+                  <div class="solution__comment-content">
+                    <p>
+                      I think it would be more accessible if I could use
+                      &lt;td&gt; element for each field data. However, it seems
+                      no way to group several &lt;td&gt; elements to style as
+                      one region (to make role, level, language, tool to become
+                      one filter tag region for visual design). At first I tried
+                      to find if there is a ARIA way without using &lt;td&gt;
+                      element, by `role='cell'` and specifying the element's
+                      colheader and rolheader, but it seems not working like
+                      that. Therefore it comes my final version of design,
+                      grouping some detailed fields together as one broad field
+                      (description, metadata, tags) inside &lt;td&gt; element,
+                      and using &lt;ul&gt; to further elaborate the detailed
+                      field.
+                    </p>
+                  </div>
                 </section>
               </div>
               <div class="solution__preview">
