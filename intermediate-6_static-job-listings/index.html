@@ -47,7 +47,7 @@
           </div>
         </template>
       </fieldset>
-      <button type="button" class="clear-filter-button">
+      <button type="reset" class="clear-filter-button">
         Clear<span class="visually-hidden"> job filters</span>
       </button>
     </form>
@@ -76,29 +76,29 @@
             data-tools=""
           >
             <th class="position" scope="row">
-              <a href="#">Senior Frontend Developer</a>
+              <a href="#"></a>
             </th>
             <td class="descriptions-wrapper">
               <p class="company">
                 <span class="visually-hidden">Company: </span>
-                <span class="company__span">Photosnap</span>
+                <span class="company__span"></span>
               </p>
-              <p class="new">New!</p>
-              <p class="featured">Featured</p>
+              <p class="new"></p>
+              <p class="featured"></p>
             </td>
             <td class="metadata-wrapper">
               <ul role="list">
                 <li class="postedAt">
                   <span class="visually-hidden">Posted at: </span>
-                  <span class="postedAt__span">1d ago</span>
+                  <span class="postedAt__span"></span>
                 </li>
                 <li class="contract">
                   <span class="visually-hidden">Contract: </span>
-                  <span class="contract__span">Full Time</span>
+                  <span class="contract__span"></span>
                 </li>
                 <li class="location">
                   <span class="visually-hidden">Location: </span>
-                  <span class="location__span">USA only</span>
+                  <span class="location__span"></span>
                 </li>
               </ul>
             </td>
@@ -107,52 +107,32 @@
                 <li class="role-wrapper">
                   <p class="visually-hidden">
                     Role:
-                    <span class="role__span">Frontend</span>
+                    <span class="role__span"></span>
                   </p>
                   <button class="tag-button">
                     <span class="visually-hidden">filter jobs with Role: </span>
-                    <span class="tag-button__span">Frontend</span>
+                    <span class="tag-button__span"></span>
                   </button>
                 </li>
                 <li class="level-wrapper">
                   <p class="visually-hidden">
                     Level:
-                    <span class="level__span">Senior</span>
+                    <span class="level__span"></span>
                   </p>
                   <button class="tag-button">
                     <span class="visually-hidden"
                       >filter jobs with Level:
                     </span>
-                    <span class="tag-button__span">Senior</span>
+                    <span class="tag-button__span"></span>
                   </button>
                 </li>
                 <li class="languages-wrapper">
                   <span class="visually-hidden">Languages: </span>
-                  <ul role="list">
-                    <template id="template-language-wrapper">
-                      <li class="language-wrapper">
-                        <p class="visually-hidden">HTML</p>
-                        <button class="tag-button">
-                          <span class="visually-hidden">filter jobs with </span>
-                          <span class="tag-button__span">HTML</span>
-                        </button>
-                      </li>
-                    </template>
-                  </ul>
+                  <ul role="list"></ul>
                 </li>
                 <li class="tools-wrapper">
                   <span class="visually-hidden">Tools: </span>
-                  <ul role="list">
-                    <template id="template-tool-wrapper">
-                      <li class="tool-wrapper">
-                        <p class="visually-hidden">Sass</p>
-                        <button class="tag-button">
-                          <span class="visually-hidden">filter jobs with </span>
-                          <span class="tag-button__span">Sass</span>
-                        </button>
-                      </li>
-                    </template>
-                  </ul>
+                  <ul role="list"></ul>
                 </li>
               </ul>
             </td>
@@ -160,6 +140,24 @@
               <img class="company-logo" src="" alt="" />
             </td>
           </tr>
+        </template>
+        <template id="template-language-wrapper">
+          <li class="language-wrapper">
+            <p class="visually-hidden"></p>
+            <button class="tag-button">
+              <span class="visually-hidden">filter jobs with </span>
+              <span class="tag-button__span"></span>
+            </button>
+          </li>
+        </template>
+        <template id="template-tool-wrapper">
+          <li class="tool-wrapper">
+            <p class="visually-hidden"></p>
+            <button class="tag-button">
+              <span class="visually-hidden">filter jobs with </span>
+              <span class="tag-button__span"></span>
+            </button>
+          </li>
         </template>
       </tbody>
     </table>

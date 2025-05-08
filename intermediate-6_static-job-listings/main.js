@@ -14,7 +14,7 @@ async function loadJSON() {
 
 function attachClearFilters() {
   document
-    .querySelector("button.clear-filter-button")
+    .querySelector(".clear-filter-button")
     .addEventListener("click", (e) => {
       e.currentTarget
         .closest("form.filter-form")
@@ -33,8 +33,7 @@ function attachFilterFormChange() {
 }
 
 function handleFilterFormChange(e) {
-  const filterForm = e.currentTarget;
-  const checkedCheckBoxes = Array.from(filterForm.elements["filter"]).filter(
+  const checkedCheckBoxes = Array.from(e.currentTarget).filter(
     (checkBox) => checkBox.checked === true
   );
   const checkedTagNames = checkedCheckBoxes.map(
@@ -208,9 +207,9 @@ function JobTr(jobObject) {
   }
 
   function LanguageLi(languageName) {
-    const templateLanguageLi = document
-      .getElementById("template-job-wrapper")
-      .content.getElementById("template-language-wrapper");
+    const templateLanguageLi = document.getElementById(
+      "template-language-wrapper"
+    );
     const clonedLanguageLi = templateLanguageLi.content.cloneNode(true);
     clonedLanguageLi.querySelector("p.visually-hidden").textContent =
       languageName;
@@ -221,9 +220,7 @@ function JobTr(jobObject) {
   }
 
   function ToolLi(toolName) {
-    const templateToolLi = document
-      .getElementById("template-job-wrapper")
-      .content.getElementById("template-tool-wrapper");
+    const templateToolLi = document.getElementById("template-tool-wrapper");
     const clonedToolLi = templateToolLi.content.cloneNode(true);
     clonedToolLi.querySelector("p.visually-hidden").textContent = toolName;
     clonedToolLi.querySelector(
