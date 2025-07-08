@@ -1,51 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | [Challenge Name Here]</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-
-  Samuel Green
-  Available to Walk
-
-  That sounds great. I’d be happy with that.
-
-  Could you send over some pictures of your dog, please?
-
-  Here are a few pictures. She’s a happy girl!
-
-  Can you make it?
-
-  She looks so happy! The time we discussed works. How long shall I take her out for?
-
-  30 minute walk
-  $29
-
-  1 hour walk
-  $49
-
-  Type a message…
-
-  Simple booking
-
-  Stay in touch with our dog walkers through the chat interface. This makes it easy to 
-  discuss arrangements and make bookings. Once the walk has been completed you can rate 
-  your walker and book again all through the chat.
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    <title>Frontend Mentor | Chat-app-css-illustration</title>
+  </head>
+  <body>
+    <main>
+      <div class="app">
+        <div class="app__top">
+          <div class="app__top__notch"></div>
+          <svg
+            class="arrow-back"
+            xmlns="http://www.w3.org/2000/svg"
+            height="20px"
+            viewBox="0 -960 480 960"
+            width="12px"
+            fill="#e8eaed"
+          >
+            <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z" />
+          </svg>
+          <img class="avatar" src="./images/avatar.jpg" alt="" />
+          <p class="app__top__name">Samuel Green</p>
+          <p class="app__top__status">Available to Walk</p>
+          <svg
+            class="more-vert"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#e8eaed"
+          >
+            <path
+              d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"
+            />
+          </svg>
+        </div>
+        <div class="app__bottom">
+          <p class="app__dialog app__dialog--left">
+            That sounds great. I’d be happy to discuss more.
+          </p>
+          <p class="app__dialog app__dialog--left">
+            Could you send over some pictures of your dog, please?
+          </p>
+          <div class="app__image-wrapper--right">
+            <img class="app__image" src="./images/dog-image-1.jpg" alt="" />
+            <img class="app__image" src="./images/dog-image-2.jpg" alt="" />
+            <img class="app__image" src="./images/dog-image-3.jpg" alt="" />
+          </div>
+          <p class="app__dialog app__dialog--right">
+            Here are a few pictures. She’s a happy girl!
+          </p>
+          <p class="app__dialog app__dialog--right">Can you make it?</p>
+          <p class="app__dialog app__dialog--left">
+            She looks so happy! The time we discussed works. How long shall I
+            take her out for?
+          </p>
+          <div class="app__plan app__plan--left">
+            <p class="app__plan-name">30 minute walk</p>
+            <p class="app__plan-price">$29</p>
+          </div>
+          <div class="app__plan app__plan--left">
+            <p class="app__plan-name">1 hour walk</p>
+            <p class="app__plan-price">$49</p>
+          </div>
+          <div class="app__input">
+            <p>Type a message…</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 880 960"
+              width="24px"
+              fill="#e8eaed"
+            >
+              <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <h1>Simple booking</h1>
+        <p>
+          Stay in touch with our dog walkers through the chat interface. This
+          makes it easy to discuss arrangements and make bookings. Once the walk
+          has been completed you can rate your walker and book again all through
+          the chat.
+        </p>
+      </div>
+    </main>
+  </body>
 </html>

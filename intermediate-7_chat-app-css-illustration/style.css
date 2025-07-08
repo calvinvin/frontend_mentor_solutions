@@ -1,0 +1,284 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+
+:root {
+  /* #### Text */
+  /*  (sub-heading at the top of the app UI) */
+  --clr-Pale-Violet: hsl(276, 100%, 81%);
+  /* (chat on the left) */
+  --clr-Moderate-Violet: hsl(276, 55%, 52%);
+  /* (chat on the right) */
+  --clr-Desaturated-Dark-Violet: hsl(271, 15%, 43%);
+  /* (placeholder text) */
+  --clr-Grayish-Blue: hsl(206, 6%, 79%);
+  /* (main heading) */
+  --clr-Very-Dark-Desaturated-Violet: hsl(271, 36%, 24%);
+  /* (paragraph) */
+  --clr-Dark-Grayish-Violet: hsl(270, 7%, 64%);
+
+  /* #### Gradients
+    These two colors are the vibrant background colors you see throughout the design and are applied as a linear gradient: */
+  --clr-Light-Magenta: hsl(293, 100%, 63%);
+  --clr-Light-Violet: hsl(264, 100%, 61%);
+
+  /* ### Secondary */
+  --clr-White: hsl(0, 0%, 100%);
+  /* (app background) */
+  --clr-Light-Grayish-Violet: hsl(270, 20%, 96%);
+  /* (submit button background) */
+  --clr-Very-Dark-Desaturated-Violet: hsl(271, 36%, 24%);
+  /* (radio button outline) */
+  --clr-Very-Light-Magenta: hsl(289, 100%, 72%);
+
+  --fw-regular: 400;
+  --fw-bold: 500;
+  --fw-extrabold: 700;
+}
+
+body {
+  min-height: 100vh;
+  padding: 64px 32px;
+  background-color: var(--clr-Light-Grayish-Violet);
+  font-family: "Rubik";
+  font-weight: var(--fw-regular);
+  line-height: 1.75;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 49%;
+    height: 500px;
+    z-index: -10;
+    background: linear-gradient(
+      to bottom,
+      var(--clr-Light-Magenta),
+      var(--clr-Light-Violet)
+    );
+    border-bottom-right-radius: 100vw;
+  }
+}
+main {
+  max-width: 58rem;
+  margin-inline: auto;
+  display: grid;
+  gap: 56px;
+}
+.app {
+  max-width: 15.5rem;
+  margin-inline: auto;
+  background-color: var(--clr-Light-Grayish-Violet);
+  border: 10px solid var(--clr-White);
+  border-radius: 24px;
+  line-height: 1.3;
+  box-shadow: 8px 8px 16px -2px hsl(from var(--clr-Very-Dark-Desaturated-Violet)
+        h s l / 0.1);
+}
+.app__top {
+  --_notch-height: 18px;
+  --_notch-width: 130px;
+  padding-inline: 8px 4px;
+  padding-block: calc(12px + var(--_notch-height)) 12px;
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  grid-template-areas:
+    "arrow-back avatar name more-vert"
+    "arrow-back avatar status more-vert";
+  column-gap: 8px;
+  align-items: center;
+  background: linear-gradient(
+    to right,
+    var(--clr-Light-Violet),
+    var(--clr-Light-Magenta)
+  );
+  border-radius: 24px 24px 8px 8px;
+  position: relative;
+  & .app__top__notch {
+    position: absolute;
+    inset: 0;
+    margin-inline: auto;
+    height: var(--_notch-height);
+    width: min(100%, var(--_notch-width));
+    background-color: var(--clr-White);
+    border-radius: 0 0 16px 16px;
+  }
+  & svg.arrow-back {
+    grid-area: arrow-back;
+    & path {
+      fill: var(--clr-White);
+    }
+  }
+  & img.avatar {
+    grid-area: avatar;
+    width: 1.5rem;
+    aspect-ratio: 1;
+    border: 1px solid var(--clr-White);
+    border-radius: 50%;
+  }
+  & p.app__top__name {
+    grid-area: name;
+    font-size: 0.6875rem;
+    color: var(--clr-White);
+  }
+  & p.app__top__status {
+    grid-area: status;
+    font-size: 0.5rem;
+    color: var(--clr-Pale-Violet);
+  }
+  & svg.more-vert {
+    grid-area: more-vert;
+  }
+}
+.app__bottom {
+  padding: 10px 8px;
+  & > * + * {
+    margin-block-start: 8px;
+  }
+  & .app__dialog--left + *:not(.app__dialog--left) {
+    margin-block-start: 16px;
+  }
+  & .app__dialog--right + *:not(.app__dialog--right) {
+    margin-block-start: 16px;
+  }
+  & .app__plan + *:not(.app__plan) {
+    margin-block-start: 16px;
+  }
+}
+.app__dialog {
+  font-size: 0.5rem;
+  border-radius: 8px;
+  max-width: 60%;
+  padding: 6px;
+}
+.app__dialog--left {
+  color: var(--clr-Moderate-Violet);
+  background-color: hsl(from var(--clr-Dark-Grayish-Violet) h s l / 0.1);
+}
+.app__dialog--right {
+  margin-inline-start: auto;
+  color: var(--clr-Desaturated-Dark-Violet);
+  background-color: var(--clr-White);
+}
+.app__image-wrapper--right {
+  width: fit-content;
+  margin-inline-start: auto;
+  display: flex;
+  gap: 8px;
+}
+.app__image {
+  width: 2.5rem;
+  aspect-ratio: 1;
+  border-radius: 8px;
+}
+.app__plan--left {
+  max-width: 75%;
+  padding: 10px 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: linear-gradient(
+    to left,
+    var(--clr-Light-Violet),
+    var(--clr-Light-Magenta)
+  );
+  border-radius: 8px 8px 8px 4px;
+  &::before {
+    content: "";
+    width: 0.75rem;
+    aspect-ratio: 1;
+    border: 1px solid var(--clr-Very-Light-Magenta);
+    border-radius: 50%;
+  }
+}
+.app__plan-name {
+  font-size: 0.5rem;
+  color: var(--clr-White);
+  opacity: 0.7;
+}
+.app__plan-price {
+  margin-inline-start: auto;
+  margin-inline-end: 8px;
+  font-size: 0.75rem;
+  color: var(--clr-White);
+  font-weight: var(--fw-bold);
+}
+.app__input {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  background-color: var(--clr-White);
+  border-radius: 100vw;
+  & p {
+    color: var(--clr-Grayish-Blue);
+    font-size: 0.5625rem;
+    margin-inline-start: 1.5em;
+  }
+  & svg {
+    margin-inline-start: auto;
+    background-color: var(--clr-Very-Dark-Desaturated-Violet);
+    width: 1.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+}
+
+.right h1 {
+  font-size: 2.5rem;
+  font-weight: var(--fw-bold);
+  color: var(--clr-Very-Dark-Desaturated-Violet);
+  text-align: center;
+}
+.right p {
+  margin-block-start: 1em;
+  color: var(--clr-Dark-Grayish-Violet);
+  text-align: center;
+}
+
+@media (min-width: 760px) {
+  body {
+    display: flex;
+    align-items: center;
+  }
+  body::before {
+    width: min(500px, 50vw);
+    height: calc(100% - 100px);
+    border-bottom-left-radius: 100vw;
+    transform: translateX(-80px);
+  }
+  body::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 auto;
+    width: min(320px, 30vw);
+    height: calc(100% - 100px);
+    background-color: var(--clr-Pale-Violet);
+    opacity: 0.05;
+    border-top-left-radius: 100vw;
+  }
+  main {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .right {
+    display: grid;
+    align-content: center;
+  }
+  .right h1 {
+    text-align: start;
+  }
+  .right p {
+    text-align: start;
+  }
+}
