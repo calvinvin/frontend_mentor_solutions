@@ -1,52 +1,28 @@
-body {
-    min-height: 100vh;
-    background-color: #F0F0F0;
-    display: grid;
-    place-items: center;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-.main {
-    position: relative;
-    width: 20rem;
-    aspect-ratio: 1 / 2;
-}
-.p {
-    font-size: 5rem;
+#test {
+  width: 250px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 50px solid #0f0;
+  border-bottom: 40px solid #0f0;
+  position: relative;
+  /* overflow: hidden; */
+  &::before {
+    content: "";
     position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    z-index: 100;
-}
-.card {
-    position: absolute;
-    inset: 0;
-}
-.side {
-    position: absolute;
-}
-.top {
-    inset: 0 0 50% 0;
-    background-color: red;
-}
-.bottom {
-    inset: 50% 0 0 0;
-    background-color: green;
-}
-.flip {
-    inset: 0;
-    position: absolute;
-    transform-style: preserve-3d;
-    transform: rotateX(0.5turn);
-    transition: transform 3s;
-}
-.flip-front, .flip-back {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, yellow 50%, blue 50%);
-    backface-visibility: hidden;
-}
-.flip-front {
-}
-.flip-back {
-    transform: rotateX(0.5turn);
+    inset: -50px;
+    background: radial-gradient(
+      circle at 50% calc(50% + 5px),
+      white calc((250px - 100px) / 2),
+      #0002 calc((250px - 100px) / 2),
+      #0002 calc((250px - 50px) / 2),
+      hsl(120, 60%, 50%) calc((250px - 50px) / 2)
+    );
+    border-radius: 50%;
+    z-index: -1;
+  }
 }
