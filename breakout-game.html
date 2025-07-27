@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        color-scheme: dark;
+      }
+
+      body {
+        background-color: #444;
+        font-family: sans-serif;
+        overflow: hidden;
+      }
+
+      main {
+        min-height: 100svh;
+        max-width: 1440px;
+        margin-inline: auto;
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+      }
+
+      h1 {
+        margin-inline: auto;
+        margin-block-start: 16px;
+        line-height: 1.2;
+      }
+
+      div.menu-bar {
+        padding: 16px;
+        max-width: 960px;
+        margin-inline: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+
+        & button {
+          flex-grow: 1;
+          width: 12ch;
+          font-size: clamp(1rem, 2.5vmin, 2rem);
+          padding-block: 0.25em;
+          border-radius: 12px;
+          cursor: pointer;
+        }
+      }
+
+      #game {
+        width: 100%;
+        margin-block-end: 32px;
+        max-width: 960px;
+        margin-inline: auto;
+        background-color: #aaa;
+        position: relative;
+        border-radius: 4px;
+        cursor: default;
+        overflow: hidden;
+      }
+
+      div.brick {
+        --s: 7px; /* control the size*/
+        --c1: #774f38;
+        --c2: #f1d4af;
+        --g: conic-gradient(at 90% 40%, #0000 75%, var(--c1) 0);
+        background: var(--g), var(--g) var(--s) var(--s) var(--c2);
+        background-size: calc(2 * var(--s)) calc(2 * var(--s));
+        content: "";
+        position: absolute;
+        border: 2px solid darkgreen;
+        transition: opacity 0.15s ease-out;
+        &.brick--broke {
+          opacity: 0;
+        }
+      }
+
+      #paddle {
+        --s: 12px; /* control the size*/
+        --c1: #60605c;
+        --c2: #264e5f;
+        --c3: #181b1a;
+        background: repeating-conic-gradient(#0000 0 25%, var(--c1) 0 50%) 0 0 /
+            calc(2 * var(--s)) var(--s),
+          linear-gradient(-45deg, var(--c2) 33.3%, var(--c3) 0) 0 0 / var(--s)
+            calc(var(--s) / 2);
+        position: absolute;
+        content: "";
+      }
+
+      #ball {
+        aspect-ratio: 1;
+        content: "";
+        position: absolute;
+        background-color: red;
+        border: 2px solid darkblue;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>打磚塊</h1>
+      <div class="menu-bar">
+        <button id="start-button">開始/繼續</button>
+        <button id="stop-button">暫停遊戲</button>
+        <button id="reset-ball-button">重設球球</button>
+        <button id="restart-button">重新開始</button>
+      </div>
+      <div id="game"></div>
+    </main>
+
+    <script>
+      class Utilities {
+        static approximateValue(valueA, valueB) {
+          return Math.abs(valueA - valueB) <= 1;
+        }
+
+        static detectCollisionWithRectangle(ball, rectangle) {
+          const ballXmin = ball.x - ball.radius;
+          const ballXmax = ball.x + ball.radius;
+          const ballYmin = ball.y - ball.radius;
+          const ballYmax = ball.y + ball.radius;
+          const rectangleXmin = rectangle.xCenter - rectangle.width / 2;
+          const rectangleXmax = rectangle.xCenter + rectangle.width / 2;
+          const rectangleYmin = rectangle.yCenter - rectangle.height / 2;
+          const rectangleYmax = rectangle.yCenter + rectangle.height / 2;
+          const collised =
+            ballXmax > rectangleXmin &&
+            rectangleXmax > ballXmin &&
+            ballYmax > rectangleYmin &&
+            rectangleYmax > ballYmin;
+          if (!collised) return;
+          let side;
+          if (Utilities.approximateValue(ballYmax, rectangleYmin)) {
+            side = "top";
+          } else if (Utilities.approximateValue(ballXmax, rectangleXmin)) {
+            side = "left";
+          } else if (Utilities.approximateValue(ballXmin, rectangleXmax)) {
+            side = "right";
+          } else if (Utilities.approximateValue(ballYmin, rectangleYmax)) {
+            side = "bottom";
+          }
+          return { side: side };
+        }
+
+        static detectCollisionWithBrick(ball, bricks) {
+          for (let brick of bricks.filter((brick) => brick.exists === true)) {
+            const collidesWithBrick = this.detectCollisionWithRectangle(
+              ball,
+              brick
+            );
+            if (collidesWithBrick) {
+              return {
+                brick,
+                side: collidesWithBrick.side,
+              };
+            }
+          }
+        }
+
+        static detectCollisionWithPaddle(ball, paddle) {
+          const collidesWithPaddle = this.detectCollisionWithRectangle(
+            ball,
+            paddle
+          );
+          if (collidesWithPaddle) return { side: collidesWithPaddle.side };
+        }
+
+        static detectCollisionWithBorder(ball, game) {
+          const borders = [
+            {
+              side: "top",
+              collised: ball.y <= game.ball.radius,
+            },
+            {
+              side: "left",
+              collised: ball.x <= game.ball.radius,
+            },
+            {
+              side: "right",
+              collised: ball.x >= game.gameWidth - game.ball.radius,
+            },
+            {
+              side: "bottom",
+              collised: ball.y >= game.gameHeight + game.ball.radius,
+            },
+          ];
+          return borders.filter((border) => border.collised === true)[0];
+        }
+
+        static ballLowerThanPaddleTop(ball, paddle) {
+          return ball.y + ball.radius >= paddle.yCenter - paddle.height / 2;
+        }
+
+        static ballDirectionRelativeToPaddle(ball, paddle) {
+          return ball.x > paddle.xCenter + paddle.width / 2
+            ? "right"
+            : ball.x < paddle.xCenter - paddle.width / 2
+            ? "left"
+            : "up";
+        }
+
+        static paddleXCenterLimitWhenBallLowerThanPaddleTop(ball, paddle) {
+          let Xmin, Xmax;
+          const ballLowerThanPaddleTop = Utilities.ballLowerThanPaddleTop(
+            controller.game.ball,
+            controller.game.paddle
+          );
+          const ballDirectionRelativeToPaddle =
+            Utilities.ballDirectionRelativeToPaddle(
+              controller.game.ball,
+              controller.game.paddle
+            );
+
+          if (ballLowerThanPaddleTop) {
+            if (ballDirectionRelativeToPaddle === "right") {
+              Xmax =
+                controller.game.ball.x -
+                controller.game.ball.radius -
+                controller.game.paddle.width / 2 -
+                1;
+            } else if (ballDirectionRelativeToPaddle === "left") {
+              Xmin =
+                controller.game.ball.x +
+                controller.game.ball.radius +
+                controller.game.paddle.width / 2 +
+                1;
+            }
+          }
+          return { Xmin: Xmin, Xmax: Xmax };
+        }
+      }
+
+      class Game {
+        gamePaddingX = 80;
+        gamePaddingXByGameWidth = 0.05;
+        gamePaddingY = 40;
+        gamePaddingXByGameWidth = 0.05;
+        brickGapX = 80;
+        brickGapXByGameWidth = 0.05;
+        brickGapY = 40;
+        brickGapYByGameHeight = 0.05;
+        brickMaxWidth = 100;
+        brickMaxHeight = 50;
+        brickMaxHeightByGameHeight = 0.05;
+        brickAreaHeightRatio = 0.4;
+        brickColumnAmountMin = 3;
+        brickColumnAmountMax = 6;
+        brickRowAmountMin = 3;
+        brickRowAmountMax = 6;
+        paddleWidth = 300;
+        paddleMaxWidthRatioByGameWidth = 0.3;
+        paddleHeight = 100;
+        paddleMaxHeightRatioByGameHeight = 0.07;
+        paddledX = 20;
+        ballSize = 20;
+        ballVelocity = 10;
+        ballVelocityMaxRatioOfGameSize = 0.01;
+
+        constructor(gameElement) {
+          this.container = gameElement;
+          this.gameWidth = this.container.offsetWidth;
+          this.gameHeight = this.container.offsetHeight;
+          this.gameXmin = this.container.offsetLeft;
+          this.gameYmin = this.container.offsetTop;
+          this.gameXmax = this.gameXmin + this.gameWidth;
+          this.gameYmax = this.gameYmin + this.gameHeight;
+          this.gamePaddingX = Math.min(
+            this.gamePaddingX,
+            Math.floor(this.gameWidth * this.gamePaddingXByGameWidth)
+          );
+          this.gamePaddingY = Math.min(
+            this.gamePaddingY,
+            Math.floor(this.gameHeight * this.gamePaddingXByGameWidth)
+          );
+          this.brickGapX = Math.min(
+            this.brickGapX,
+            Math.floor(this.gameWidth * this.brickGapXByGameWidth)
+          );
+          this.brickGapY = Math.min(
+            this.brickGapY,
+            Math.floor(this.gameHeight * this.brickGapYByGameHeight)
+          );
+
+          this.brickColumnAmount = Math.min(
+            Math.max(
+              Math.floor(
+                (this.gameWidth - this.gamePaddingX * 2) /
+                  (this.brickMaxWidth + this.brickGapX)
+              ),
+              this.brickColumnAmountMin
+            ),
+            this.brickColumnAmountMax
+          );
+          this.brickRowAmount = Math.min(
+            Math.max(
+              Math.floor(
+                (this.gameHeight * this.brickAreaHeightRatio) /
+                  (this.brickMaxHeight + this.brickGapY)
+              ),
+              this.brickRowAmountMin
+            ),
+            this.brickRowAmountMax
+          );
+          this.brickAmount = this.brickRowAmount * this.brickColumnAmount;
+          this.bricks = [...Array(this.brickAmount)].map((_, brickIndex) =>
+            this.Brick(brickIndex)
+          );
+          this.paddle = this.Paddle();
+          this.ball = this.Ball();
+        }
+
+        Brick(brickIndex) {
+          const columnIndex = brickIndex % this.brickColumnAmount;
+          const rowIndex = Math.floor(brickIndex / this.brickColumnAmount);
+          const brickWidth = Math.floor(
+            (this.gameWidth -
+              this.gamePaddingX * 2 -
+              this.brickGapX * (this.brickColumnAmount - 1)) /
+              this.brickColumnAmount
+          );
+          const brickHeight = Math.min(
+            this.brickMaxHeight,
+            Math.floor(this.gameHeight * this.brickMaxHeightByGameHeight)
+          );
+          const brickXcenter = Math.floor(
+            this.gamePaddingX +
+              columnIndex * (brickWidth + this.brickGapX) +
+              brickWidth / 2
+          );
+          const brickYcenter = Math.floor(
+            this.gamePaddingY +
+              rowIndex * (brickHeight + this.brickGapY) +
+              brickHeight / 2
+          );
+          const brickDiv = document.createElement("div");
+          brickDiv.classList.add("brick");
+          brickDiv.style.top = `${Math.floor(
+            brickYcenter - brickHeight / 2
+          )}px`;
+          brickDiv.style.left = `${Math.floor(
+            brickXcenter - brickWidth / 2
+          )}px`;
+          brickDiv.style.width = `${brickWidth}px`;
+          brickDiv.style.height = `${brickHeight}px`;
+          return {
+            id: brickIndex,
+            columnIndex: columnIndex,
+            rowIndex: rowIndex,
+            xCenter: brickXcenter,
+            yCenter: brickYcenter,
+            width: brickWidth,
+            height: brickHeight,
+            htmlEl: brickDiv,
+            exists: true,
+          };
+        }
+
+        Paddle() {
+          const paddleWidth = Math.min(
+            Math.floor(this.paddleWidth),
+            Math.floor(this.gameWidth * this.paddleMaxWidthRatioByGameWidth)
+          );
+          const paddleHeight = Math.min(
+            Math.floor(this.paddleHeight),
+            Math.floor(this.gameHeight * this.paddleMaxHeightRatioByGameHeight)
+          );
+          const paddleXCenter = Math.floor(this.gameWidth / 2);
+          const paddleYCenter = Math.floor(
+            this.gameHeight - this.gamePaddingY - paddleHeight / 2
+          );
+          const paddleDiv = document.createElement("div");
+          paddleDiv.id = "paddle";
+          paddleDiv.style.height = `${paddleHeight}px`;
+          paddleDiv.style.width = `${paddleWidth}px`;
+          paddleDiv.style.left = `${Math.floor(
+            paddleXCenter - paddleWidth / 2
+          )}px`;
+          paddleDiv.style.bottom = `${this.gamePaddingY}px`;
+          return {
+            xCenter: paddleXCenter,
+            yCenter: paddleYCenter,
+            width: paddleWidth,
+            height: paddleHeight,
+            htmlEl: paddleDiv,
+          };
+        }
+
+        Ball() {
+          const ballX = Math.floor(this.gameWidth / 2);
+          const ballY = Math.floor(this.gameHeight / 2);
+          const ballRadius = Number((this.ballSize / 2).toFixed(2));
+          const balldX = Math.ceil(
+            Math.min(
+              this.ballVelocity,
+              Math.min(this.gameHeight, this.gameWidth) *
+                this.ballVelocityMaxRatioOfGameSize
+            )
+          );
+          const balldY = Math.ceil(
+            Math.min(
+              this.ballVelocity,
+              Math.min(this.gameHeight, this.gameWidth) *
+                this.ballVelocityMaxRatioOfGameSize
+            )
+          );
+          const ballDiv = document.createElement("div");
+          ballDiv.id = "ball";
+          ballDiv.style.width = `${ballRadius * 2}px`;
+          ballDiv.style.top = `${Math.floor(ballY - ballRadius)}px`;
+          ballDiv.style.left = `${Math.floor(ballX - ballRadius)}px`;
+          return {
+            x: ballX,
+            y: ballY,
+            radius: ballRadius,
+            dx: balldX,
+            dy: balldY,
+            htmlEl: ballDiv,
+          };
+        }
+      }
+
+      class View {
+        drawBall(ball) {
+          ball.htmlEl.style.left = `${Math.floor(ball.x - ball.radius)}px`;
+          ball.htmlEl.style.top = `${Math.floor(ball.y - ball.radius)}px`;
+        }
+        drawPaddle(paddle) {
+          paddle.htmlEl.style.left = `${Math.floor(
+            paddle.xCenter - paddle.width / 2
+          )}px`;
+        }
+      }
+
+      class Controller {
+        keyDown = null;
+        running = false;
+        collised = false;
+        refreshRate = undefined;
+        touchControlOffsetAmplificationRatio = 1.25;
+
+        constructor(gameContainerId) {
+          this.gameContainerId = gameContainerId;
+          this.game = new Game(document.getElementById(this.gameContainerId));
+          this.view = new View();
+          this.lastTimeFrame = performance.now();
+          this.minRefreshTime = this.refreshRate
+            ? Math.floor((1 / this.refreshRate) * 1000)
+            : 0;
+          this.initialize();
+          this.listenKeyboard();
+          this.listenMenuBar();
+          this.listenPointer();
+        }
+
+        initialize() {
+          this.game.container.innerHTML = "";
+          const brickContainerDiv = document.createElement("div");
+          brickContainerDiv.id = "brick-container";
+          brickContainerDiv.append(
+            ...this.game.bricks.map((brick) => brick.htmlEl)
+          );
+          this.game.container.appendChild(brickContainerDiv);
+          this.game.container.appendChild(this.game.paddle.htmlEl);
+          this.game.container.appendChild(this.game.ball.htmlEl);
+        }
+
+        move(t) {
+          if (t - this.lastTimeFrame < this.minRefreshTime) {
+            requestAnimationFrame((t) => this.move(t));
+            return;
+          }
+          this.lastTimeFrame = t;
+          this.ballMove();
+          this.view.drawBall(this.game.ball);
+          if (!this.collised) {
+            switch (this.keyDown) {
+              case "left":
+                this.paddleMove("left");
+                break;
+              case "right":
+                this.paddleMove("right");
+                break;
+            }
+            this.view.drawPaddle(this.game.paddle);
+          }
+          const allBricksBroken = this.game.bricks.every(
+            (brick) => brick.exists === false
+          );
+          if (allBricksBroken) {
+            this.stop();
+            return;
+          }
+          if (this.running) {
+            requestAnimationFrame((t) => this.move(t));
+          }
+        }
+
+        run() {
+          if (this.running) return;
+          this.running = true;
+          window.requestAnimationFrame((t) => {
+            this.move(t);
+          });
+        }
+
+        stop() {
+          this.running = false;
+        }
+
+        ballMove() {
+          let newBallX, newBallY;
+          const maxDeviation = Math.max(
+            Math.abs(this.game.ball.dx),
+            Math.abs(this.game.ball.dy)
+          );
+          for (let deviation = 1; deviation <= maxDeviation; deviation++) {
+            this.collised = true;
+            newBallX = Math.floor(
+              this.game.ball.x + this.game.ball.dx * (deviation / maxDeviation)
+            );
+            newBallY = Math.floor(
+              this.game.ball.y + this.game.ball.dy * (deviation / maxDeviation)
+            );
+            const tempBall = {
+              x: newBallX,
+              y: newBallY,
+              radius: this.game.ball.radius,
+            };
+            const collidesWithBrick = Utilities.detectCollisionWithBrick(
+              tempBall,
+              this.game.bricks
+            );
+            if (collidesWithBrick) {
+              const collidedBrick = collidesWithBrick.brick;
+              const collidedBrickSide = collidesWithBrick.side;
+              this.game.bricks = this.game.bricks.map((brick) =>
+                brick.id === collidedBrick.id
+                  ? { ...brick, exists: false }
+                  : brick
+              );
+              collidedBrick.htmlEl.classList.add("brick--broke");
+              this.changeDirectionByCollisedSide(collidedBrickSide);
+              break;
+            }
+            const collidesWithPaddle = Utilities.detectCollisionWithPaddle(
+              tempBall,
+              this.game.paddle
+            );
+            if (collidesWithPaddle) {
+              const collisedPaddleSide = collidesWithPaddle.side;
+              this.changeDirectionByCollisedSide(collisedPaddleSide);
+              break;
+            }
+            const collidesWithBorder = Utilities.detectCollisionWithBorder(
+              tempBall,
+              this.game
+            );
+            if (collidesWithBorder) {
+              switch (collidesWithBorder.side) {
+                case "top":
+                  this.game.ball.dy *= -1;
+                  break;
+                case "left":
+                  this.game.ball.dx *= -1;
+                  break;
+                case "right":
+                  this.game.ball.dx *= -1;
+                  break;
+                case "bottom":
+                  this.resetBall();
+                  newBallX = this.game.ball.x;
+                  newBallY = this.game.ball.y;
+                  this.running = false;
+                  break;
+              }
+              break;
+            }
+            this.collised = false;
+          }
+          this.game.ball = {
+            ...this.game.ball,
+            x: newBallX,
+            y: newBallY,
+          };
+        }
+
+        paddleMove(direction) {
+          let nextPaddleX,
+            collised = false;
+          if (!["left", "right"].includes(direction)) {
+            throw Error(`Direction error: ${direction}`);
+          }
+          const coefficient = direction === "left" ? -1 : 1;
+          const maxDeviation = Math.abs(this.game.paddledX);
+          const paddleXCenterMin = Math.floor(this.game.paddle.width / 2);
+          const paddleXCenterMax = Math.floor(
+            this.game.gameWidth - this.game.paddle.width / 2
+          );
+          for (let deviation = 1; deviation <= maxDeviation; deviation++) {
+            nextPaddleX = Math.floor(
+              this.game.paddle.xCenter +
+                this.game.paddledX * coefficient * (deviation / maxDeviation)
+            );
+            if (
+              nextPaddleX < paddleXCenterMin ||
+              nextPaddleX > paddleXCenterMax
+            ) {
+              break;
+            }
+            const tempPaddle = { ...this.game.paddle, xCenter: nextPaddleX };
+            const collidesWithPaddle = Utilities.detectCollisionWithPaddle(
+              this.game.ball,
+              tempPaddle
+            );
+            if (collidesWithPaddle) {
+              collised = true;
+              const collidedPaddleSide = collidesWithPaddle.side;
+              if (collidedPaddleSide === "left") {
+                this.game.ball.dx = -Math.abs(this.game.ball.dx);
+              } else if (collidedPaddleSide === "right") {
+                this.game.ball.dx = Math.abs(this.game.ball.dx);
+              }
+              this.game.ball = {
+                ...this.game.ball,
+                x:
+                  this.game.ball.x +
+                  this.game.ball.dx / Math.abs(this.game.ball.dx),
+                y:
+                  this.game.ball.y +
+                  this.game.ball.dy / Math.abs(this.game.ball.dy),
+              };
+              break;
+            }
+          }
+          this.game.paddle.xCenter = Math.min(
+            Math.max(nextPaddleX, paddleXCenterMin),
+            paddleXCenterMax
+          );
+          return { collised: collised };
+        }
+
+        changeDirectionByCollisedSide(side) {
+          if (["top", "bottom"].includes(side)) this.game.ball.dy *= -1;
+          else if (["left", "right"].includes(side)) this.game.ball.dx *= -1;
+        }
+
+        listenKeyboard() {
+          window.addEventListener("keydown", handleKeyDown);
+          window.addEventListener("keyup", handleKeyUp);
+
+          function handleKeyDown(e) {
+            const key = e.key;
+            switch (key) {
+              case "ArrowLeft":
+                controller.keyDown = "left";
+                break;
+              case "ArrowRight":
+                controller.keyDown = "right";
+                break;
+            }
+          }
+
+          function handleKeyUp(e) {
+            controller.keyDown = null;
+          }
+        }
+
+        listenMenuBar() {
+          document
+            .getElementById("start-button")
+            .addEventListener("click", () => this.run());
+          document
+            .getElementById("stop-button")
+            .addEventListener("click", () => this.stop());
+          document
+            .getElementById("restart-button")
+            .addEventListener("click", () => {
+              this.running = false;
+              this.game = new Game(document.getElementById("game"));
+              this.initialize();
+            });
+          document
+            .getElementById("reset-ball-button")
+            .addEventListener("click", () => {
+              this.resetBall();
+            });
+        }
+
+        listenPointer() {
+          let touchStartX, touchStartPaddleXcenter;
+          this.game.container.addEventListener(
+            "pointermove",
+            handlePointerMove
+          );
+          this.game.container.addEventListener(
+            "pointerdown",
+            handlePointerDown
+          );
+          this.game.container.addEventListener("pointerup", handlePointerUp);
+
+          function handlePointerMove(e) {
+            if (
+              Utilities.detectCollisionWithPaddle(
+                controller.game.ball,
+                controller.game.paddle
+              )
+            ) {
+              return;
+            }
+            if (touchStartX) {
+              const touchOffsetX =
+                (e.pageX - touchStartX) *
+                controller.touchControlOffsetAmplificationRatio;
+              const targetX = touchStartPaddleXcenter + touchOffsetX;
+              const paddleXCenterLimitWhenBallLowerThanPaddleTop =
+                Utilities.paddleXCenterLimitWhenBallLowerThanPaddleTop(
+                  controller.game.ball,
+                  controller.game.paddle
+                );
+              const Xmin = Math.floor(
+                paddleXCenterLimitWhenBallLowerThanPaddleTop.Xmin ??
+                  controller.game.paddle.width / 2
+              );
+              const Xmax = Math.floor(
+                paddleXCenterLimitWhenBallLowerThanPaddleTop.Xmax ??
+                  controller.game.gameWidth - controller.game.paddle.width / 2
+              );
+              const endPaddleXCenter = Math.floor(
+                Math.min(Math.max(targetX, Xmin), Xmax)
+              );
+              controller.game.paddle.xCenter = endPaddleXCenter;
+              controller.view.drawPaddle(controller.game.paddle);
+            } else {
+              const mouseX =
+                e.pageX - e.currentTarget.getBoundingClientRect().x;
+              const paddleXCenterLimitWhenBallLowerThanPaddleTop =
+                Utilities.paddleXCenterLimitWhenBallLowerThanPaddleTop(
+                  controller.game.ball,
+                  controller.game.paddle
+                );
+              const Xmin = Math.floor(
+                paddleXCenterLimitWhenBallLowerThanPaddleTop.Xmin ??
+                  controller.game.paddle.width / 2
+              );
+              const Xmax = Math.floor(
+                paddleXCenterLimitWhenBallLowerThanPaddleTop.Xmax ??
+                  controller.game.gameWidth - controller.game.paddle.width / 2
+              );
+              controller.game.paddle.xCenter = Math.floor(
+                Math.min(Math.max(mouseX, Xmin), Xmax)
+              );
+              controller.view.drawPaddle(controller.game.paddle);
+            }
+          }
+
+          function handlePointerDown(e) {
+            if (e.pointerType === "touch") {
+              touchStartX = e.pageX;
+              touchStartPaddleXcenter = controller.game.paddle.xCenter;
+            }
+          }
+
+          function handlePointerUp(e) {
+            touchStartX = undefined;
+            touchStartPaddleXcenter = undefined;
+          }
+        }
+
+        resetBall() {
+          this.game.ball.htmlEl.remove();
+          this.game.ball = this.game.Ball();
+          this.game.container.appendChild(this.game.ball.htmlEl);
+        }
+
+        restart() {
+          this.game = new Game(document.getElementById(this.gameContainerId));
+          this.initialize();
+        }
+      }
+
+      const controller = new Controller("game");
+    </script>
+  </body>
+</html>
