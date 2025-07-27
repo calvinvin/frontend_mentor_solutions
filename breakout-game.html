@@ -696,7 +696,9 @@
         listenMenuBar() {
           document
             .getElementById("start-button")
-            .addEventListener("click", () => this.run());
+            .addEventListener("click", () =>
+              setTimeout(() => controller.run(), 200)
+            );
           document
             .getElementById("stop-button")
             .addEventListener("click", () => this.stop());
