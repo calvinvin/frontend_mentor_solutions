@@ -604,6 +604,18 @@
       "repositoryUrl": "https://github.com/calvinvin/frontend_mentor_solutions/tree/frontend_mentor_solutions-main/advanced-2_rock-paper-scissors",
       "previewImgUrl": "https://calvinvin.github.io/frontend_mentor_solutions/advanced-2_rock-paper-scissors/design/desktop-preview.jpg",
       "comments": ""
+    },
+    {
+      "id": 49,
+      "category": 8,
+      "name": "Manage Landing Page",
+      "createdAt": "2025-08-03",
+      "level": 3,
+      "tags": ["vanilla", "javascript"],
+      "websiteUrl": "https://calvinvin.github.io/frontend_mentor_solutions/intermediate-8_manage-landing-page/",
+      "repositoryUrl": "https://github.com/calvinvin/frontend_mentor_solutions/tree/frontend_mentor_solutions-main/intermediate-8_manage-landing-page",
+      "previewImgUrl": "https://calvinvin.github.io/frontend_mentor_solutions/intermediate-8_manage-landing-page/preview.jpg",
+      "comments": ""
     }
   ]
 }
