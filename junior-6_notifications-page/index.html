@@ -1,51 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Notifications page</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Notifications page</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
+    <style>
+      :root {
+        --clr-Red-500: hsl(1, 90%, 64%);
+        --clr-Blue-950: hsl(219, 85%, 26%);
+        --clr-White: hsl(0, 100%, 100%);
+        --clr-Navy-50: hsl(210, 60%, 98%);
+        --clr-Blue-100: hsl(211, 68%, 94%);
+        --clr-Navy-100: hsl(205, 33%, 90%);
+        --clr-Gray-500: hsl(219, 14%, 63%);
+        --clr-Gray-600: hsl(219, 12%, 42%);
+        --clr-Navy-950: hsl(224, 21%, 14%);
+        --fw-regular: 500;
+        --fw-bold: 800;
+        --clr-accent: var(--clr-Red-500);
+        --clr-dark: var(--clr-Navy-950);
+        --clr-primary: var(--clr-Blue-950);
+        --clr-text: var(--clr-Gray-600);
+        --clr-text-light: var(--clr-Gray-500);
+      }
 
-  Notifications 3
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
 
-  Mark all as read
+      * {
+        margin: 0;
+        padding: 0;
+        font: inherit;
+      }
 
-  Mark Webber reacted to your recent post My first tournament today!
-  1m ago
+      img {
+        display: block;
+        max-width: 100%;
+      }
 
-  Angela Gray followed you
-  5m ago
+      body {
+        font-family: "Plus Jakarta Sans";
+        line-height: 1.5;
+        background-color: var(--clr-Navy-100);
+        color: var(--clr-text);
+        font-size: 87.5%;
+      }
 
-  Jacob Thompson has joined your group Chess Club
-  1 day ago
+      div.notifications {
+        max-width: 730px;
+        margin-inline: auto;
+        padding: 24px 16px 40px;
+        background-color: var(--clr-White);
+        box-shadow: 0 0 16px 4px var(--clr-Blue-100);
 
-  Rizky Hasanuddin sent you a private message
-  5 days ago
-  Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and 
-  I'm already having lots of fun and improving my game.
+        & div.notifications-heading-wrapper {
+          margin-block-end: 24px;
+          display: flex;
+          justify-content: space-between;
+        }
 
-  Kimberly Smith commented on your picture
-  1 week ago
+        & h1.notifications-heading {
+          color: var(--clr-dark);
+          font-weight: var(--fw-bold);
 
-  Nathan Peterson reacted to your recent post 5 end-game strategies to increase your win rate
-  2 weeks ago
+          & span.unread-notification-amount {
+            margin-inline-start: 8px;
+            padding: 0.125em 0.5em;
+            font-size: 0.875em;
+            color: var(--clr-White);
+            background-color: var(--clr-primary);
+            border-radius: 4px;
+          }
+        }
 
-  Anna Kim left the group Chess Club
-  2 weeks ago
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+        & button.mark-all-as-read {
+          font-size: 0.875em;
+          color: var(--clr-text);
+          border: transparent;
+          background: transparent;
+          cursor: pointer;
+
+          @media (hover: hover) {
+            &:hover {
+              color: var(--clr-primary);
+            }
+          }
+          &:focus-visible {
+            color: var(--clr-primary);
+          }
+        }
+      }
+
+      div.notifications > div.notification + div.notification {
+        margin-block-start: 12px;
+      }
+
+      div.notification {
+        padding: 12px;
+        display: grid;
+        grid:
+          "avatar p"
+          "avatar time" / auto 1fr;
+        column-gap: 12px;
+        border-radius: 12px;
+
+        &:has(p.notification__message) {
+          & {
+            grid:
+              "avatar p"
+              "avatar time"
+              "avatar message" / auto 1fr;
+          }
+        }
+
+        &:has(img.notification__picture) {
+          & {
+            grid:
+              "avatar p picture"
+              "avatar time picture" / auto 1fr auto;
+          }
+        }
+
+        &[data-read="false"] {
+          background-color: var(--clr-Navy-50);
+
+          & p.notification__p::after {
+            content: "";
+            display: inline-block;
+            margin-inline-start: 0.25em;
+            width: 8px;
+            aspect-ratio: 1;
+            background-color: var(--clr-accent);
+            border-radius: 50%;
+          }
+        }
+
+        & img.notification__avatar {
+          grid-area: avatar;
+          width: 40px;
+          aspect-ratio: 1;
+          border-radius: 50%;
+        }
+
+        & p.notification__p {
+          grid-area: p;
+        }
+
+        & span.notification__time {
+          grid-area: time;
+          color: var(--clr-text-light);
+        }
+
+        & p.notification__message {
+          grid-area: message;
+          margin-block: 8px 32px;
+          padding: 16px 12px;
+          border: 1px solid var(--clr-Navy-100);
+          border-radius: 4px;
+          cursor: pointer;
+
+          @media (hover: hover) {
+            &:hover {
+              background-color: var(--clr-Navy-100);
+            }
+          }
+          &:focus-visible {
+            background-color: var(--clr-Navy-100);
+          }
+        }
+
+        & a.notification__picture-a {
+          grid-area: picture;
+        }
+
+        & img.notification__picture {
+          width: 40px;
+          aspect-ratio: 1;
+          border-radius: 4px;
+        }
+        & a.notification__user,
+        & a.post,
+        & a.group {
+          font-weight: var(--fw-bold);
+          text-decoration: none;
+
+          &.notification__user {
+            color: var(--clr-dark);
+          }
+          &.post {
+            color: var(--clr-text);
+          }
+          &.group {
+            color: var(--clr-primary);
+          }
+
+          @media (hover: hover) {
+            &:hover {
+              color: var(--clr-primary);
+            }
+          }
+          &:focus-visible {
+            color: var(--clr-primary);
+          }
+        }
+      }
+
+      @media (min-width: 50em) {
+        body {
+          padding-block: 64px 88px;
+          font-size: 100%;
+        }
+
+        div.notifications {
+          padding: 32px 32px 16px;
+          border-radius: 16px;
+        }
+
+        div.notifications div.notifications-heading-wrapper {
+          font-size: 1.125rem;
+        }
+
+        div.notifications button.mark-all-as-read {
+          font-size: 1em;
+        }
+
+        div.notification p.notification__message {
+          padding-inline: 16px;
+        }
+      }
+
+      .visually-hidden {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="notifications">
+        <div class="notifications-heading-wrapper">
+          <h1 class="notifications-heading">
+            Notifications<span class="visually-hidden">. Unread: </span
+            ><span id="unread-amount" class="unread-notification-amount"
+              >3</span
+            >
+          </h1>
+          <button id="mark-all-as-read" class="mark-all-as-read">
+            Mark all as read
+          </button>
+        </div>
+        <div class="notification" data-read="false">
+          <img
+            src="./assets/images/avatar-mark-webber.webp"
+            alt=""
+            class="notification__avatar"
+          />
+          <p class="notification__p">
+            <a class="notification__user" href="#">Mark Webber</a> reacted to
+            your recent post
+            <a href="" class="post">My first tournament today!</a>
+          </p>
+          <span class="notification__time">1m ago</span>
+        </div>
+        <div class="notification" data-read="false">
+          <img
+            src="./assets/images/avatar-angela-gray.webp"
+            alt=""
+            class="notification__avatar"
+          />
+          <p class="notification__p">
+            <a class="notification__user" href="#">Angela Gray</a> followed you
+          </p>
+          <span class="notification__time">5m ago</span>
+        </div>
+        <div class="notification" data-read="false">
+          <img
+            src="./assets/images/avatar-jacob-thompson.webp"
+            alt=""
+            class="notification__avatar"
+          />
+          <p class="notification__p">
+            <a class="notification__user" href="#">Jacob Thompson</a> has joined
+            your group <a href="" class="group">Chess Club</a>
+          </p>
+          <span class="notification__time">1 day ago</span>
+        </div>
+        <div class="notification" data-read="true">
+          <img
+            src="./assets/images/avatar-rizky-hasanuddin.webp"
+            alt=""
+            class="notification__avatar"
+          />
+          <p class="notification__p">
+            <a class="notification__user" href="#">Rizky Hasanuddin</a> sent you
+            a private message
+          </p>
+          <span class="notification__time">5 days ago</span>
+          <p class="notification__message">
+            Hello, thanks for setting up the Chess Club. I've been a member for
+            a few weeks now and I'm already having lots of fun and improving my
+            game.
+          </p>
+        </div>
+        <div class="notification" data-read="true">
+          <img
+            src="./assets/images/avatar-kimberly-smith.webp"
+            alt=""
+            class="notification__avatar"
+          />
+          <p class="notification__p">
+            <a class="notification__user" href="#">Kimberly Smith</a> commented
+            on your picture
+          </p>
+          <span class="notification__time">1 week ago</span>
+          <a
+            class="notification__picture-a"
+            href="#"
+            aria-label="commented picture"
+          >
+            <img
+              class="notification__picture"
+              src="./assets/images/image-chess.webp"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="notification" data-read="true">
+          <img
+            src="./assets/images/avatar-nathan-peterson.webp"
+            alt=""
+            class="notification__avatar"
+          />
+          <p class="notification__p">
+            <a class="notification__user" href="#">Nathan Peterson</a> reacted
+            to your recent post
+            <a href="" class="post"
+              >5 end-game strategies to increase your win rate</a
+            >
+          </p>
+          <span class="notification__time">2 weeks ago</span>
+        </div>
+        <div class="notification" data-read="true">
+          <img
+            src="./assets/images/avatar-anna-kim.webp"
+            alt=""
+            class="notification__avatar"
+          />
+          <p class="notification__p">
+            <a class="notification__user" href="#">Anna Kim</a> left the group
+            <a href="" class="group">Chess Club</a>
+          </p>
+          <span class="notification__time">2 weeks ago</span>
+        </div>
+      </div>
+    </main>
+    <script>
+      const setNotificationRead = (notificationElement) =>
+        notificationElement.setAttribute("data-read", "true");
+      const setAllNotificationsRead = () => {
+        const notificationElements =
+          document.querySelectorAll("div.notification");
+        notificationElements.forEach((notificationElement) =>
+          setNotificationRead(notificationElement)
+        );
+      };
+      const updateUnreadAmount = () => {
+        const spanUnreadAmount = document.getElementById("unread-amount");
+        const divUnreadNotifications = document.querySelectorAll(
+          "div.notification[data-read='false']"
+        );
+        spanUnreadAmount.textContent = divUnreadNotifications.length;
+      };
+      const attachHandleClickNotificationElement = () => {
+        const notificationElements = document.querySelectorAll(
+          "div.notification[data-read='false']"
+        );
+        notificationElements.forEach((notificationElement) =>
+          notificationElement.addEventListener("click", (e) => {
+            setNotificationRead(e.currentTarget);
+            updateUnreadAmount();
+          })
+        );
+      };
+      const attachHandleClickButtonMarkAllAsRead = () => {
+        const buttonMarkAllAsRead = document.getElementById("mark-all-as-read");
+        buttonMarkAllAsRead.addEventListener("click", () => {
+          setAllNotificationsRead();
+          updateUnreadAmount();
+        });
+      };
+
+      attachHandleClickButtonMarkAllAsRead();
+      attachHandleClickNotificationElement();
+    </script>
+  </body>
 </html>
