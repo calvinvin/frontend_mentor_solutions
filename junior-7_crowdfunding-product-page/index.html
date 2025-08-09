@@ -1,118 +1,1379 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Crowdfunding product page</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Crowdfunding product page</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-  About
-  Discover
-  Get Started
+    <style>
+      :root {
+        --clr-Green-400: hsl(176, 50%, 47%);
+        --clr-Green-700: hsl(176, 72%, 28%);
+        --clr-Black: hsl(0, 0%, 0%);
+        --clr-Gray-500: hsl(0, 0%, 48%);
+        --fw-regular: 400;
+        --fw-semibold: 500;
+        --fw-bold: 700;
+        --clr-brand: var(--clr-Green-400);
+        --clr-brand-dark: var(--clr-Green-700);
+        --clr-text: var(--clr-Gray-500);
+        --clr-dark: var(--clr-Black);
+        --clr-body: #eee;
+        --clr-white: #fff;
+        --clr-backdrop: hsl(0 0% 0% / 0.4);
+        --clr-bookmark: #2f2f2f;
+        --clr-bookmark-hover: var(--clr-text);
+        --box-shadow-section-top: inset 0px 2px 0 0 var(--clr-white),
+          inset 0px 4px 0 0 var(--clr-body);
+        --box-shadow-section-bottom: inset 0px -2px 0 0 var(--clr-white),
+          inset 0px -4px 0 0 var(--clr-body);
 
-  Mastercraft Bamboo Monitor Riser
-  A beautiful & handcrafted monitor stand to reduce neck and eye strain.
+        &:has([data-bookmark="true"]) {
+          --clr-bookmark: var(--clr-brand-dark);
+          --clr-bookmark-hover: var(--clr-brand);
+        }
+      }
 
-  Back this project
-  Bookmark
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
 
-  $89,914 of $100,000 backed
-  5,007 total backers
-  56 days left
+      * {
+        margin: 0;
+        padding: 0;
+        font: inherit;
+      }
 
-  About this project
+      h1,
+      h2,
+      h3,
+      strong {
+        color: var(--clr-dark);
+        line-height: 1.2;
+      }
 
-  The Mastercraft Bamboo Monitor Riser is a sturdy and stylish platform that elevates your screen 
-  to a more comfortable viewing height. Placing your monitor at eye level has the potential to improve 
-  your posture and make you more comfortable while at work, helping you stay focused on the task at hand.
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
 
-  Featuring artisan craftsmanship, the simplicity of design creates extra desk space below your computer 
-  to allow notepads, pens, and USB sticks to be stored under the stand.
-  
-  Bamboo Stand
-  Pledge $25 or more
-  You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and 
-  you’ll be added to a special Backer member list.
-  101 left
-  Select Reward
+      button {
+        border: transparent;
+        background: transparent;
+        cursor: pointer;
+        &[disabled] {
+          cursor: default;
+        }
+      }
 
-  Black Edition Stand
-  Pledge $75 or more
-  You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer 
-  member list. Shipping is included.
-  64 left
-  Select Reward
+      button.primary-button {
+        color: var(--clr-white);
+        background-color: var(--clr-brand);
+        border-radius: 100vmax;
 
-  Mahogany Special Edition
-  Pledge $200 or more
-  You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added 
-  to our Backer member list. Shipping is included.
-  0 left
-  Out of Stock
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--clr-brand-dark);
+          }
+        }
+        &:focus-visible {
+          background-color: var(--clr-brand-dark);
+        }
+      }
 
-  <!-- Selection modal start -->
+      [role="list"] {
+        list-style: none;
+      }
 
-  Back this project
-  Want to support us in bringing Mastercraft Bamboo Monitor Riser out in the world?
+      dialog::backdrop {
+        background-color: transparent;
+      }
 
-  Pledge with no reward
-  Choose to support us without a reward if you simply believe in our project. As a backer, 
-  you will be signed up to receive product updates via email.
+      body {
+        padding: 24px 24px 78px;
+        font-family: "Commissioner";
+        font-weight: var(--fw-regular);
+        color: var(--clr-text);
+        line-height: 1.75;
+        position: relative;
+        background: no-repeat top center/contain
+            url("images/image-hero-mobile.jpg"),
+          var(--clr-body);
 
-  Bamboo Stand
-  Pledge $25 or more
-  You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
-  you’ll be added to a special Backer member list.
-  101 left
+        @media (min-width: 50em) {
+          & {
+            background: no-repeat top center
+                url("images/image-hero-desktop.jpg"),
+              var(--clr-body);
+          }
+        }
+      }
 
-  <!-- Selected pledge start -->
-  Enter your pledge
-  $25
-  Continue
-  <!-- Selected pledge end -->
+      header.header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
 
-  Black Edition Stand
-  Pledge $75 or more
-  You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer
-  member list. Shipping is included.
-  64 left
+        & button.header__toggle-nav {
+          padding: 0.5em;
+        }
 
-  <!-- Selected pledge start -->
-  Enter your pledge
-  $75
-  Continue
-  <!-- Selected pledge end -->
+        & button.header__toggle-nav[aria-expanded="false"] {
+          & img.header__close-img {
+            display: none;
+          }
+          & + nav.header__primary-nav {
+            display: none;
+          }
+        }
 
-  Mahogany Special Edition
-  Pledge $200 or more
-  You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added
-  to our Backer member list. Shipping is included.
-  0 left
+        & button.header__toggle-nav[aria-expanded="true"] {
+          & img.header__hamburger-img {
+            display: none;
+          }
+        }
 
-  <!-- Selected pledge  start -->
-  Enter your pledge
-  $200
-  Continue
-  <!-- Selected pledge end -->
+        & nav.header__primary-nav {
+          position: absolute;
+          top: 100%;
+          margin-block-start: 32px;
+          background-color: var(--clr-white);
+          width: 100%;
+          border-radius: 12px;
+          box-shadow: 0 0 0 9999px var(--clr-backdrop);
+          z-index: 10;
 
-  <!-- Selection modal end -->
+          & li {
+            padding: 1.25em 1.5em;
+            & + & {
+              border-top: 1px solid var(--clr-text);
+            }
+          }
 
-  <!-- Success modal start -->
+          & a {
+            font-size: 1.125em;
+            font-weight: var(--fw-semibold);
+            color: var(--clr-dark);
+            text-decoration: none;
+          }
+        }
 
-  Thanks for your support!
-  Your pledge brings us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get
-  an email once our campaign is completed.
-  Got it!
+        @media (min-width: 40em) {
+          & button.header__toggle-nav {
+            display: none;
+          }
 
-  <!-- Success modal end -->
-</body>
+          & nav.header__primary-nav {
+            display: block !important;
+            position: static;
+            background-color: unset;
+            width: unset;
+            box-shadow: unset;
+            border-radius: unset;
+            top: unset;
+            margin-block-start: unset;
+
+            & ul {
+              display: flex;
+
+              & li {
+                border: none !important;
+              }
+
+              & a {
+                color: var(--clr-white);
+                font-weight: unset;
+                position: relative;
+                transition: scale 50ms linear;
+                display: inline-block;
+
+                &::after {
+                  content: "";
+                  position: absolute;
+                  top: 100%;
+                  left: 0;
+                  width: 100%;
+                  height: 1px;
+                  border-bottom: 1px solid var(--clr-white);
+                  scale: 0;
+                  transition: scale 50ms linear;
+                  transform-origin: center;
+                }
+
+                @media (hover: hover) {
+                  &:hover {
+                    scale: 1.1;
+                  }
+                  &:hover::after {
+                    scale: 1;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      main {
+        max-width: 45.5em;
+        margin-inline: auto;
+        container-type: inline-size;
+      }
+      main > section {
+        background-color: var(--clr-white);
+        border-radius: 8px;
+      }
+      main > section + section {
+        margin-block-start: 24px;
+      }
+
+      section.hero {
+        margin-block-start: 192px;
+        padding-inline: 20px;
+        padding-block-end: 40px;
+        contain: layout;
+        text-align: center;
+
+        & > * + * {
+          margin-block-start: 16px;
+        }
+
+        & img.hero__logo {
+          margin-inline: auto;
+          width: 56px;
+          aspect-ratio: 1;
+          margin-block-start: -28px;
+        }
+
+        & h1.hero__h1 {
+          font-size: 1.5em;
+          font-weight: var(--fw-bold);
+        }
+
+        & p {
+          font-size: 0.875em;
+        }
+
+        & div.hero__button-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+          gap: 8px;
+
+          & button {
+            font-weight: var(--fw-semibold);
+          }
+
+          & button.hero__button-back-project {
+            padding: 0.5em 1.25em;
+            flex-grow: 1;
+            align-self: stretch;
+            min-height: 56px;
+          }
+
+          & button.hero__button-bookmark {
+            margin-inline: auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background-color: var(--clr-body);
+            border-radius: 100vmax;
+            overflow: clip;
+
+            & span {
+              display: none;
+              margin-inline-end: 1.5em;
+              color: var(--clr-bookmark);
+              font-weight: var(--fw-bold);
+            }
+
+            & svg {
+              width: 56px;
+              aspect-ratio: 1;
+
+              & circle {
+                fill: var(--clr-bookmark);
+              }
+              & path {
+                fill: var(--clr-body);
+              }
+            }
+
+            @media (hover: hover) {
+              &:hover {
+                & svg circle {
+                  fill: var(--clr-bookmark-hover);
+                }
+
+                & span {
+                  color: var(--clr-bookmark-hover);
+                }
+              }
+            }
+          }
+
+          @container (min-width: 30ch) {
+            & button.hero__button-back-project {
+              flex-grow: 0;
+            }
+
+            & button.hero__button-bookmark {
+              margin-inline: unset;
+            }
+          }
+
+          @container (min-width: 40ch) {
+            & button.hero__button-bookmark span {
+              display: block;
+            }
+          }
+        }
+      }
+
+      section.funding-progress {
+        padding: 0px 20px 40px;
+        text-align: center;
+        box-shadow: var(--box-shadow-section-bottom);
+
+        & ul.funding-progress__wrapper {
+          display: grid;
+          grid-auto-rows: 1fr;
+
+          @container (min-width: 60ch) {
+            & {
+              grid-auto-flow: column;
+              grid-auto-columns: 1fr;
+            }
+          }
+
+          & > li {
+            padding-block: 32px 20px;
+
+            & strong {
+              display: block;
+              font-size: 2em;
+              font-weight: var(--fw-bold);
+              margin-block-end: 0.25em;
+
+              &#remaining-funding-amount::before {
+                content: "$";
+              }
+            }
+
+            &:where(:not(:nth-of-type(1))) {
+              position: relative;
+
+              &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border: 0.5px solid var(--clr-text);
+              }
+
+              @container (max-width: 60ch) {
+                &::before {
+                  width: 80px;
+                  height: 0px;
+                  margin-inline: auto;
+                }
+              }
+
+              @container (min-width: 60ch) {
+                &::before {
+                  width: 0px;
+                  height: 64px;
+                  margin-block: auto;
+                }
+              }
+            }
+          }
+        }
+
+        & div.funding-progress__progress-bar {
+          height: 12px;
+          border-radius: 16px;
+          background-color: var(--clr-body);
+          position: relative;
+
+          &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            width: 60%;
+            background-color: var(--clr-brand);
+            border-radius: inherit;
+          }
+        }
+      }
+
+      section.about {
+        padding: 40px 20px;
+        box-shadow: var(--box-shadow-section-top),
+          var(--box-shadow-section-bottom);
+        & h2.about__heading {
+          font-size: 1.125em;
+          font-weight: var(--fw-bold);
+        }
+
+        & p {
+          margin-block-start: 24px;
+          font-size: 0.875em;
+        }
+
+        & ol.about__pledge-list {
+          margin-block-start: 36px;
+        }
+
+        & ol.about__pledge-list > li + li {
+          margin-block-start: 24px;
+        }
+
+        & li.about__pledge-option {
+          padding: 24px 20px;
+          border: 1px solid var(--clr-text);
+          border-radius: 4px;
+
+          &:has(button[disabled]) {
+            opacity: 0.5;
+          }
+
+          & div.about__pledge-heading-wrapper,
+          & div.about__pledge-button-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          & div.about__pledge-heading-wrapper {
+            row-gap: 4px;
+            column-gap: 16px;
+
+            & h3 {
+              font-weight: var(--fw-semibold);
+              flex-basis: 20ch;
+            }
+
+            & span {
+              color: var(--clr-brand);
+              flex-basis: 15ch;
+            }
+          }
+
+          & div.about__pledge-button-wrapper {
+            margin-block-start: 24px;
+            row-gap: 24px;
+            column-gap: 32px;
+
+            & span {
+              display: flex;
+              align-items: center;
+              gap: 1ch;
+              flex-basis: 10ch;
+            }
+            & strong {
+              font-size: 2em;
+              font-weight: var(--fw-bold);
+            }
+
+            & button {
+              flex-basis: 18ch;
+              font-weight: var(--fw-semibold);
+              font-size: 0.875em;
+              padding: 1em 2.5em;
+
+              &[disabled] {
+                background-color: var(--clr-text);
+              }
+            }
+          }
+        }
+      }
+
+      dialog.pledge {
+        inset: 0;
+        background: var(--clr-backdrop);
+        border: none;
+        color: var(--clr-text);
+        height: 100%;
+        width: 100%;
+        padding: 120px 24px;
+
+        & div.pledge-wrapper {
+          max-width: 45.5em;
+          margin-inline: auto;
+
+          padding: 32px 24px;
+          border-radius: 12px;
+          background-color: var(--clr-white);
+
+          & div.pledge__heading-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+          }
+
+          & h2.pledge__heading {
+            font-size: 1.125em;
+            font-weight: var(--fw-bold);
+          }
+
+          & > p {
+            margin-block-start: 28px;
+            font-size: 0.875em;
+          }
+
+          & > form {
+            margin-block-start: 24px;
+          }
+
+          & > form > div.pledge__option-wrapper + div.pledge__option-wrapper {
+            margin-block-start: 24px;
+          }
+
+          & > form > div.pledge__option-wrapper {
+            padding: 20px;
+            border: 1px solid var(--clr-text);
+            border-radius: 8px;
+            cursor: pointer;
+            & * {
+              cursor: inherit;
+            }
+
+            @media (hover: hover) {
+              &:not(:has(button[type="submit"][disabled])):hover {
+                &
+                  div.pledge__introduce-wrapper
+                  label
+                  div.pledge__label-wrapper
+                  span {
+                  color: var(--clr-brand);
+                  font-weight: var(--fw-bold);
+                }
+              }
+            }
+            &:focus-within {
+              &
+                div.pledge__introduce-wrapper
+                label
+                div.pledge__label-wrapper
+                span {
+                color: var(--clr-brand);
+                font-weight: var(--fw-bold);
+              }
+            }
+
+            &:has(input[name="reward"]:checked) {
+              outline: 2px solid var(--clr-brand);
+              border-color: transparent;
+
+              & input[name="amount"] {
+                outline: 2px solid var(--clr-brand);
+                outline-offset: 1px;
+              }
+
+              &:has(input:user-invalid) {
+                outline-color: red;
+                outline-offset: 1px;
+                border-color: unset;
+              }
+            }
+          }
+
+          &
+            > form
+            > div.pledge__option-wrapper:has(button[type="submit"][disabled]) {
+            opacity: 0.25;
+
+            & div.pledge__amount-wrapper {
+              display: none !important;
+            }
+          }
+
+          &
+            > form
+            > div.pledge__option-wrapper:not(
+              :has(input[type="radio"]:checked)
+            ) {
+            & div.pledge__amount-wrapper {
+              display: none;
+            }
+          }
+
+          & div.pledge__introduce-wrapper {
+            & label {
+              display: flex;
+              align-items: center;
+              gap: 16px;
+
+              & input {
+                appearance: none;
+                width: 24px;
+                height: 24px;
+                border: 1px solid var(--clr-text);
+                border-radius: 50%;
+
+                &:checked {
+                  background: radial-gradient(var(--clr-brand) 35%, white 35%);
+                }
+              }
+            }
+
+            & div.pledge__label-wrapper {
+              display: flex;
+              flex-direction: column;
+              font-size: 0.875em;
+
+              & span:nth-of-type(1) {
+                font-weight: var(--fw-bold);
+                color: var(--clr-dark);
+              }
+
+              & span:nth-of-type(2) {
+                color: var(--clr-brand);
+              }
+            }
+
+            & > p {
+              margin-block-start: 16px;
+              font-size: 0.875em;
+            }
+
+            & > span {
+              display: inline-block;
+              margin-block-start: 20px;
+              margin-block-end: 24px;
+              font-size: 0.9375em;
+              & strong {
+                font-size: 1.125em;
+                font-weight: var(--fw-bold);
+                color: var(--clr-dark);
+                margin-inline-end: 0.5ch;
+              }
+            }
+          }
+
+          & div.pledge__amount-wrapper {
+            padding-block-start: 24px;
+            border-top: 1px solid var(--clr-text);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px 48px;
+            font-size: 0.875em;
+
+            & > label {
+              margin-inline: auto;
+            }
+
+            &:has(input[name="amount"][hidden]) {
+              margin-block-start: 24px;
+            }
+
+            & div.pledge__amount-buttons-wrapper {
+              margin-inline: auto;
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              align-items: center;
+              gap: 16px;
+              font-weight: var(--fw-semibold);
+
+              & div.pledge__amount-input-wrapper {
+                position: relative;
+
+                &:not(:has(input[hidden]))::before {
+                  content: "$";
+                  position: absolute;
+                  inset: 0;
+                  margin-inline-start: 1.75em;
+                  margin-block: auto;
+                  color: var(--clr-text);
+                  height: fit-content;
+                  pointer-events: none;
+                }
+              }
+
+              & input {
+                width: 11ch;
+                padding-block: 0.875em;
+                padding-inline-start: 5ch;
+                border: 1px solid var(--clr-text);
+                border-radius: 100vmax;
+                font-size: 1rem;
+
+                &:user-invalid {
+                  outline: 2px solid red !important;
+                  outline-offset: 1px;
+                }
+              }
+
+              & button {
+                padding: 0.875em 2em;
+              }
+            }
+          }
+        }
+      }
+
+      dialog.thanks {
+        inset: 0;
+        border: none;
+        background-color: var(--clr-backdrop);
+        height: 100%;
+
+        & div.thanks-wrapper {
+          margin-inline: 24px;
+          margin-block-start: 142px;
+          padding: 32px 20px 40px;
+          text-align: center;
+          background-color: var(--clr-white);
+          border-radius: 8px;
+          color: var(--clr-text);
+        }
+
+        & div.thanks-wrapper > * + * {
+          margin-block-start: 24px;
+        }
+
+        & img {
+          margin-inline: auto;
+        }
+
+        & h2.thanks__heading {
+          font-size: 1.125em;
+          font-weight: var(--fw-bold);
+          color: var(--clr-dark);
+        }
+
+        & p {
+          font-size: 0.875em;
+        }
+
+        & button[type="submit"] {
+          margin-block-start: 8px;
+          padding: 0.875em 2.5em;
+          font-size: 0.875em;
+          font-weight: var(--fw-semibold);
+        }
+      }
+
+      .visually-hidden {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <a href="#">
+        <img src="./images/logo.svg" alt="" />
+      </a>
+      <button
+        class="header__toggle-nav"
+        id="hamburger-button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <span class="visually-hidden">toggle primary navigations</span>
+        <img
+          class="header__hamburger-img"
+          src="./images/icon-hamburger.svg"
+          alt=""
+        />
+        <img
+          class="header__close-img"
+          src="./images/icon-close-menu.svg"
+          alt=""
+        />
+      </button>
+      <nav id="primary-nav" class="header__primary-nav">
+        <ul role="list">
+          <li>
+            <a href="">About</a>
+          </li>
+          <li>
+            <a href="">Discover</a>
+          </li>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="h1">
+        <img class="hero__logo" src="./images/logo-mastercraft.svg" alt="" />
+        <h1 id="h1" class="hero__h1">Mastercraft Bamboo Monitor Riser</h1>
+        <p>
+          A beautiful & handcrafted monitor stand to reduce neck and eye strain.
+        </p>
+        <div class="hero__button-wrapper">
+          <button
+            class="hero__button-back-project primary-button"
+            type="button"
+          >
+            Back this project
+          </button>
+          <button
+            id="bookmark-button"
+            class="hero__button-bookmark"
+            data-bookmark="false"
+          >
+            <svg width="56" height="56" xmlns="http://www.w3.org/2000/svg">
+              <g fill="none" fill-rule="evenodd">
+                <circle fill="#2F2F2F" cx="28" cy="28" r="28" />
+                <path fill="#B1B1B1" d="M23 19v18l5-5.058L33 37V19z" />
+              </g>
+            </svg>
+            <span>Bookmark</span>
+          </button>
+        </div>
+      </section>
+      <section
+        class="funding-progress"
+        aria-labelledby="funding-progress-heading"
+      >
+        <h2 id="funding-progress-heading" class="visually-hidden">
+          Funding progress
+        </h2>
+        <ul class="funding-progress__wrapper" role="list">
+          <li>
+            <strong id="remaining-funding-amount">89,914</strong> of $100,000
+            backed
+          </li>
+          <li><strong id="total-backers">5,007</strong> total backers</li>
+          <li><strong>56</strong> days left</li>
+        </ul>
+        <div class="funding-progress__progress-bar"></div>
+      </section>
+      <section class="about">
+        <h2 class="about__heading">About this project</h2>
+        <p>
+          The Mastercraft Bamboo Monitor Riser is a sturdy and stylish platform
+          that elevates your screen to a more comfortable viewing height.
+          Placing your monitor at eye level has the potential to improve your
+          posture and make you more comfortable while at work, helping you stay
+          focused on the task at hand.
+        </p>
+        <p>
+          Featuring artisan craftsmanship, the simplicity of design creates
+          extra desk space below your computer to allow notepads, pens, and USB
+          sticks to be stored under the stand.
+        </p>
+        <p class="visually-hidden">Funding pledges:</p>
+        <ol class="about__pledge-list" role="list">
+          <li class="about__pledge-option" data-reward="bamboo-stand">
+            <div class="about__pledge-heading-wrapper">
+              <h3>Bamboo Stand</h3>
+              <span>Pledge $25 or more</span>
+            </div>
+            <p>
+              You get an ergonomic stand made of natural bamboo. You've helped
+              us launch our promotional campaign, and you’ll be added to a
+              special Backer member list.
+            </p>
+            <div class="about__pledge-button-wrapper">
+              <span><strong data-stock="bamboo-stand">101</strong> left</span>
+              <button class="primary-button" type="button">
+                Select Reward
+              </button>
+            </div>
+          </li>
+          <li class="about__pledge-option" data-reward="black-edition-stand">
+            <div class="about__pledge-heading-wrapper">
+              <h3>Black Edition Stand</h3>
+              <span>Pledge $75 or more</span>
+            </div>
+            <p>
+              You get a Black Special Edition computer stand and a personal
+              thank you. You’ll be added to our Backer member list. Shipping is
+              included.
+            </p>
+            <div class="about__pledge-button-wrapper">
+              <span
+                ><strong data-stock="black-edition-stand">64</strong> left</span
+              >
+              <button class="primary-button" type="button">
+                Select Reward
+              </button>
+            </div>
+          </li>
+          <li
+            class="about__pledge-option"
+            data-reward="mahogany-special-edition"
+          >
+            <div class="about__pledge-heading-wrapper">
+              <h3>Mahogany Special Edition</h3>
+              <span>Pledge $200 or more</span>
+            </div>
+            <p>
+              You get two Special Edition Mahogany stands, a Backer T-Shirt, and
+              a personal thank you. You’ll be added to our Backer member list.
+              Shipping is included.
+            </p>
+            <div class="about__pledge-button-wrapper">
+              <span
+                ><strong data-stock="mahogany-special-edition">0</strong>
+                left</span
+              >
+              <button class="primary-button" type="button" disabled>
+                Out of Stock
+              </button>
+            </div>
+          </li>
+        </ol>
+      </section>
+      <!-- Selection modal start -->
+      <dialog
+        id="dialog-pledge"
+        class="pledge"
+        aria-labelledby="pledge-heading"
+        closedby="any"
+      >
+        <div class="pledge-wrapper">
+          <div class="pledge__heading-wrapper">
+            <h2 id="pledge-heading" class="pledge__heading">
+              Back this project
+            </h2>
+            <form method="dialog">
+              <button type="submit">
+                <span class="visually-hidden">close modal</span
+                ><img src="./images/icon-close-modal.svg" alt="" />
+              </button>
+            </form>
+          </div>
+          <p>
+            Want to support us in bringing Mastercraft Bamboo Monitor Riser out
+            in the world?
+          </p>
+          <form id="form-pledge">
+            <div class="pledge__option-wrapper">
+              <div class="pledge__introduce-wrapper">
+                <label>
+                  <input type="radio" name="reward" value="no-reward" />
+                  <div class="pledge__label-wrapper">
+                    <span>Pledge with no reward</span>
+                  </div>
+                </label>
+                <p>
+                  Choose to support us without a reward if you simply believe in
+                  our project. As a backer, you will be signed up to receive
+                  product updates via email.
+                </p>
+              </div>
+              <div class="pledge__amount-wrapper">
+                <label for="pledge__amount-input-bamboo-stand"
+                  >Enter your pledge</label
+                >
+                <div class="pledge__amount-buttons-wrapper">
+                  <div class="pledge__amount-input-wrapper">
+                    <input
+                      id="pledge__amount-input-no-reward"
+                      type="text"
+                      name="amount"
+                      value="1"
+                      inputmode="numeric"
+                      pattern="\d+"
+                      data-minPledge="1"
+                      disabled
+                    />
+                  </div>
+                  <button class="primary-button" type="submit">Continue</button>
+                </div>
+              </div>
+            </div>
+            <div class="pledge__option-wrapper">
+              <div class="pledge__introduce-wrapper">
+                <label>
+                  <input type="radio" name="reward" value="bamboo-stand" />
+                  <div class="pledge__label-wrapper">
+                    <span>Bamboo Stand</span>
+                    <span>Pledge $25 or more</span>
+                  </div>
+                </label>
+                <p>
+                  You get an ergonomic stand made of natural bamboo. You've
+                  helped us launch our promotional campaign, and you’ll be added
+                  to a special Backer member list.
+                </p>
+                <span><strong data-stock="bamboo-stand">101</strong> left</span>
+              </div>
+              <div class="pledge__amount-wrapper">
+                <label for="pledge__amount-input-bamboo-stand"
+                  >Enter your pledge</label
+                >
+                <div class="pledge__amount-buttons-wrapper">
+                  <div class="pledge__amount-input-wrapper">
+                    <input
+                      id="pledge__amount-input-bamboo-stand"
+                      type="text"
+                      name="amount"
+                      value="25"
+                      inputmode="numeric"
+                      pattern="\d+"
+                      data-minPledge="25"
+                      disabled
+                    />
+                  </div>
+                  <button class="primary-button" type="submit">Continue</button>
+                </div>
+              </div>
+            </div>
+            <div class="pledge__option-wrapper">
+              <div class="pledge__introduce-wrapper">
+                <label>
+                  <input
+                    type="radio"
+                    name="reward"
+                    value="black-edition-stand"
+                  />
+                  <div class="pledge__label-wrapper">
+                    <span>Black Edition Stand</span
+                    ><span>Pledge $75 or more</span>
+                  </div>
+                </label>
+                <p>
+                  You get a Black Special Edition computer stand and a personal
+                  thank you. You’ll be added to our Backer member list. Shipping
+                  is included.
+                </p>
+                <span
+                  ><strong data-stock="black-edition-stand">64</strong>
+                  left</span
+                >
+              </div>
+              <div class="pledge__amount-wrapper">
+                <label for="pledge__amount-input-black-edition-stand"
+                  >Enter your pledge</label
+                >
+                <div class="pledge__amount-buttons-wrapper">
+                  <div class="pledge__amount-input-wrapper">
+                    <input
+                      id="pledge__amount-input-black-edition-stand"
+                      type="text"
+                      name="amount"
+                      value="75"
+                      inputmode="numeric"
+                      pattern="\d+"
+                      data-minPledge="75"
+                      disabled
+                    />
+                  </div>
+                  <button class="primary-button" type="submit">Continue</button>
+                </div>
+              </div>
+            </div>
+            <div class="pledge__option-wrapper">
+              <div class="pledge__introduce-wrapper">
+                <label>
+                  <input
+                    type="radio"
+                    name="reward"
+                    value="mahogany-special-edition"
+                    disabled
+                  />
+                  <div class="pledge__label-wrapper">
+                    <span>Mahogany Special Edition</span
+                    ><span>Pledge $200 or more</span>
+                  </div>
+                </label>
+                <p>
+                  You get two Special Edition Mahogany stands, a Backer T-Shirt,
+                  and a personal thank you. You’ll be added to our Backer member
+                  list. Shipping is included.
+                </p>
+                <span
+                  ><strong data-stock="mahogany-special-edition">0</strong>
+                  left</span
+                >
+              </div>
+              <div class="pledge__amount-wrapper">
+                <label for="pledge__amount-input-mahogany-special-edition"
+                  >Enter your pledge</label
+                >
+                <div class="pledge__amount-buttons-wrapper">
+                  <div class="pledge__amount-input-wrapper">
+                    <input
+                      id="pledge__amount-input-mahogany-special-edition"
+                      type="text"
+                      name="amount"
+                      value="200"
+                      inputmode="numeric"
+                      pattern="\d+"
+                      data-minPledge="200"
+                      disabled
+                    />
+                  </div>
+                  <button class="primary-button" type="submit" disabled>
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </dialog>
+      <!-- Selection modal end -->
+      <!-- Success modal start -->
+      <dialog
+        id="dialog-thanks"
+        class="thanks"
+        aria-labelledby="thanks-heading"
+        closedby="any"
+      >
+        <div class="thanks-wrapper">
+          <img src="./images/icon-check.svg" alt="" />
+          <h2 class="thanks__heading" id="thanks-heading">
+            Thanks for your support!
+          </h2>
+          <p>
+            Your pledge brings us one step closer to sharing Mastercraft Bamboo
+            Monitor Riser worldwide. You will get an email once our campaign is
+            completed.
+          </p>
+          <form method="dialog">
+            <button class="primary-button" type="submit">Got it!</button>
+          </form>
+        </div>
+      </dialog>
+      <!-- Success modal end -->
+    </main>
+
+    <script>
+      const extractNumber = (s) => s.replaceAll(/\D/g, "");
+      const formatNumber = (s) => s.slice(0, -3) + "," + s.slice(-3);
+      const listenElement = (event) => (el, fn) =>
+        el.addEventListener(event, fn);
+      const listenElements = (event) => (els, fn) =>
+        Array.from(els).forEach((el) => listenElement(event)(el, fn));
+      const listenElementClick = listenElement("click");
+      const listenElementsClick = listenElements("click");
+      // const listenElementSubmit = listenElement("submit");
+      const setElementTextContent = (el, text) => (el.textContent = text);
+      const setElementsTextContent = (els, text) =>
+        Array.from(els).forEach((el) => setElementTextContent(el, text));
+      const closeDialogPledge = () => {
+        document.getElementById("dialog-pledge").close();
+      };
+      const closeDialogThanks = () => {
+        document.getElementById("dialog-thanks").close();
+      };
+      const updateStock = (rewardName) => {
+        const rewardAttributeSelector = `[data-stock='${rewardName}']`;
+        const rewardElement = document.querySelector(rewardAttributeSelector);
+        const oldStock = Number(rewardElement.textContent);
+        const newStock = oldStock - 1;
+        const stockElements = document.querySelectorAll(
+          rewardAttributeSelector
+        );
+        setElementsTextContent(stockElements, newStock);
+      };
+      const disableInputsPledgeAmount = () => {
+        const inputAmounts = Array.from(
+          formPledge.querySelectorAll("input[name='amount']")
+        );
+        inputAmounts.forEach((inputAmount) => {
+          inputAmount.setAttribute("disabled", "");
+        });
+      };
+
+      const toggleBookmark = (bookmarkEl) =>
+        bookmarkEl.setAttribute(
+          "data-bookmark",
+          bookmarkEl.getAttribute("data-bookmark") === "true" ? "false" : "true"
+        );
+      const buttonBookmark = document.getElementById("bookmark-button");
+      listenElementClick(
+        buttonBookmark,
+        toggleBookmark.bind(null, buttonBookmark)
+      );
+
+      const buttonHamburger = document.getElementById("hamburger-button");
+      const toggleExpanded = (el) =>
+        el.setAttribute(
+          "aria-expanded",
+          el.getAttribute("aria-expanded") === "false" ? "true" : "false"
+        );
+      const removeListenElementClick = (el, fn) =>
+        el.removeEventListener("click", fn);
+      const clickOutsideNav = (clickTarget) => {
+        const navPrimary = document.getElementById("primary-nav");
+        const buttonHamburger = document.getElementById("hamburger-button");
+        const insideNav =
+          navPrimary.contains(clickTarget) ||
+          buttonHamburger.contains(clickTarget);
+        return !insideNav;
+      };
+      const handleClickButtonHamburger = () => {
+        const buttonHamburger = document.getElementById("hamburger-button");
+        const targetExpanded =
+          buttonHamburger.getAttribute("aria-expanded") === "false"
+            ? "true"
+            : "false";
+        toggleExpanded(buttonHamburger);
+        if (targetExpanded === "true") {
+          listenElementClick(
+            document.documentElement,
+            toggleNavByClickOutsideNav
+          );
+        } else {
+          removeListenElementClick(
+            document.documentElement,
+            toggleNavByClickOutsideNav
+          );
+        }
+      };
+      const toggleNavByClickOutsideNav = (e) => {
+        if (clickOutsideNav(e.target)) {
+          handleClickButtonHamburger();
+        }
+      };
+      listenElementClick(buttonHamburger, handleClickButtonHamburger);
+
+      const buttonsFund = document.querySelectorAll(
+        "button.hero__button-back-project, div.about__pledge-button-wrapper button.primary-button:not([disabled])"
+      );
+      const openDialogPledge = (e) => {
+        const dialogPledge = document.getElementById("dialog-pledge");
+        dialogPledge.show();
+        const liPledgeOption = e.target.closest("li.about__pledge-option");
+        const rewardName = liPledgeOption
+          ? liPledgeOption.getAttribute("data-reward")
+          : "no-reward";
+        const inputPledge = document.querySelector(
+          `input[name='reward'][value='${rewardName}']`
+        );
+        const divPledgeOptionWrapper = inputPledge.closest(
+          "div.pledge__option-wrapper"
+        );
+        const inputAmount = divPledgeOptionWrapper.querySelector(
+          "input[name='amount']"
+        );
+        inputPledge.checked = true;
+        inputAmount.removeAttribute("disabled");
+        inputAmount.focus();
+        divPledgeOptionWrapper.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      };
+      listenElementsClick(buttonsFund, openDialogPledge);
+
+      const divPledgeOptionWrappers = document.querySelectorAll(
+        "div.pledge__option-wrapper:not(:has(button[disabled]))"
+      );
+      const selectPledge = (e) => {
+        const divPledgeOptionWrapper = e.currentTarget;
+        const currentPledgeOptionWrapper = Array.from(
+          divPledgeOptionWrapper.closest("form#form-pledge").elements.reward
+        )
+          .filter((reward) => reward.checked === true)[0]
+          ?.closest("div.pledge__option-wrapper");
+        const isCurrentPledgeOptionWrapper =
+          divPledgeOptionWrapper === currentPledgeOptionWrapper;
+        if (isCurrentPledgeOptionWrapper) return;
+        const inputPledge = divPledgeOptionWrapper.querySelector(
+          "input[type='radio'][name='reward']"
+        );
+        const inputNumber = divPledgeOptionWrapper.querySelector(
+          "input[type='text'][name='amount']"
+        );
+        disableInputsPledgeAmount();
+        inputPledge.checked = true;
+        inputNumber.removeAttribute("disabled");
+        inputNumber.focus();
+      };
+      listenElementsClick(divPledgeOptionWrappers, selectPledge);
+
+      const validateInputPledgeAmount = (e) => {
+        const inputPledgeAmount = e.target;
+        const divPledgeOptionWrapper = inputPledgeAmount.closest(
+          "div.pledge__option-wrapper"
+        );
+        const minPledge = Number(
+          inputPledgeAmount.getAttribute("data-minPledge")
+        );
+        const pledgeAmount = Number(inputPledgeAmount.value);
+        inputPledgeAmount.setCustomValidity("");
+        if (pledgeAmount < minPledge) {
+          inputPledgeAmount.setCustomValidity(
+            `This reward needs pledge at least ${minPledge}!`
+          );
+          inputPledgeAmount.reportValidity();
+          return;
+        }
+      };
+      const inputPledgeAmount =
+        document.getElementById("form-pledge").elements.amount;
+      listenElements("change")(inputPledgeAmount, validateInputPledgeAmount);
+
+      const openDialogThanks = () => {
+        const dialogThanks = document.getElementById("dialog-thanks");
+        dialogThanks.show();
+        dialogThanks.scrollIntoView();
+      };
+      const submitFormPledge = (e) => {
+        e.preventDefault();
+        const formPledge = e.target;
+        const formPledgeData = Object.fromEntries(
+          new FormData(formPledge).entries()
+        );
+        const { reward, amount } = formPledgeData;
+        if (reward !== "no-reward") {
+          updateStock(reward);
+        }
+        const strongRemainingFundingAmount = document.getElementById(
+          "remaining-funding-amount"
+        );
+        const strongTotalBackers = document.getElementById("total-backers");
+        setElementTextContent(
+          strongRemainingFundingAmount,
+          formatNumber(
+            String(
+              Number(extractNumber(strongRemainingFundingAmount.textContent)) -
+                Number(amount)
+            )
+          )
+        );
+        setElementTextContent(
+          strongTotalBackers,
+          formatNumber(
+            String(Number(extractNumber(strongTotalBackers.textContent)) - 1)
+          )
+        );
+        closeDialogPledge();
+        openDialogThanks();
+        disableInputsPledgeAmount();
+      };
+      const formPledge = document.getElementById("form-pledge");
+      listenElement("submit")(formPledge, submitFormPledge);
+    </script>
+  </body>
 </html>
