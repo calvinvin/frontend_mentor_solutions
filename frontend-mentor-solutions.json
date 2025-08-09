@@ -628,6 +628,18 @@
       "repositoryUrl": "https://github.com/calvinvin/frontend_mentor_solutions/tree/frontend_mentor_solutions-main/junior-6_notifications-page",
       "previewImgUrl": "https://calvinvin.github.io/frontend_mentor_solutions/junior-6_notifications-page/preview.jpg",
       "comments": ""
+    },
+    {
+      "id": 51,
+      "category": 7,
+      "name": "Crowdfunding Product Page",
+      "createdAt": "2025-08-09",
+      "level": 2,
+      "tags": ["vanilla", "javascript"],
+      "websiteUrl": "https://calvinvin.github.io/frontend_mentor_solutions/junior-7_crowdfunding-product-page",
+      "repositoryUrl": "https://github.com/calvinvin/frontend_mentor_solutions/tree/frontend_mentor_solutions-main/junior-7_crowdfunding-product-page",
+      "previewImgUrl": "https://calvinvin.github.io/frontend_mentor_solutions/junior-7_crowdfunding-product-page/preview.jpg",
+      "comments": ""
     }
   ]
 }
