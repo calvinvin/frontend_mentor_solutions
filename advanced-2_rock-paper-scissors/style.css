@@ -186,7 +186,8 @@ body {
       )
       padding-box,
     linear-gradient(
-        var(--_button-color-gradient-light, var(--_button-color-gradient-dark))
+        var(--_button-color-gradient-light),
+        var(--_button-color-gradient-dark)
       )
       border-box;
   border-bottom-width: calc((var(--_border-width) * 0.8));
