@@ -422,8 +422,35 @@
             }
           }
         }
-      }
 
+        & div.shortened-links__loading {
+          --_width: min(15rem, 40vmin);
+          --_border-width: calc(var(--_width) * 0.15);
+          margin-block-start: calc(var(--s) * 4);
+          width: var(--_width);
+          margin-inline: auto;
+          aspect-ratio: 1;
+          border: var(--_border-width) solid;
+          border-color: var(--clr-brand) var(--clr-Gray-400) var(--clr-Gray-400)
+            var(--clr-Gray-400);
+          border-radius: 50%;
+          animation: spin 2s linear infinite;
+        }
+
+        &[data-loading="false"] {
+          & div.shortened-links__loading {
+            display: none;
+          }
+        }
+      }
+      @keyframes spin {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(1turn);
+        }
+      }
       section.features {
         --_margin-block-start: calc(var(--s) * 11);
         margin-block-start: var(--_margin-block-start);
@@ -789,10 +816,13 @@
       class="shortened-links"
       aria-labelledby="shortened-links-heading"
       data-margin="both"
+      data-loading="false"
     >
       <h2 class="visually-hidden" id="shortened-links-heading">
         Shortened links
       </h2>
+      <div class="shortened-links__loading"></div>
+
       <ol class="shortened-links" role="list">
         <template id="li-shortened-link">
           <li class="shortened-links__wrapper" data-ok="true">
@@ -1170,12 +1200,15 @@
               ok: ok,
             })
           );
+          $("section.shortened-links").setAttribute("data-loading", "false");
           return containerElement;
         };
 
         const onShortenURLFormSubmit = (e) => {
           e.preventDefault();
+          $("section.shortened-links").setAttribute("data-loading", "true");
           const formData = Object.fromEntries(new FormData(e.target));
+          e.target.reset();
           const { longURL } = formData;
           const taskShortURL = taskGetShortenURI(longURL);
           taskShortURL.fork(
