@@ -805,7 +805,7 @@
               type="text"
               name="longURL"
               placeholder="Shorten a link here..."
-              pattern="^https?:\/\/\S+"
+              pattern="https?:\/\/\S+"
               required
             />
             <p class="shorten-form__input-error-message">Please add a link</p>
@@ -1186,7 +1186,8 @@
               navigator.clipboard
                 .writeText(shortURL)
                 .then((r) => {
-                  console.log(r);
+                  e.target.setAttribute("data-copied", "true");
+                  e.target.textContent = "Copied!";
                   window.alert(`"${shortURL}" copied!`);
                 })
                 .catch((err) => window.alert("Oops! Something wrong happend."));
