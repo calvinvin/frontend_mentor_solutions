@@ -640,6 +640,19 @@
       "repositoryUrl": "https://github.com/calvinvin/frontend_mentor_solutions/tree/frontend_mentor_solutions-main/junior-7_crowdfunding-product-page",
       "previewImgUrl": "https://calvinvin.github.io/frontend_mentor_solutions/junior-7_crowdfunding-product-page/preview.jpg",
       "comments": ""
+    },
+    {
+      "id": 52,
+      "category": 8,
+      "name": "Url Shortening API",
+      "createdAt": "2025-08-18",
+      "level": 3,
+      "tags": ["vanilla", "javascript"],
+      "websiteUrl": "https://calvinvin.github.io/frontend_mentor_solutions/intermediate-8_url-shortening-api/",
+      "repositoryUrl": "https://github.com/calvinvin/frontend_mentor_solutions/tree/frontend_mentor_solutions-main/intermediate-8_url-shortening-api",
+      "previewImgUrl": "https://calvinvin.github.io/frontend_mentor_solutions/intermediate-8_url-shortening-api/preview.jpg",
+      "comments": "<p>I just learned functional programming and tried to program javascript this way.</p><p>A very big challenge at this frontend-challenge is the CORS (cross-origin resourse sharing) issue of the <em>cleanuri api</em>. And the \"mode: 'no-cors'\" option of the browser fetch API is such a misleading term for a newbie like me.</p><p>For those beginners like me: <em><strong>there is no way to handle the CORS issue in frontend browser</strong></em>, and it is the <em>response</em> that is blocked by the browser, not the <em>request</em>. (the api did send a response back to our browser successfully, but the response is blocked by our browser.)</p><p>And I solved the CORS issue by using Netlify Serveless Functions to build an backend API as CORS proxy, by sending the response of the cleanuri api back with adding a header: <em>\"Access-Control-Allow-Origin\": \"*\".</em></p>"
     }
+
   ]
 }

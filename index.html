@@ -27,6 +27,7 @@
       body {
         padding: 32px;
         font-family: sans-serif;
+        line-height: 1.5;
       }
       main {
         max-width: 1440px;
@@ -121,6 +122,14 @@
           & ol {
             list-style-position: inside;
           }
+          &[open] {
+            & > * + * {
+              margin-block-start: 1em;
+            }
+            & > * > * + * {
+              margin-block-start: 0.5em;
+            }
+          }
         }
         @container (min-width: 400px) {
           &:has(summary) {
@@ -212,7 +221,7 @@
                 <li><a class="link repository" href="">Repository</a></li>
               </ul>
               <img class="preview" src="" alt="" />
-              <details>
+              <details class="solutions-wrapper__coments">
                 <summary>Comments</summary>
               </details>
             </article>
