@@ -424,7 +424,8 @@
         function matchCategory(articleElement, checkedCategory) {
           return (
             checkedCategory === "All" ||
-            articleElement.getAttribute("data-category") === checkedCategory
+            articleElement.getAttribute("data-category").toLowerCase() ===
+              checkedCategory.toLowerCase()
           );
         }
 
@@ -433,7 +434,8 @@
             articleElement
               .getAttribute("data-tags")
               .split(",")
-              .includes(checkedTagValue)
+              .map((x) => x.toLowerCase())
+              .includes(checkedTagValue.toLowerCase())
           );
         }
       }
